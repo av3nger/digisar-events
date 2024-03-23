@@ -1,15 +1,15 @@
 <?php
 /**
- * Digisar events plugin
+ * Events plugin
  *
  * @link              https://vcore.au
  * @since             1.0.0
- * @package           Digisar_Events
+ * @package           Digisar\Events
  *
  * @wordpress-plugin
  * Plugin Name:       Digisar Events
  * Plugin URI:        https://vcore.au
- * Description:       Digisar events plugin.
+ * Description:       Events plugin.
  * Version:           1.0.0
  * Author:            Anton Vanyukov
  * Author URI:        https://vcore.au
@@ -17,6 +17,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       digisar-events
  * Domain Path:       /languages
+ * Requires PHP:      7.4
  */
 
 namespace Digisar;
@@ -25,6 +26,9 @@ namespace Digisar;
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+define( 'DIGISAR_EVENTS_DIR_PATH', __DIR__ );
+define( 'DIGISAR_EVENTS_INC_PATH', DIGISAR_EVENTS_DIR_PATH . '/includes' );
 
 /**
  * Events class.
@@ -39,7 +43,7 @@ final class Events {
 	 *
 	 * @var null|Events
 	 */
-	private static $instance = null;
+	private static ?Events $instance = null;
 
 	/**
 	 * Class constructor.
@@ -48,6 +52,8 @@ final class Events {
 	 */
 	private function __construct() {
 		spl_autoload_register( array( $this, 'autoload' ) );
+
+		( new Core() )->init();
 	}
 
 	/**
@@ -69,8 +75,31 @@ final class Events {
 	 * Autoloader.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $class_name Class name to load.
 	 */
-	public function autoload() {}
+	public function autoload( string $class_name ) {
+		// Project-specific namespace prefix.
+		$prefix = 'Digisar\\';
+
+		// Skip non-plugin classes.
+		$len = strlen( $prefix );
+		if ( 0 !== strncmp( $prefix, $class_name, $len ) ) {
+			return;
+		}
+
+		// Get the relative class name.
+		$relative_class = substr( $class_name, $len );
+
+		$path   = explode( '\\', strtolower( str_replace( '_', '-', $relative_class ) ) );
+		$file   = array_pop( $path );
+		$path[] = 'class-' . $file . '.php';
+		$file   = trailingslashit( DIGISAR_EVENTS_INC_PATH ) . implode( '/', $path );
+
+		if ( file_exists( $file ) ) {
+			require $file;
+		}
+	}
 }
 
 add_action( 'plugins_loaded', array( 'Digisar\\Events', 'get_instance' ) );

@@ -1,0 +1,51 @@
+<?php
+/**
+ * Event custom post type
+ *
+ * @since 1.0.0
+ * @package Digisar\Events
+ */
+
+namespace Digisar\PostType;
+
+use Digisar\Taxonomy;
+
+/**
+ * Event class.
+ *
+ * @since 1.0.0
+ */
+final class Event extends CPT {
+	/**
+	 * Event CPT name.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string $name
+	 */
+	public static string $name = 'event';
+
+	/**
+	 * Icon.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string $icon
+	 */
+	protected string $icon = 'dashicons-welcome-learn-more';
+
+	/**
+	 * Class constructor.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->singular = esc_html__( 'Event', 'digisar-events' );
+		$this->plural   = esc_html__( 'Events', 'digisar-events' );
+
+		$this->taxonomies = array(
+			Taxonomy\Type::$name,
+			Taxonomy\Location::$name,
+		);
+	}
+}
