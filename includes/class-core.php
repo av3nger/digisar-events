@@ -58,6 +58,7 @@ final class Core {
 	 */
 	public function register_taxonomies() {
 		( new Taxonomy\Location() )->register();
+		( new Taxonomy\Participant() )->register();
 		( new Taxonomy\Type() )->register();
 	}
 }
