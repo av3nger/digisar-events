@@ -29,6 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'DIGISAR_EVENTS_DIR_PATH', __DIR__ );
 define( 'DIGISAR_EVENTS_INC_PATH', DIGISAR_EVENTS_DIR_PATH . '/includes' );
+define( 'DIGISAR_EVENTS_BLOCK_PATH', DIGISAR_EVENTS_DIR_PATH . '/assets' );
 
 /**
  * Events class.

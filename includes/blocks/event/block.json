@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "digisar/event",
+	"version": "1.0.0",
+	"title": "Event",
+	"category": "widgets",
+	"icon": "learn-more",
+	"description": "Event block.",
+	"example": {},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"textdomain": "digisar-events",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

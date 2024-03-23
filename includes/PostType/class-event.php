@@ -35,6 +35,17 @@ final class Event extends CPT {
 	protected string $icon = 'dashicons-welcome-learn-more';
 
 	/**
+	 * Array of blocks to use as the default initial state for an editor session.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array $template
+	 */
+	protected array $template = array(
+		array( 'digisar/event' ),
+	);
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 1.0.0

@@ -1,2 +1,5 @@
 .DS_Store
 .idea
+package-lock.json
+assets
+node_modules

@@ -69,6 +69,15 @@ abstract class CPT {
 	protected array $taxonomies = array();
 
 	/**
+	 * Array of blocks to use as the default initial state for an editor session.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array $template
+	 */
+	protected array $template = array();
+
+	/**
 	 * Get CPT options.
 	 *
 	 * @return array
@@ -80,6 +89,7 @@ abstract class CPT {
 			'public'       => true,
 			'show_in_rest' => true,
 			'supports'     => $this->supports,
+			'template'     => $this->template,
 		);
 
 		return apply_filters( 'digisar_events_cpt_options', $default_options, static::$name );

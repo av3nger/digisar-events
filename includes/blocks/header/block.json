@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "digisar/header",
+	"version": "1.0.0",
+	"title": "Events header",
+	"category": "widgets",
+	"icon": "heading",
+	"description": "Events header block.",
+	"example": {},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"parent": ["digisar/event"],
+	"textdomain": "digisar-events",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
