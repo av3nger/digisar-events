@@ -8,8 +8,6 @@
 
 namespace Digisar;
 
-use WP_Block_Editor_Context;
-
 /**
  * Core class.
  *
@@ -34,8 +32,6 @@ final class Core {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
-
-		add_filter( 'allowed_block_types_all', array( $this, 'limit_available_blocks' ), 10, 2 );
 	}
 
 	/**
@@ -103,24 +99,5 @@ final class Core {
 
 			register_block_type_from_metadata( $block_folder, $block_options );
 		}
-	}
-
-	/**
-	 * Filters the allowed block types for all editor types.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param bool|string[]           $allowed_block_types  Array of block type slugs, or boolean to enable/disable all.
-	 *                                                      Default true (all registered block types supported).
-	 * @param WP_Block_Editor_Context $block_editor_context The current block editor context.
-	 *
-	 * @return bool|string[]
-	 */
-	public function limit_available_blocks( $allowed_block_types, WP_Block_Editor_Context $block_editor_context ) {
-		if ( ! empty( $block_editor_context->post ) && 'event' === $block_editor_context->post->post_type ) {
-			return array();
-		}
-
-		return $allowed_block_types;
 	}
 }
