@@ -30,7 +30,7 @@ abstract class Taxonomy {
 	 *
 	 * @var string $singular
 	 */
-	protected string $singular = '';
+	protected string $singular;
 
 	/**
 	 * Plural name.
@@ -39,7 +39,7 @@ abstract class Taxonomy {
 	 *
 	 * @var string $plural
 	 */
-	protected string $plural = '';
+	protected string $plural;
 
 	/**
 	 * Object type with which the taxonomy should be associated.

@@ -44,8 +44,8 @@ final class Event extends CPT {
 		$this->plural   = esc_html__( 'Events', 'digisar-events' );
 
 		$this->taxonomies = array(
-			Taxonomy\Type::$name,
 			Taxonomy\Location::$name,
+			Taxonomy\Type::$name,
 		);
 	}
 }

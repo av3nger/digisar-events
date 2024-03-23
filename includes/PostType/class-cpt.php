@@ -30,7 +30,7 @@ abstract class CPT {
 	 *
 	 * @var string $singular
 	 */
-	protected string $singular = '';
+	protected string $singular;
 
 	/**
 	 * Plural name.
@@ -39,7 +39,7 @@ abstract class CPT {
 	 *
 	 * @var string $plural
 	 */
-	protected string $plural = '';
+	protected string $plural;
 
 	/**
 	 * The icon to be used for the menu or the name of the icon from the iconfont.

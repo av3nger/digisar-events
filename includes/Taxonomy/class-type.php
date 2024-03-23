@@ -23,7 +23,7 @@ final class Type extends Taxonomy {
 	 *
 	 * @var string $name
 	 */
-	public static string $name = 'type';
+	public static string $name = 'event-type';
 
 	/**
 	 * Class constructor.
