@@ -1,9 +1,9 @@
 /**
- * Registers a new block provided a unique name and an object defining its behavior.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
+import { compose } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -30,7 +30,26 @@ registerBlockType( metadata.name, {
 	/**
 	 * @see ./edit.js
 	 */
-	edit: Edit,
+	edit: compose( [
+		withSelect( ( select ) => {
+			const { getEditedPostAttribute } = select( 'core/editor' );
+
+			return {
+				eventStart: getEditedPostAttribute( 'meta' ).event_start,
+				eventEnd: getEditedPostAttribute( 'meta' ).event_end,
+			};
+		} ),
+		withDispatch( ( dispatch ) => {
+			const { editPost } = dispatch( 'core/editor' );
+
+			return {
+				setEventStart: ( eventStart ) =>
+					editPost( { meta: { event_start: eventStart } } ),
+				setEventEnd: ( eventEnd ) =>
+					editPost( { meta: { event_end: eventEnd } } ),
+			};
+		} ),
+	] )( Edit ),
 
 	/**
 	 * @see ./save.js

@@ -35,6 +35,18 @@ final class Event extends CPT {
 	protected string $icon = 'dashicons-welcome-learn-more';
 
 	/**
+	 * Meta fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array $meta_fields
+	 */
+	protected array $meta_fields = array(
+		'event_start' => 'string',
+		'event_end'   => 'string',
+	);
+
+	/**
 	 * Array of blocks to use as the default initial state for an editor session.
 	 *
 	 * @since 1.0.0

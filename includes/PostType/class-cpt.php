@@ -57,7 +57,7 @@ abstract class CPT {
 	 *
 	 * @var array $supports
 	 */
-	protected array $supports = array( 'title', 'editor', 'excerpt' );
+	protected array $supports = array( 'author', 'custom-fields', 'editor', 'excerpt', 'title' );
 
 	/**
 	 * CPT taxonomies.
@@ -67,6 +67,15 @@ abstract class CPT {
 	 * @var array $taxonomies
 	 */
 	protected array $taxonomies = array();
+
+	/**
+	 * List of meta fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array $meta_fields
+	 */
+	protected array $meta_fields = array();
 
 	/**
 	 * Array of blocks to use as the default initial state for an editor session.
@@ -146,9 +155,36 @@ abstract class CPT {
 	 */
 	public function register() {
 		register_post_type( static::$name, $this->get_options() );
+		$this->register_taxonomies();
+		$this->register_post_meta();
+	}
 
+	/**
+	 * Register taxonomies.
+	 *
+	 * @since 1.0.0
+	 */
+	private function register_taxonomies() {
 		foreach ( $this->taxonomies as $taxonomy ) {
 			register_taxonomy_for_object_type( $taxonomy, static::$name );
+		}
+	}
+
+	/**
+	 * Register post meta.
+	 *
+	 * @since 1.0.0
+	 */
+	private function register_post_meta() {
+		foreach ( $this->meta_fields as $meta_field => $meta_args ) {
+			$args = array(
+				'type'         => is_string( $meta_args ) ? $meta_args : $meta_args['type'],
+				'single'       => true,
+				'show_in_rest' => true,
+			);
+
+			$a = static::$name;
+			register_post_meta( static::$name, $meta_field, $args );
 		}
 	}
 }

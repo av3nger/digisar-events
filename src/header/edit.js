@@ -27,15 +27,16 @@ import './editor.scss';
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
+ * @param  props
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( props ) {
+	const { eventStart, eventEnd, setEventStart, setEventEnd } = props;
+
 	const [ isStartDateVisible, setIsStartDateVisible ] = useState( false );
 	const [ isEndDateVisible, setIsEndDateVisible ] = useState( false );
-	const [ startDate, setStartDate ] = useState( '' );
-	const [ endDate, setEndDate ] = useState( '' );
 
 	return (
 		<div { ...useBlockProps() }>
@@ -53,20 +54,20 @@ export default function Edit() {
 									setIsEndDateVisible( false );
 								} }
 							>
-								{ startDate
-									? dateI18n( 'F j, Y g:i a', startDate )
+								{ eventStart
+									? dateI18n( 'F j, Y g:i a', eventStart )
 									: __( 'Set start date', 'digisar-events' ) }
 							</Button>
 							{ isStartDateVisible && (
 								<Popover className="digisar-date-popover">
 									<DateTimePicker
-										currentDate={ startDate }
+										currentDate={ eventStart }
 										events={ [
-											{ date: new Date( endDate ) },
+											{ date: new Date( eventEnd ) },
 										] }
 										is12Hour={ true }
 										onChange={ ( date ) =>
-											setStartDate( date )
+											setEventStart( date )
 										}
 									/>
 								</Popover>
@@ -83,20 +84,20 @@ export default function Edit() {
 									setIsStartDateVisible( false );
 								} }
 							>
-								{ endDate
-									? dateI18n( 'F j, Y g:i a', endDate )
+								{ eventEnd
+									? dateI18n( 'F j, Y g:i a', eventEnd )
 									: __( 'Set end date', 'digisar-events' ) }
 							</Button>
 							{ isEndDateVisible && (
 								<Popover className="digisar-date-popover">
 									<DateTimePicker
-										currentDate={ endDate }
+										currentDate={ eventEnd }
 										events={ [
-											{ date: new Date( startDate ) },
+											{ date: new Date( eventStart ) },
 										] }
 										is12Hour={ true }
 										onChange={ ( date ) =>
-											setEndDate( date )
+											setEventEnd( date )
 										}
 									/>
 								</Popover>
@@ -120,18 +121,37 @@ export default function Edit() {
 				/>
 			</div>
 			<div>
-				{ __( 'Start state of event', 'digisar-events' ) }
+				{ eventStart && (
+					<div>
+						{ __( 'Start state of event', 'digisar-events' ) }
+						{ dateI18n( 'j/m/Y', eventStart ) }
+					</div>
+				) }
 
-				{ __( 'End date of event', 'digisar-events' ) }
+				{ eventEnd && (
+					<div>
+						{ __( 'End date of event', 'digisar-events' ) }
+						{ dateI18n( 'j/m/Y', eventEnd ) }
+					</div>
+				) }
 
-				{ __( 'Duration', 'digisar-events' ) }
+				{ eventStart && eventEnd && (
+					<div>
+						{ __( 'Duration', 'digisar-events' ) }
+						{ dateI18n( 'G:i', eventStart ) }
+						&nbsp;-&nbsp;
+						{ dateI18n( 'G:i', eventEnd ) }
+					</div>
+				) }
 
-				{ __( 'Place of event', 'digisar-events' ) }
-				<PostTermList taxonomyName="location">
-					<PostTermList.ListItem className="wp-block-example-hero__category">
-						<PostTermList.TermLink className="wp-block-example-hero__category-link" />
-					</PostTermList.ListItem>
-				</PostTermList>
+				<div>
+					{ __( 'Place of event', 'digisar-events' ) }
+					<PostTermList taxonomyName="location">
+						<PostTermList.ListItem className="wp-block-example-hero__category">
+							<PostTermList.TermLink className="wp-block-example-hero__category-link" />
+						</PostTermList.ListItem>
+					</PostTermList>
+				</div>
 
 				{ __( 'Event Creator', 'digisar-events' ) }
 
