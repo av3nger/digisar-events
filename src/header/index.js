@@ -61,7 +61,7 @@ registerBlockType( metadata.name, {
 				setEventEnd: ( eventEnd ) =>
 					editPost( { meta: { event_end: eventEnd } } ),
 				setSeats: ( seats ) =>
-					editPost( { meta: { event_seats: seats } } ),
+					editPost( { meta: { event_seats: parseInt( seats ) } } ),
 				setPrice: ( price ) =>
 					editPost( { meta: { event_price: price } } ),
 			};
