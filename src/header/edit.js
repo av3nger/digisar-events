@@ -33,7 +33,7 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit( props ) {
-	const { eventStart, eventEnd, setEventStart, setEventEnd } = props;
+	const { author, eventStart, eventEnd, setEventStart, setEventEnd } = props;
 
 	const [ isStartDateVisible, setIsStartDateVisible ] = useState( false );
 	const [ isEndDateVisible, setIsEndDateVisible ] = useState( false );
@@ -153,9 +153,12 @@ export default function Edit( props ) {
 					</PostTermList>
 				</div>
 
-				{ __( 'Event Creator', 'digisar-events' ) }
+				<div>
+					{ __( 'Event Creator', 'digisar-events' ) }
+					{ author?.name }
+				</div>
 
-				{ __( 'Available seats', 'digisar-events' ) }
+				<div>{ __( 'Available seats', 'digisar-events' ) }</div>
 			</div>
 		</div>
 	);

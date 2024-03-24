@@ -34,7 +34,15 @@ registerBlockType( metadata.name, {
 		withSelect( ( select ) => {
 			const { getEditedPostAttribute } = select( 'core/editor' );
 
+			const authorId = select( 'core/editor' ).getCurrentPost().author;
+			const author = select( 'core' ).getEntityRecord(
+				'root',
+				'user',
+				authorId
+			);
+
 			return {
+				author,
 				eventStart: getEditedPostAttribute( 'meta' ).event_start,
 				eventEnd: getEditedPostAttribute( 'meta' ).event_end,
 			};
