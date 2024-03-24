@@ -13,6 +13,7 @@ import {
 	PanelBody,
 	PanelRow,
 	Popover,
+	TextControl,
 } from '@wordpress/components';
 import { dateI18n } from '@wordpress/date';
 import { useState } from '@wordpress/element';
@@ -33,7 +34,18 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit( props ) {
-	const { author, eventStart, eventEnd, setEventStart, setEventEnd } = props;
+	const {
+		author,
+		eventStart,
+		eventEnd,
+		participants,
+		price,
+		setPrice,
+		setEventStart,
+		setEventEnd,
+		seats,
+		setSeats,
+	} = props;
 
 	const [ isStartDateVisible, setIsStartDateVisible ] = useState( false );
 	const [ isEndDateVisible, setIsEndDateVisible ] = useState( false );
@@ -105,6 +117,29 @@ export default function Edit( props ) {
 						</div>
 					</PanelRow>
 				</PanelBody>
+				<PanelBody title={ __( 'Event seats', 'digisar-events' ) }>
+					<PanelRow>
+						<TextControl
+							label={ __(
+								'Number of available seats',
+								'digisar-events'
+							) }
+							onChange={ ( value ) => setSeats( value ) }
+							type="number"
+							value={ seats ?? 0 }
+						/>
+					</PanelRow>
+				</PanelBody>
+				<PanelBody title={ __( 'Event price', 'digisar-events' ) }>
+					<PanelRow>
+						<TextControl
+							label={ __( 'Price per person', 'digisar-events' ) }
+							onChange={ ( value ) => setPrice( value ) }
+							type="number"
+							value={ price }
+						/>
+					</PanelRow>
+				</PanelBody>
 			</InspectorControls>
 			<div>
 				<PostTitle tagName="h1" />
@@ -158,7 +193,12 @@ export default function Edit( props ) {
 					{ author?.name }
 				</div>
 
-				<div>{ __( 'Available seats', 'digisar-events' ) }</div>
+				{ seats && (
+					<div>
+						{ __( 'Available seats', 'digisar-events' ) }
+						{ participants ?? 0 } / { seats }
+					</div>
+				) }
 			</div>
 		</div>
 	);

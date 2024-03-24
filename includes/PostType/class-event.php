@@ -44,6 +44,8 @@ final class Event extends CPT {
 	protected array $meta_fields = array(
 		'event_start' => 'string',
 		'event_end'   => 'string',
+		'event_seats' => 'number',
+		'event_price' => 'number',
 	);
 
 	/**
@@ -68,6 +70,7 @@ final class Event extends CPT {
 
 		$this->taxonomies = array(
 			Taxonomy\Location::$name,
+			Taxonomy\Participant::$name,
 			Taxonomy\Type::$name,
 		);
 	}

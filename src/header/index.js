@@ -41,10 +41,15 @@ registerBlockType( metadata.name, {
 				authorId
 			);
 
+			const participants = getEditedPostAttribute( 'participant' );
+
 			return {
 				author,
 				eventStart: getEditedPostAttribute( 'meta' ).event_start,
 				eventEnd: getEditedPostAttribute( 'meta' ).event_end,
+				participants: participants ? participants.length : 0,
+				price: getEditedPostAttribute( 'meta' ).event_price,
+				seats: getEditedPostAttribute( 'meta' ).event_seats,
 			};
 		} ),
 		withDispatch( ( dispatch ) => {
@@ -55,6 +60,10 @@ registerBlockType( metadata.name, {
 					editPost( { meta: { event_start: eventStart } } ),
 				setEventEnd: ( eventEnd ) =>
 					editPost( { meta: { event_end: eventEnd } } ),
+				setSeats: ( seats ) =>
+					editPost( { meta: { event_seats: seats } } ),
+				setPrice: ( price ) =>
+					editPost( { meta: { event_price: price } } ),
 			};
 		} ),
 	] )( Edit ),

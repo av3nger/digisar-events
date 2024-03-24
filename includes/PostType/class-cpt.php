@@ -183,7 +183,6 @@ abstract class CPT {
 				'show_in_rest' => true,
 			);
 
-			$a = static::$name;
 			register_post_meta( static::$name, $meta_field, $args );
 		}
 	}
