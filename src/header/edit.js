@@ -143,11 +143,19 @@ export default function Edit( props ) {
 			</InspectorControls>
 			<div>
 				<PostTitle tagName="h1" />
-				<PostTermList taxonomyName="event-type">
+
+				<PostTermList
+					taxonomyName="event-type"
+					noResultsMessage={ __(
+						'Please select an event type',
+						'digisar-events'
+					) }
+				>
 					<PostTermList.ListItem className="wp-block-example-hero__category">
 						<PostTermList.TermLink className="wp-block-example-hero__category-link" />
 					</PostTermList.ListItem>
 				</PostTermList>
+
 				<PostExcerpt
 					placeholder={ __(
 						'Enter short description',
@@ -181,7 +189,13 @@ export default function Edit( props ) {
 
 				<div>
 					{ __( 'Place of event', 'digisar-events' ) }
-					<PostTermList taxonomyName="location">
+					<PostTermList
+						taxonomyName="location"
+						noResultsMessage={ __(
+							'Please select a location',
+							'digisar-events'
+						) }
+					>
 						<PostTermList.ListItem className="wp-block-example-hero__category">
 							<PostTermList.TermLink className="wp-block-example-hero__category-link" />
 						</PostTermList.ListItem>
@@ -193,7 +207,7 @@ export default function Edit( props ) {
 					{ author?.name }
 				</div>
 
-				{ seats && (
+				{ 'number' === typeof seats && 0 < seats && (
 					<div>
 						{ __( 'Available seats', 'digisar-events' ) }
 						{ participants ?? 0 } / { seats }
