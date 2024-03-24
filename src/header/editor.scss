@@ -4,6 +4,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-my-first-block {
-	border: 1px dotted #f00;
+.digisar-date-popover .components-datetime__time,
+.digisar-date-popover .components-datetime__date {
+	padding: 16px;
 }

@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "digisar/header",
 	"version": "1.0.0",
-	"title": "Events header",
+	"title": "Event header",
 	"category": "widgets",
-	"icon": "heading",
-	"description": "Events header block.",
+	"icon": "calendar",
+	"description": "Event header block.",
 	"example": {},
 	"supports": {
 		"html": false,

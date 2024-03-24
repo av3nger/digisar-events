@@ -5,7 +5,7 @@
 	"version": "1.0.0",
 	"title": "Event",
 	"category": "widgets",
-	"icon": "learn-more",
+	"icon": "layout",
 	"description": "Event block.",
 	"example": {},
 	"supports": {
