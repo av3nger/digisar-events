@@ -23,7 +23,7 @@ final class Event extends CPT {
 	 *
 	 * @var string $name
 	 */
-	public static string $name = 'event';
+	public static string $name = 'events';
 
 	/**
 	 * Icon.

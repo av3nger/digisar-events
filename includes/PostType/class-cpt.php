@@ -93,6 +93,7 @@ abstract class CPT {
 	 */
 	private function get_options(): array {
 		$default_options = array(
+			'has_archive'  => true,
 			'labels'       => $this->get_labels(),
 			'menu_icon'    => $this->icon,
 			'public'       => true,
