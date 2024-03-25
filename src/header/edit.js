@@ -141,10 +141,11 @@ export default function Edit( props ) {
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
-			<div>
-				<PostTitle tagName="h1" />
+			<div className="digisar--event-info">
+				<PostTitle className="digisar--event-title" tagName="h1" />
 
 				<PostTermList
+					className="digisar--event-type"
 					taxonomyName="event-type"
 					noResultsMessage={ __(
 						'Please select an event type',
@@ -157,16 +158,17 @@ export default function Edit( props ) {
 				</PostTermList>
 
 				<PostExcerpt
+					className="digisar--event-excerpt"
 					placeholder={ __(
 						'Enter short description',
 						'digisar-events'
 					) }
 				/>
 			</div>
-			<div>
+			<div className="digisar--event-details">
 				{ eventStart && (
 					<div>
-						{ __( 'Start state of event', 'digisar-events' ) }
+						{ __( 'Start date of event', 'digisar-events' ) }
 						{ dateI18n( 'j/m/Y', eventStart ) }
 					</div>
 				) }
@@ -210,7 +212,8 @@ export default function Edit( props ) {
 				{ 'number' === typeof seats && 0 < seats && (
 					<div>
 						{ __( 'Available seats', 'digisar-events' ) }
-						{ participants ?? 0 } / { seats }
+						{ participants ? seats - participants : seats }/
+						{ seats }
 					</div>
 				) }
 			</div>
