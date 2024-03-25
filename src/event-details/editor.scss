@@ -8,3 +8,19 @@
 .digisar-date-popover .components-datetime__date {
 	padding: 16px;
 }
+
+.digisar__event-location {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	& li:not(:first-child) {
+		padding-left: 8px;
+	}
+
+	& li:not(:last-child):after {
+		content: ",";
+	}
+}

@@ -1,0 +1,32 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.edit-post-visual-editor__post-title-wrapper {
+	display: none;
+}
+
+.digisar__event-type {
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	&::before {
+		background-color: var(--color--red);
+	}
+
+	& li:not(:first-child) {
+		padding-left: 8px;
+	}
+
+	& li:not(:last-child):after {
+		content: ",";
+	}
+}
+
+.digisar--btn.digisar--btn-calendar {
+	background-color: transparent;
+}

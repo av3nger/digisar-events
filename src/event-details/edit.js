@@ -1,8 +1,4 @@
 /**
- * External components
- */
-
-/**
  * WordPress components
  */
 import { __ } from '@wordpress/i18n';
@@ -21,7 +17,7 @@ import { useState } from '@wordpress/element';
 /**
  * Internal components.
  */
-import { PostExcerpt, PostTermList, PostTitle } from '@10up/block-components';
+import { PostTermList } from '@10up/block-components';
 import './editor.scss';
 
 /**
@@ -141,79 +137,61 @@ export default function Edit( props ) {
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
-			<div className="digisar--event-info">
-				<PostTitle className="digisar--event-title" tagName="h1" />
 
-				<PostTermList
-					className="digisar--event-type"
-					taxonomyName="event-type"
-					noResultsMessage={ __(
-						'Please select an event type',
-						'digisar-events'
-					) }
-				>
-					<PostTermList.ListItem className="wp-block-example-hero__category">
-						<PostTermList.TermLink className="wp-block-example-hero__category-link" />
-					</PostTermList.ListItem>
-				</PostTermList>
-
-				<PostExcerpt
-					className="digisar--event-excerpt"
-					placeholder={ __(
-						'Enter short description',
-						'digisar-events'
-					) }
-				/>
-			</div>
-			<div className="digisar--event-details">
+			<div className="digisar__event-details">
 				{ eventStart && (
 					<div>
 						{ __( 'Start date of event', 'digisar-events' ) }
-						{ dateI18n( 'j/m/Y', eventStart ) }
+						<span>{ dateI18n( 'j/m/Y', eventStart ) }</span>
 					</div>
 				) }
 
 				{ eventEnd && (
 					<div>
 						{ __( 'End date of event', 'digisar-events' ) }
-						{ dateI18n( 'j/m/Y', eventEnd ) }
+						<span>{ dateI18n( 'j/m/Y', eventEnd ) }</span>
 					</div>
 				) }
 
 				{ eventStart && eventEnd && (
 					<div>
 						{ __( 'Duration', 'digisar-events' ) }
-						{ dateI18n( 'G:i', eventStart ) }
-						&nbsp;-&nbsp;
-						{ dateI18n( 'G:i', eventEnd ) }
+						<span>
+							{ dateI18n( 'G:i', eventStart ) }
+							&nbsp;-&nbsp;
+							{ dateI18n( 'G:i', eventEnd ) }
+						</span>
 					</div>
 				) }
 
 				<div>
 					{ __( 'Place of event', 'digisar-events' ) }
 					<PostTermList
+						className="digisar__event-location"
 						taxonomyName="location"
 						noResultsMessage={ __(
 							'Please select a location',
 							'digisar-events'
 						) }
 					>
-						<PostTermList.ListItem className="wp-block-example-hero__category">
-							<PostTermList.TermLink className="wp-block-example-hero__category-link" />
+						<PostTermList.ListItem>
+							<PostTermList.TermLink />
 						</PostTermList.ListItem>
 					</PostTermList>
 				</div>
 
-				<div>
+				<div className="digisar__event-author">
 					{ __( 'Event Creator', 'digisar-events' ) }
-					{ author?.name }
+					<span>{ author?.name }</span>
 				</div>
 
 				{ 'number' === typeof seats && 0 < seats && (
-					<div>
+					<div className="digisar__event-seats">
 						{ __( 'Available seats', 'digisar-events' ) }
-						{ participants ? seats - participants : seats }/
-						{ seats }
+						<span className="digisar__event-seats-current">
+							{ participants ? seats - participants : seats }/
+							<span>{ seats }</span>
+						</span>
 					</div>
 				) }
 			</div>

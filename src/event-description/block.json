@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "digisar/event",
+	"name": "digisar/event-description",
 	"version": "1.0.0",
-	"title": "Event",
+	"title": "Event description",
 	"category": "widgets",
-	"icon": "layout",
-	"description": "Event block.",
+	"icon": "calendar",
+	"description": "Event description block.",
 	"example": {},
 	"supports": {
 		"html": false,

@@ -1,0 +1,63 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+:root {
+	--color--primary-blue: #14315A;
+	--color--text-blue: #687B95;
+	--color--white: #FFFFFF;
+	--color--grey: #F7F7F7;
+}
+
+.digisar__event-details {
+	background-color: var(--color--white);
+	border-radius: 16px;
+	color: var(--color--text-blue);
+	display: grid;
+	font-size: 1rem;
+	gap: 16px;
+	padding: 24px;
+
+	@media (min-width: 48em) {
+		font-size: 1.125rem;
+		padding: 32px;
+	}
+
+	& > div {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+
+		& > span {
+			color: var(--color--primary-blue);
+			font-weight: 600;
+		}
+	}
+}
+
+.digisar__event-author {
+	border-bottom: 2px solid var(--color--grey);
+	border-top: 2px solid var(--color--grey);
+	margin: 8px 0;
+	padding: 16px 0;
+
+	@media (min-width: 48em) {
+		margin: 16px 0;
+		padding: 32px 0;
+	}
+}
+
+.digisar__event-seats .digisar__event-seats-current {
+	font-size: 1.25rem;
+
+	@media (min-width: 48em) {
+		font-size: 2rem;
+	}
+
+	& > span {
+		color: var(--color--text-blue);
+	}
+}

@@ -1,21 +1,19 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "digisar/header",
+	"name": "digisar/event-details",
 	"version": "1.0.0",
-	"title": "Event header",
+	"title": "Event details",
 	"category": "widgets",
 	"icon": "calendar",
-	"description": "Event header block.",
+	"description": "Event details block.",
 	"example": {},
 	"supports": {
 		"html": false,
 		"reusable": false
 	},
-	"parent": ["digisar/event"],
 	"textdomain": "digisar-events",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	"style": "file:./style-index.css"
 }

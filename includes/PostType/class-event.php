@@ -56,7 +56,36 @@ final class Event extends CPT {
 	 * @var array $template
 	 */
 	protected array $template = array(
-		array( 'digisar/event' ),
+		array(
+			'core/group',
+			array(
+				'align'     => 'full',
+				'className' => 'digisar__event-header',
+				'layout'    => array( 'type' => 'constrained' ),
+			),
+			array(
+				array(
+					'core/columns',
+					array(),
+					array(
+						array(
+							'core/column',
+							array( 'width' => '55%' ),
+							array(
+								array( 'digisar/event-description', array() ),
+							),
+						),
+						array(
+							'core/column',
+							array(),
+							array(
+								array( 'digisar/event-details', array() ),
+							),
+						),
+					),
+				),
+			),
+		),
 	);
 
 	/**
