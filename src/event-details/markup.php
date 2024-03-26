@@ -16,6 +16,9 @@ $event_location = get_the_terms( $event_id, Taxonomy\Location::$name );
 $participants   = get_the_terms( $event_id, Taxonomy\Participant::$name );
 
 $participant_count = is_wp_error( $participants ) || empty( $participants ) ? 0 : count( $participants );
+
+$author_id   = get_post_field( 'post_author', $event_id );
+$author_name = get_the_author_meta( 'display_name', $author_id );
 ?>
 
 <div class="digisar__event-details">
@@ -51,10 +54,12 @@ $participant_count = is_wp_error( $participants ) || empty( $participants ) ? 0 
 		</div>
 	<?php endif; ?>
 
-	<div class="digisar__event-author">
-		<?php esc_html_e( 'Event creator', 'digisar-events' ); ?>
-		<span><?php the_author(); ?></span>
-	</div>
+	<?php if ( ! empty( $author_name ) ) : ?>
+		<div class="digisar__event-author">
+			<?php esc_html_e( 'Event creator', 'digisar-events' ); ?>
+			<span><?php echo esc_html( $author_name ); ?></span>
+		</div>
+	<?php endif; ?>
 
 	<?php if ( ! empty( $event_seats ) && 0 < $event_seats ) : ?>
 		<div class="digisar__event-seats">

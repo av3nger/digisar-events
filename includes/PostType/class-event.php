@@ -60,24 +60,30 @@ final class Event extends CPT {
 			'core/group',
 			array(
 				'align'     => 'full',
-				'className' => 'digisar__event-header',
-				'layout'    => array( 'type' => 'constrained' ),
+				'className' => 'digisar__event-header section-content',
+				'layout'    => array(),
 			),
 			array(
 				array(
 					'core/columns',
-					array(),
+					array( 'className' => 'row' ),
 					array(
 						array(
 							'core/column',
-							array( 'width' => '55%' ),
+							array(
+								'width'     => '65%',
+								'className' => 'col col-small-12',
+							),
 							array(
 								array( 'digisar/event-description', array() ),
 							),
 						),
 						array(
 							'core/column',
-							array(),
+							array(
+								'width'     => '55%',
+								'className' => 'col col-small-12',
+							),
 							array(
 								array( 'digisar/event-details', array() ),
 							),
@@ -102,5 +108,32 @@ final class Event extends CPT {
 			Taxonomy\Participant::$name,
 			Taxonomy\Type::$name,
 		);
+
+		add_filter( 'template_include', array( $this, 'template' ) );
+	}
+
+	/**
+	 * Template for the CPT.
+	 *
+	 * @param string $template The path of the template to include.
+	 *
+	 * @return string
+	 */
+	public function template( string $template ): string {
+		global $post;
+
+		if ( ! $post || ! is_a( $post, 'WP_Post' ) || self::$name !== $post->post_type ) {
+			return $template;
+		}
+
+		if ( is_archive() ) {
+			return DIGISAR_EVENTS_DIR_PATH . '/templates/archive-events.php';
+		}
+
+		if ( is_single() ) {
+			return DIGISAR_EVENTS_DIR_PATH . '/templates/single-event.php';
+		}
+
+		return $template;
 	}
 }

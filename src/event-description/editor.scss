@@ -8,6 +8,14 @@
 	display: none;
 }
 
+.digisar__event-header {
+	max-width: 100%;
+
+	& > .row {
+		max-width: 1080px;
+	}
+}
+
 .digisar__event-type {
 	flex-wrap: wrap;
 	list-style-type: none;

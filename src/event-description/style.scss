@@ -14,25 +14,71 @@
 	--color--red: #E40713;
 }
 
-.digisar__event-header,
-.digisar__event-header h1 {
-	font-family: Lato !important; /* TODO: remove this! */
-	-webkit-font-smoothing: antialiased;
+.single-event-wrapper {
+
+	& .digisar__event-title,
+	& h2 {
+		font-size: 2rem;
+
+		@media (min-width: 48em) {
+			font-size: 3rem;
+		}
+	}
+
+	& h2 {
+		margin-bottom: 1rem;
+		margin-top: 1rem;
+
+		@media (min-width: 48em) {
+			margin-bottom: 2.25rem;
+			margin-top: 2.25rem;
+		}
+	}
+
+	& h3 {
+		font-size: 1.25rem;
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+
+		@media (min-width: 48em) {
+			font-size: 2rem;
+			margin-bottom: 1rem;
+		}
+	}
+
+	& ul {
+		padding-left: 1rem;
+	}
+
+	& .wp-block-spacer {
+
+		@media (max-width: 48em) {
+			display: none;
+		}
+	}
 }
 
 .digisar__event-header {
 	background-color: var(--color--primary-blue);
 	color: var(--color--white);
 	margin-bottom: 3rem;
-	padding: 3rem 0;
+	padding: 3rem 0 0;
 
 	@media (min-width: 48em) {
 		margin-bottom: 5rem;
-		padding: 3rem 0 12rem 0;
+		padding: 5rem 0 12rem 0;
 
 		& .wp-block-columns {
 			gap: 48px;
 		}
+	}
+
+	& :where(.wp-block-columns) {
+		margin-bottom: 0;
+	}
+
+	& > .row::after {
+		display: none;
 	}
 }
 
