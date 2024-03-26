@@ -28,8 +28,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'DIGISAR_EVENTS_DIR_PATH', __DIR__ );
+define( 'DIGISAR_EVENTS_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'DIGISAR_EVENTS_INC_PATH', DIGISAR_EVENTS_DIR_PATH . '/includes' );
-define( 'DIGISAR_EVENTS_BLOCK_PATH', DIGISAR_EVENTS_DIR_PATH . '/assets' );
+define( 'DIGISAR_EVENTS_BLOCK_PATH', DIGISAR_EVENTS_DIR_PATH . '/assets/blocks' );
 
 /**
  * Events class.

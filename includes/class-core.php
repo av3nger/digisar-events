@@ -32,6 +32,7 @@ final class Core {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'init', array( $this, 'register_blocks' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 	}
 
 	/**
@@ -99,5 +100,23 @@ final class Core {
 
 			register_block_type_from_metadata( $block_folder, $block_options );
 		}
+	}
+
+	/**
+	 * Enqueue plugin scripts and styles.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_styles(): void {
+		if ( ! is_post_type_archive( PostType\Event::$name ) ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'digisar-event-styles',
+			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.css',
+			array(),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.css' )
+		);
 	}
 }
