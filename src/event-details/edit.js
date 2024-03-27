@@ -10,6 +10,7 @@ import {
 	PanelRow,
 	Popover,
 	TextControl,
+	ToggleControl,
 } from '@wordpress/components';
 import { dateI18n } from '@wordpress/date';
 import { useState } from '@wordpress/element';
@@ -34,12 +35,14 @@ export default function Edit( props ) {
 		author,
 		eventStart,
 		eventEnd,
+		inEnglish,
 		participants,
 		price,
 		setPrice,
 		setEventStart,
 		setEventEnd,
 		seats,
+		setEnglish,
 		setSeats,
 	} = props;
 
@@ -49,6 +52,17 @@ export default function Edit( props ) {
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls>
+				<PanelBody
+					title={ __( 'Language settings', 'digisar-events' ) }
+				>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'In English', 'digisar-events' ) }
+							checked={ !! inEnglish }
+							onChange={ ( value ) => setEnglish( value ) }
+						/>
+					</PanelRow>
+				</PanelBody>
 				<PanelBody title={ __( 'Event dates', 'digisar-events' ) }>
 					<PanelRow>
 						<span>{ __( 'Start:', 'digisar-events' ) }</span>

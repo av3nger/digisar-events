@@ -42,10 +42,11 @@ final class Event extends CPT {
 	 * @var array $meta_fields
 	 */
 	protected array $meta_fields = array(
-		'event_start' => 'string',
-		'event_end'   => 'string',
-		'event_seats' => 'number',
-		'event_price' => 'number',
+		'event_start'      => 'string',
+		'event_end'        => 'string',
+		'event_seats'      => 'number',
+		'event_price'      => 'number',
+		'event_in_english' => 'boolean',
 	);
 
 	/**

@@ -78,6 +78,20 @@
 		}
 	}
 
+	& .event__title {
+		align-items: center;
+		display: flex;
+		gap: 24px;
+	}
+
+	& .event__lang-tag {
+		background-color: var(--color--grey);
+		border-radius: 4px;
+		color: var(--color--primary-blue);
+		font-size: 0.875rem;
+		padding: 6px 10px;
+	}
+
 	& .event__type {
 
 		&::before {

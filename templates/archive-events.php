@@ -6,6 +6,8 @@
  * @package Digisar\Events
  */
 
+use Digisar\Taxonomy;
+
 get_header();
 ?>
 
@@ -34,10 +36,11 @@ get_header();
 						<?php
 						$event_id = get_the_ID();
 
-						$event_start    = get_post_meta( $event_id, 'event_start', true );
-						$event_end      = get_post_meta( $event_id, 'event_end', true );
-						$event_type     = get_the_terms( $event_id, \Digisar\Taxonomy\Type::$name );
-						$event_location = get_the_terms( $event_id, \Digisar\Taxonomy\Location::$name );
+						$event_start      = get_post_meta( $event_id, 'event_start', true );
+						$event_end        = get_post_meta( $event_id, 'event_end', true );
+						$event_type       = get_the_terms( $event_id, Taxonomy\Type::$name );
+						$event_location   = get_the_terms( $event_id, Taxonomy\Location::$name );
+						$event_in_english = get_post_meta( $event_id, 'event_in_english', true );
 						?>
 						<tr>
 							<td>
@@ -45,7 +48,14 @@ get_header();
 									<?php echo esc_html( gmdate( 'j M', strtotime( $event_start ) ) ); ?>
 								<?php endif; ?>
 							</td>
-							<td><?php the_title(); ?></td>
+							<td>
+								<div class="event__title">
+									<?php the_title(); ?>
+									<?php if ( $event_in_english ) : ?>
+										<span class="event__lang-tag"><?php esc_html_e( 'En', 'digisar-events' ); ?></span>
+									<?php endif; ?>
+								</div>
+							</td>
 							<td>
 								<?php if ( ! empty( $event_type ) && is_a( $event_type[0], 'WP_Term' ) ) : ?>
 									<span class="event__type <?php echo esc_attr( $event_type[0]->slug ); ?>">
@@ -68,8 +78,12 @@ get_header();
 								<?php endif; ?>
 							</td>
 							<td>
-								<a href="<?php echo esc_url( get_permalink() ); ?>">Details</a>
-								<a href="#" class="event__btn-register">Register</a>
+								<a href="<?php echo esc_url( get_permalink() ); ?>">
+									<?php esc_html_e( 'Details', 'digisar-events' ); ?>
+								</a>
+								<a href="#" class="event__btn-register">
+									<?php esc_html_e( 'Register', 'digisar-events' ); ?>
+								</a>
 							</td>
 						</tr>
 					<?php endwhile; ?>
