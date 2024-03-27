@@ -21,7 +21,9 @@ $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 		</div>
 	<?php endif; ?>
 
-	<p><?php the_excerpt(); ?></p>
+	<p class="event__description">
+		<?php echo wp_kses_post( get_the_excerpt() ); ?>
+	</p>
 
 	<!-- TODO: add to calendar and register now buttons -->
 	<div class="digisar--event-buttons">
