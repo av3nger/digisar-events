@@ -118,5 +118,13 @@ final class Core {
 			array(),
 			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.css' )
 		);
+
+		wp_enqueue_script(
+			'digisar-event-scripts',
+			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.js',
+			array( 'jquery' ),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.js' ),
+			true
+		);
 	}
 }
