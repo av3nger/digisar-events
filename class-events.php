@@ -93,9 +93,9 @@ final class Events {
 		// Get the relative class name.
 		$relative_class = substr( $class_name, $len );
 
-		$path   = explode( '\\', strtolower( str_replace( '_', '-', $relative_class ) ) );
+		$path   = explode( '\\', str_replace( '_', '-', $relative_class ) );
 		$file   = array_pop( $path );
-		$path[] = 'class-' . $file . '.php';
+		$path[] = 'class-' . strtolower( $file ) . '.php';
 		$file   = trailingslashit( DIGISAR_EVENTS_INC_PATH ) . implode( '/', $path );
 
 		if ( file_exists( $file ) ) {
