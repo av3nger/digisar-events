@@ -7,7 +7,7 @@ import './styles.scss';
 		$( '.tb-row .row-right' ).hide();
 	}
 	$( 'body' ).on( 'click', '.tb-row.mobile', function () {
-		/*$( this ).toggleClass( 'open' );*/
+		$( this ).toggleClass( 'open' );
 		$( this ).siblings().find( '.row-right' ).slideUp();
 		$( this ).find( '.row-right' ).slideToggle();
 		$( this ).find( '.icon-toggle' ).toggleClass( 'open' );
