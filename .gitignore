@@ -2,5 +2,6 @@
 .idea
 digisar-events.zip
 package-lock.json
-assets
+assets/blocks
+assets/frontend
 node_modules

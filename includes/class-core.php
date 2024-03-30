@@ -113,16 +113,54 @@ final class Core {
 		}
 
 		wp_enqueue_style(
-			'digisar-event-styles',
-			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.css',
+			'event-daterangepicker',
+			DIGISAR_EVENTS_DIR_URL . 'assets/libs/daterangepicker.css',
 			array(),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/libs/daterangepicker.css' )
+		);
+
+		wp_enqueue_style(
+			'event-sumoselect',
+			DIGISAR_EVENTS_DIR_URL . 'assets/libs/sumoselect.min.css',
+			array(),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/libs/sumoselect.min.css' )
+		);
+
+		wp_enqueue_style(
+			'event-styles',
+			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.css',
+			array( 'event-daterangepicker', 'event-sumoselect' ),
 			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.css' )
 		);
 
 		wp_enqueue_script(
-			'digisar-event-scripts',
-			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.js',
+			'events-momentjs',
+			DIGISAR_EVENTS_DIR_URL . 'assets/libs/moment.min.js',
+			array(),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/libs/moment.min.js' ),
+			true
+		);
+
+		wp_enqueue_script(
+			'events-daterangepicker',
+			DIGISAR_EVENTS_DIR_URL . 'assets/libs/daterangepicker.min.js',
+			array( 'events-momentjs' ),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/libs/daterangepicker.min.js' ),
+			true
+		);
+
+		wp_enqueue_script(
+			'events-sumoselect',
+			DIGISAR_EVENTS_DIR_URL . 'assets/libs/jquery.sumoselect.min.js',
 			array( 'jquery' ),
+			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/libs/jquery.sumoselect.min.js' ),
+			true
+		);
+
+		wp_enqueue_script(
+			'event-scripts',
+			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.js',
+			array( 'jquery', 'events-momentjs', 'events-daterangepicker' ),
 			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.js' ),
 			true
 		);

@@ -1,0 +1,33 @@
+.events-wrapper {
+	& h1 {
+		color: var(--color--primary-blue);
+		font-size: 2rem;
+		margin: 0;
+	}
+
+	& .px-8 {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+
+	& .px-16 {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+
+	& .px-24 {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
+	& .event__location {
+		gap: 7px;
+
+		&:before {
+			background-image: url('./images/location.svg');
+			background-size: cover;
+			height: 13px;
+			width: 11px;
+		}
+	}
+}
