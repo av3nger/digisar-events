@@ -56,6 +56,7 @@ final class Events {
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		( new Core() )->init();
+		new Admin();
 	}
 
 	/**
