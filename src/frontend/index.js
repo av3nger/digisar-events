@@ -5,12 +5,12 @@ import './styles.scss';
 	const dateFilter = $( 'input[name="datefilter"]' );
 
 	dateFilter.daterangepicker( {
-		singleDatePicker: true,
+		singleDatePicker: false,
 		autoUpdateInput: false,
 		locale: {
 			daysOfWeek: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
 			applyLabel: 'Apply',
-			cancelLabel: 'Emply',
+			cancelLabel: 'Empty',
 		},
 		linkedCalendars: true,
 		minDate: moment(),
