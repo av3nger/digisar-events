@@ -27,6 +27,8 @@ $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 
 	<!-- TODO: add to calendar and register now buttons -->
 	<div class="digisar--event-buttons">
+		<?php wp_nonce_field( 'event-nonce', 'event-nonce' ); ?>
+		<input type="hidden" id="event-id" value="<?php echo esc_attr( $event_id ); ?>" />
 		<a href="#" class="digisar--btn digisar--btn-calendar">
 			<?php esc_html_e( 'Add to calendar', 'digisar-events' ); ?>
 		</a>

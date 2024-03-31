@@ -1,3 +1,5 @@
+/* global flatsomeVars, XMLHttpRequest */
+
 /**
  * Use this file for JavaScript code that you want to run in the front-end
  * on posts/pages that contain this block.
@@ -39,4 +41,52 @@ if ( expandableElement ) {
 				this.nextElementSibling.style.display = 'inline';
 			} );
 	}
+}
+
+// Handle calendar link generation.
+const calendarLink = document.querySelector( '.digisar--btn-calendar' );
+if ( calendarLink ) {
+	calendarLink.addEventListener( 'click', ( e ) => {
+		e.preventDefault();
+
+		const xhr = new XMLHttpRequest();
+		xhr.open( 'POST', flatsomeVars.ajaxurl, true );
+		xhr.responseType = 'blob';
+
+		xhr.setRequestHeader(
+			'Content-Type',
+			'application/x-www-form-urlencoded; charset=UTF-8'
+		);
+
+		xhr.onload = function () {
+			if ( this.status === 200 ) {
+				// Success: Create a link and trigger the download
+				const blob = this.response;
+				const downloadUrl = URL.createObjectURL( blob );
+				const a = document.createElement( 'a' );
+				a.href = downloadUrl;
+				a.download = 'event.ics'; // Name the download file
+				document.body.appendChild( a );
+				a.click();
+				a.remove();
+			}
+			// Handle any errors here
+			window.console.error(
+				'AJAX request failed: ',
+				this.status,
+				this.statusText
+			);
+		};
+
+		const eventId = document.getElementById( 'event-id' );
+		const nonce = document.getElementById( 'event-nonce' );
+
+		// Send the AJAX request
+		xhr.send(
+			'action=generate_ics_file&id=' +
+				encodeURIComponent( eventId.value ) +
+				'&_ajax_nonce=' +
+				encodeURIComponent( nonce.value )
+		);
+	} );
 }
