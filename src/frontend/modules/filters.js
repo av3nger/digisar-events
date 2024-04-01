@@ -1,6 +1,7 @@
 /* global eventData */
 
 // TODO: add loading state.
+// TODO: dates use the apply.daterangepicker event.
 
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
@@ -104,8 +105,6 @@ const handleFilters = () => {
 		} )
 			.then( ( response ) => response.json() )
 			.then( ( response ) => {
-				// TODO: dates use the apply.daterangepicker event.
-				// TODO: clear form and use the #event-row-template template to load the new data
 				if ( response.success && response.data ) {
 					buildRows( response.data );
 				}

@@ -107,6 +107,7 @@ final class Ajax {
 		);
 
 		// TODO: add support for dates and search strings.
+		// TODO: order by event_start meta field.
 
 		if ( $types ) {
 			$types = sanitize_text_field( $types );
