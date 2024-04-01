@@ -8,8 +8,12 @@
 
 use Digisar\Taxonomy;
 
+global $wp_query;
+
 $locations = Taxonomy\Location::get();
 $types     = Taxonomy\Type::get();
+
+$total_pages = ceil( $wp_query->found_posts / $wp_query->post_count );
 
 get_header();
 ?>
@@ -241,12 +245,18 @@ get_header();
 
 			<div class="event__pagination">
 				<div class="pagination-text">
-					Showing 1-10 of 30 items
+					<?php
+						printf( /* translators: %d - total number of events */
+							esc_html__( 'Showing 1-10 of %d items', 'digisar-events' ),
+							absint( $wp_query->found_posts )
+						);
+					?>
 				</div>
 				<ul class="pagination-list">
 					<li class="pagination-item active"><a href="#" class="number">1</a></li>
-					<li class="pagination-item"><a href="#" class="number">2</a></li>
-					<li class="pagination-item"><a href="#" class="number">3</a></li>
+					<?php for ( $i = 2; $i <= $total_pages; $i++ ) : ?>
+						<li class="pagination-item"><a href="#" class="number"><?php echo absint( $i ); ?></a></li>
+					<?php endfor; ?>
 				</ul>
 			</div>
 		<?php else : ?>
@@ -257,4 +267,5 @@ get_header();
 </section>
 
 <?php
+require_once DIGISAR_EVENTS_DIR_PATH . '/templates/partials/template-row.php';
 get_footer();

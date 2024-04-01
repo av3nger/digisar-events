@@ -1,6 +1,7 @@
 /* global jQuery, moment */
 import './styles.scss';
 
+// Init various libraries.
 ( function ( $ ) {
 	const dateFilter = $( 'input[name="datefilter"]' );
 
@@ -86,6 +87,7 @@ import './styles.scss';
 	} );
 } )( jQuery );
 
+// Search toggle.
 document.addEventListener( 'DOMContentLoaded', function () {
 	const form = document.querySelector( '.event__search' );
 	const searchInput = document.getElementById( 'event-search' );
@@ -111,6 +113,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		} );
 } );
 
+// Search toggle.
 document.addEventListener( 'DOMContentLoaded', function () {
 	const langCheck = document.getElementById( 'lang-check' );
 	const checkbox = document.getElementById( 'english-only' );
@@ -144,9 +147,10 @@ window.addEventListener( 'DOMContentLoaded', function () {
 		}
 	}
 
-	window.addEventListener( 'resize', function () {
-		toggleOpenClassOnSumoSelect();
-	} );
-
+	window.addEventListener( 'resize', toggleOpenClassOnSumoSelect );
 	toggleOpenClassOnSumoSelect();
+} );
+
+document.addEventListener( 'DOMContentLoaded', function () {
+	// TODO: Event search goes here.
 } );
