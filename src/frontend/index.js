@@ -1,5 +1,10 @@
 /* global jQuery, moment */
 import './styles.scss';
+import languageCheck from './modules/lang-check';
+import handleSelectsOpenState from './modules/selects';
+import openSearchBox from './modules/open-search';
+import handleSearch from './modules/search';
+import handleFilters from './modules/filters';
 
 // Init various libraries.
 ( function ( $ ) {
@@ -87,70 +92,8 @@ import './styles.scss';
 	} );
 } )( jQuery );
 
-// Search toggle.
-document.addEventListener( 'DOMContentLoaded', function () {
-	const form = document.querySelector( '.event__search' );
-	const searchInput = document.getElementById( 'event-search' );
-	let isOpen = false;
-
-	document
-		.querySelector( '.btn-search' )
-		.addEventListener( 'click', function ( event ) {
-			event.preventDefault();
-
-			if ( isOpen && searchInput.value.trim() === '' ) {
-				form.classList.remove( 'open' );
-				isOpen = false;
-				return;
-			}
-
-			if ( searchInput.value.trim() !== '' ) {
-				form.submit();
-			} else {
-				form.classList.add( 'open' );
-				isOpen = true;
-			}
-		} );
-} );
-
-// Search toggle.
-document.addEventListener( 'DOMContentLoaded', function () {
-	const langCheck = document.getElementById( 'lang-check' );
-	const checkbox = document.getElementById( 'english-only' );
-
-	langCheck.addEventListener( 'click', function () {
-		if ( checkbox.checked ) {
-			checkbox.checked = false;
-			langCheck.classList.remove( 'checked' );
-		} else {
-			checkbox.checked = true;
-			langCheck.classList.add( 'checked' );
-		}
-	} );
-} );
-
-window.addEventListener( 'DOMContentLoaded', function () {
-	function toggleOpenClassOnSumoSelect() {
-		const screenWidth = window.innerWidth;
-		const sumoSelects = document.querySelectorAll(
-			'.box-mb-open .SumoSelect'
-		);
-
-		if ( screenWidth < 1024 && sumoSelects.length > 0 ) {
-			sumoSelects.forEach( function ( select ) {
-				select.classList.add( 'open' );
-			} );
-		} else {
-			sumoSelects.forEach( function ( select ) {
-				select.classList.remove( 'open' );
-			} );
-		}
-	}
-
-	window.addEventListener( 'resize', toggleOpenClassOnSumoSelect );
-	toggleOpenClassOnSumoSelect();
-} );
-
-document.addEventListener( 'DOMContentLoaded', function () {
-	// TODO: Event search goes here.
-} );
+document.addEventListener( 'DOMContentLoaded', openSearchBox );
+document.addEventListener( 'DOMContentLoaded', languageCheck );
+document.addEventListener( 'DOMContentLoaded', handleSelectsOpenState );
+document.addEventListener( 'DOMContentLoaded', handleSearch );
+document.addEventListener( 'DOMContentLoaded', handleFilters );
