@@ -8,7 +8,10 @@
 
 namespace Digisar\PostType;
 
+use DateTime;
 use Digisar\Taxonomy;
+use Exception;
+use WP_Error;
 
 /**
  * Event class.
@@ -136,5 +139,56 @@ final class Event extends CPT {
 		}
 
 		return $template;
+	}
+
+
+	/**
+	 * Generate ICS invite.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $event_id Event ID.
+	 *
+	 * @return string|WP_Error
+	 */
+	public static function get_isc( int $event_id ) {
+		$event = get_post( $event_id );
+
+		if ( ! $event || ! is_a( $event, 'WP_Post' ) || self::$name !== $event->post_type ) {
+			return new WP_Error( 400, 'Unsupported event ID' );
+		}
+
+		$site_title = get_bloginfo( 'name' );
+		$domain     = wp_parse_url( get_site_url(), PHP_URL_HOST );
+		$start_time = get_post_meta( $event_id, 'event_start', true );
+		$end_time   = get_post_meta( $event_id, 'event_end', true );
+
+		try {
+			$start_time = new DateTime( $start_time );
+			$start_time = $start_time->format( 'Ymd\THis\Z' );
+
+			$end_time = new DateTime( $end_time );
+			$end_time = $end_time->format( 'Ymd\THis\Z' );
+		} catch ( Exception $e ) {
+			return new WP_Error( $e->getCode(), $e->getMessage() );
+		}
+
+		header( 'Content-Type: text/calendar; charset=utf-8' );
+		header( 'Content-Disposition: attachment; filename="event.ics"' );
+
+		$ics  = "BEGIN:VCALENDAR\n";
+		$ics .= "VERSION:2.0\n";
+		$ics .= "PRODID:-//$site_title//Events//EN\n";
+		$ics .= "BEGIN:VEVENT\n";
+		$ics .= 'UID:' . uniqid() . "@$domain\n";
+		$ics .= 'DTSTAMP:' . gmdate( 'Ymd' ) . 'T' . gmdate( 'His' ) . "Z\n";
+		$ics .= "DTSTART:$start_time\n";
+		$ics .= "DTEND:$end_time\n";
+		$ics .= "SUMMARY:$event->post_title\n";
+		$ics .= "DESCRIPTION:$event->post_excerpt\n";
+		$ics .= "END:VEVENT\n";
+		$ics .= 'END:VCALENDAR';
+
+		return $ics;
 	}
 }
