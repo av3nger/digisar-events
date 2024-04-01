@@ -8,6 +8,9 @@
 
 use Digisar\Taxonomy;
 
+$locations = Taxonomy\Location::get();
+$types     = Taxonomy\Type::get();
+
 get_header();
 ?>
 
@@ -50,30 +53,41 @@ get_header();
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="<?php esc_attr_e( 'Calendar', 'digisar-events' ); ?>" class="icon-date icon-filter">
 						</div>
 					</div>
-					<div class="ev-filter-item ft-type box-mb-open">
-						<label class="name" for="event-type-select">
-							<?php esc_attr_e( 'Event Type', 'digisar-events' ); ?>
-						</label>
-						<div class="box-input">
-							<select id="event-type-select" multiple="multiple" name="evenType" class="select-type">
-								<option value="local-education">Local education</option>
-								<option value="online-teaching">Online teaching</option>
-							</select>
+
+					<?php if ( ! empty( $types ) ) : ?>
+						<div class="ev-filter-item ft-type box-mb-open">
+							<label class="name" for="event-type-select">
+								<?php esc_attr_e( 'Event Type', 'digisar-events' ); ?>
+							</label>
+							<div class="box-input">
+								<select id="event-type-select" multiple="multiple" name="evenType" class="select-type">
+									<?php foreach ( $types as $event_type ) : ?>
+										<option value="<?php echo esc_attr( $event_type->slug ); ?>">
+											<?php echo esc_html( $event_type->name ); ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="ev-filter-item fl-location box-mb-open">
-						<label class="name" for="event-location-select">
-							<?php esc_attr_e( 'Location', 'digisar-events' ); ?>
-						</label>
-						<div class="box-input ">
-							<select id="event-location-select" multiple="multiple" name="evenLocation" class="select-location">
-								<option value="online">Online</option>
-								<option value="rovaniemi">Rovaniemi</option>
-								<option value="Jyväskylä">Jyväskylä</option>
-								<option value="tampere">Tampere</option>
-							</select>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $locations ) ) : ?>
+						<div class="ev-filter-item fl-location box-mb-open">
+							<label class="name" for="event-location-select">
+								<?php esc_attr_e( 'Location', 'digisar-events' ); ?>
+							</label>
+							<div class="box-input ">
+								<select id="event-location-select" multiple="multiple" name="evenLocation" class="select-location">
+									<?php foreach ( $locations as $location ) : ?>
+										<option value="<?php echo esc_attr( $location->slug ); ?>">
+											<?php echo esc_html( $location->name ); ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 						</div>
-					</div>
+					<?php endif; ?>
+
 					<div class="ev-filter-group">
 						<div class="ev-filter-item fl-showing">
 							<label class="name" for="event-showing-select">

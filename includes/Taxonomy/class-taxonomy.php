@@ -110,4 +110,26 @@ abstract class Taxonomy {
 	public function register() {
 		register_taxonomy( static::$name, $this->object_type, $this->get_options() );
 	}
+
+	/**
+	 * Get a list of available terms for taxonomy.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public static function get(): array {
+		$args = array(
+			'taxonomy'   => static::$name,
+			'hide_empty' => true,
+		);
+
+		$terms = get_terms( $args );
+
+		if ( is_wp_error( $terms ) ) {
+			return array();
+		}
+
+		return $terms;
+	}
 }
