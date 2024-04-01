@@ -17,9 +17,7 @@
 			<div class="tb-colum name">
 				<div class="group">
 					<span class="name-text" data-name>Event name</span>
-					<span class="name-en">
-						En
-					</span>
+					<span class="name-en" data-language>En</span>
 				</div>
 			</div>
 			<label class="icon-toggle">

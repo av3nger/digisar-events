@@ -1,9 +1,12 @@
 /* global eventData */
 
+// TODO: add loading state.
+
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
+	const rowTemplate = document.getElementById( 'event-row-template' );
 
-	if ( ! filtersForm ) {
+	if ( ! filtersForm || ! rowTemplate ) {
 		return;
 	}
 
@@ -15,6 +18,59 @@ const handleFilters = () => {
 		}
 
 		return selectElement.value;
+	};
+
+	const buildRows = ( events ) => {
+		const table = document.querySelector( '.events__table-body' );
+		if ( ! table ) {
+			return;
+		}
+
+		table.innerHTML = '';
+		events.forEach( ( event ) => {
+			const row = rowTemplate.content.cloneNode( true );
+
+			const date = row.querySelector( '[data-date]' );
+			if ( date ) {
+				date.innerText = event.start;
+			}
+
+			const name = row.querySelector( '[data-name]' );
+			if ( name ) {
+				name.innerText = event.title;
+			}
+
+			const englishTag = row.querySelector( '[data-language]' );
+			if ( englishTag && ! event.english ) {
+				englishTag.remove();
+			}
+
+			const type = row.querySelector( '[data-type]' );
+			if ( type ) {
+				if ( 'slug' in event.type ) {
+					type.innerHTML = `<span class="${ event.type.slug }"></span>${ event.type.name }`;
+				} else {
+					type.remove();
+				}
+			}
+
+			const duration = row.querySelector( '[data-duration]' );
+			if ( duration ) {
+				duration.innerText = event.duration;
+			}
+
+			const location = row.querySelector( '[data-location]' );
+			if ( location ) {
+				location.innerText = event.location;
+			}
+
+			const details = row.querySelector( '[data-details]' );
+			if ( details ) {
+				details.href = event.link;
+			}
+
+			table.appendChild( row );
+		} );
 	};
 
 	const handleFiltersChange = ( e ) => {
@@ -46,13 +102,15 @@ const handleFilters = () => {
 			credentials: 'same-origin',
 			body: formData,
 		} )
-			.then( ( response ) => response.text() )
-			.then( ( responseText ) => {
+			.then( ( response ) => response.json() )
+			.then( ( response ) => {
 				// TODO: dates use the apply.daterangepicker event.
 				// TODO: clear form and use the #event-row-template template to load the new data
-				console.log( 'Server Response: ' + responseText );
+				if ( response.success && response.data ) {
+					buildRows( response.data );
+				}
 			} )
-			.catch( ( error ) => console.error( 'Error:', error ) );
+			.catch( window.console.error );
 	};
 
 	filtersForm.addEventListener( 'change', handleFiltersChange );
