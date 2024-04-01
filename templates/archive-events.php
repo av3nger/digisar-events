@@ -42,25 +42,31 @@ get_header();
 
 				<form action="" class="event__filters-form">
 					<div class="ev-filter-item ft-date">
-						<span class="name"><?php esc_attr_e( 'Date', 'digisar-events' ); ?></span>
+						<label class="name" for="event-date-input">
+							<?php esc_attr_e( 'Date', 'digisar-events' ); ?>
+						</label>
 						<div class="box-input">
-							<input type="text" name="datefilter" value="" placeholder="<?php esc_attr_e( 'All Events', 'digisar-events' ); ?>"/>
+							<input type="text" id="event-date-input" name="datefilter" value="" placeholder="<?php esc_attr_e( 'All Events', 'digisar-events' ); ?>"/>
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="<?php esc_attr_e( 'Calendar', 'digisar-events' ); ?>" class="icon-date icon-filter">
 						</div>
 					</div>
 					<div class="ev-filter-item ft-type box-mb-open">
-						<span class="name"><?php esc_attr_e( 'Event Type', 'digisar-events' ); ?></span>
+						<label class="name" for="event-type-select">
+							<?php esc_attr_e( 'Event Type', 'digisar-events' ); ?>
+						</label>
 						<div class="box-input">
-							<select multiple="multiple" name="evenType" class="select-type">
+							<select id="event-type-select" multiple="multiple" name="evenType" class="select-type">
 								<option value="local-education">Local education</option>
 								<option value="online-teaching">Online teaching</option>
 							</select>
 						</div>
 					</div>
 					<div class="ev-filter-item fl-location box-mb-open">
-						<span class="name"><?php esc_attr_e( 'Location', 'digisar-events' ); ?></span>
+						<label class="name" for="event-location-select">
+							<?php esc_attr_e( 'Location', 'digisar-events' ); ?>
+						</label>
 						<div class="box-input ">
-							<select multiple="multiple" name="evenType" class="select-location">
+							<select id="event-location-select" multiple="multiple" name="evenLocation" class="select-location">
 								<option value="online">Online</option>
 								<option value="rovaniemi">Rovaniemi</option>
 								<option value="Jyväskylä">Jyväskylä</option>
@@ -70,9 +76,11 @@ get_header();
 					</div>
 					<div class="ev-filter-group">
 						<div class="ev-filter-item fl-showing">
-							<span class="name"><?php esc_attr_e( 'Showing', 'digisar-events' ); ?></span>
+							<label class="name" for="event-showing-select">
+								<?php esc_attr_e( 'Showing', 'digisar-events' ); ?>
+							</label>
 							<div class="box-input">
-								<select multiple="multiple" name="evenType" class="select-showing" data-max="1">
+								<select id="event-showing-select" multiple="multiple" name="evenShowing" class="select-showing" data-max="1">
 									<option value="10">10</option>
 									<option value="20">20</option>
 									<option value="30">30</option>
@@ -85,6 +93,9 @@ get_header();
 							<div class="fl-lang-box">
 								<span class="lang-check" id="lang-check">
 									<i></i>
+									<label for="english-only" class="screen-reader-text">
+										<?php esc_html_e( 'English only', 'digisar-events' ); ?>
+									</label>
 									<input type="checkbox" name="english" id="english-only" hidden>
 								</span>
 								<span class="lang-title"><?php esc_attr_e( 'English only', 'digisar-events' ); ?></span>
