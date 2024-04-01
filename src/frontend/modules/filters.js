@@ -1,3 +1,5 @@
+/* global eventData */
+
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
 
@@ -18,23 +20,39 @@ const handleFilters = () => {
 	const handleFiltersChange = ( e ) => {
 		e.preventDefault();
 
-		const formData = {};
+		const { nonce, ajaxUrl } = eventData;
+
+		const settings = {};
+		settings.action = 'events_search';
+		settings._wpnonce = nonce;
 
 		// Handle selects
 		const selects = filtersForm.querySelectorAll( 'select' );
 		selects.forEach( ( select ) => {
-			formData[ select.name ] = getSelectValues( select );
+			settings[ select.name ] = getSelectValues( select );
 		} );
 
 		// Language checkboxes
 		const langCheckbox = document.getElementById( 'english-only' );
-		formData[ langCheckbox.name ] = langCheckbox.checked;
+		settings[ langCheckbox.name ] = langCheckbox.checked;
 
-		console.log( formData );
+		const formData = new FormData();
+		for ( const key in settings ) {
+			formData.append( key, settings[ key ] );
+		}
 
-		// TODO: dates use the apply.daterangepicker event.
-		// TODO: call AJAX endpoint
-		// TODO: clear form and use the #event-row-template template to load the new data
+		fetch( ajaxUrl, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: formData,
+		} )
+			.then( ( response ) => response.text() )
+			.then( ( responseText ) => {
+				// TODO: dates use the apply.daterangepicker event.
+				// TODO: clear form and use the #event-row-template template to load the new data
+				console.log( 'Server Response: ' + responseText );
+			} )
+			.catch( ( error ) => console.error( 'Error:', error ) );
 	};
 
 	filtersForm.addEventListener( 'change', handleFiltersChange );

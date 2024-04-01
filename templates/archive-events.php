@@ -64,7 +64,7 @@ get_header();
 								<?php esc_attr_e( 'Event Type', 'digisar-events' ); ?>
 							</label>
 							<div class="box-input">
-								<select id="event-type-select" multiple="multiple" name="evenType" class="select-type">
+								<select id="event-type-select" multiple="multiple" name="type" class="select-type">
 									<?php foreach ( $types as $event_type ) : ?>
 										<option value="<?php echo esc_attr( $event_type->slug ); ?>">
 											<?php echo esc_html( $event_type->name ); ?>
@@ -81,7 +81,7 @@ get_header();
 								<?php esc_attr_e( 'Location', 'digisar-events' ); ?>
 							</label>
 							<div class="box-input ">
-								<select id="event-location-select" multiple="multiple" name="evenLocation" class="select-location">
+								<select id="event-location-select" multiple="multiple" name="location" class="select-location">
 									<?php foreach ( $locations as $location ) : ?>
 										<option value="<?php echo esc_attr( $location->slug ); ?>">
 											<?php echo esc_html( $location->name ); ?>
@@ -98,7 +98,7 @@ get_header();
 								<?php esc_attr_e( 'Showing', 'digisar-events' ); ?>
 							</label>
 							<div class="box-input">
-								<select id="event-showing-select" multiple="multiple" name="evenShowing" class="select-showing" data-max="1">
+								<select id="event-showing-select" multiple="multiple" name="per-page" class="select-showing" data-max="1">
 									<option value="10">10</option>
 									<option value="20">20</option>
 									<option value="30">30</option>

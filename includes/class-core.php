@@ -164,5 +164,14 @@ final class Core {
 			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.js' ),
 			true
 		);
+
+		wp_localize_script(
+			'event-scripts',
+			'eventData',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'events-nonce' ),
+			)
+		);
 	}
 }
