@@ -102,6 +102,7 @@ final class Ajax {
 		$types      = filter_input( INPUT_POST, 'type', FILTER_UNSAFE_RAW );
 		$start_date = filter_input( INPUT_POST, 'start_date', FILTER_UNSAFE_RAW );
 		$end_date   = filter_input( INPUT_POST, 'end_date', FILTER_UNSAFE_RAW );
+		$search     = filter_input( INPUT_POST, 'search', FILTER_SANITIZE_STRING );
 
 		$args = array(
 			'post_type'      => PostType\Event::$name,
@@ -162,6 +163,11 @@ final class Ajax {
 
 				$args['meta_query'][] = $date_query;
 			}
+		}
+
+		if ( $search ) {
+			$search = sanitize_text_field( $search );
+			$args['s'] = $search;
 		}
 
 		$events  = new WP_Query( $args );

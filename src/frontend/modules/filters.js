@@ -5,6 +5,7 @@
 
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
+	const searchForm = document.querySelector( '.event__search' );
 	const rowTemplate = document.getElementById( 'event-row-template' );
 
 	if ( ! filtersForm || ! rowTemplate ) {
@@ -100,6 +101,12 @@ const handleFilters = () => {
 			settings.end_date = document.getElementById( 'event-date-end' ).value;
 		}
 
+		// Search
+		const searchInput = document.getElementById( 'event-search' );
+		if ( !! searchInput.value ) {
+			settings.search = searchInput.value;
+		}
+
 		const formData = new FormData();
 		for ( const key in settings ) {
 			formData.append( key, settings[ key ] );
@@ -120,6 +127,7 @@ const handleFilters = () => {
 	};
 
 	filtersForm.addEventListener( 'change', handleFiltersChange );
+	searchForm.addEventListener( 'submit', handleFiltersChange );
 };
 
 export default handleFilters;

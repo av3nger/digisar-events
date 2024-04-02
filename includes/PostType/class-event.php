@@ -111,6 +111,7 @@ final class Event extends CPT {
 		);
 
 		add_filter( 'template_include', array( $this, 'template' ) );
+		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 	}
 
 	/**
@@ -136,5 +137,19 @@ final class Event extends CPT {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Setup the search query.
+	 *
+	 * @param \WP_Query $query The WP_Query instance.
+	 *
+	 * @since 1.0.0
+	 */
+	public function pre_get_posts( \WP_Query $query ): void {
+		$search_term = filter_input( INPUT_GET, 'search', FILTER_SANITIZE_STRING );
+		if ( $search_term && ! is_admin() && $query->is_main_query() && $query->is_post_type_archive( self::$name ) ) {
+			$query->set( 's', $search_term );
+		}
 	}
 }

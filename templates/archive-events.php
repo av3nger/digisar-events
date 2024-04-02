@@ -14,6 +14,7 @@ $locations = Taxonomy\Location::get();
 $types     = Taxonomy\Type::get();
 
 $total_pages = ceil( $wp_query->found_posts / $wp_query->post_count );
+$search_term = $_GET['search'] ?? '';
 
 get_header();
 ?>
@@ -28,7 +29,7 @@ get_header();
 						<label for="event-search" class="screen-reader-text">
 							<?php esc_html_e( 'Search events', 'digisar-events' ); ?>
 						</label>
-						<input type="text" name="search" id="event-search" class="input-text" placeholder="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>">
+						<input type="text" name="search" id="event-search" class="input-text" placeholder="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>" value="<?php echo esc_attr( $search_term ); ?>">
 						<span class="btn-search">
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/btn-search.svg' ); ?>" alt="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>">
 						</span>
