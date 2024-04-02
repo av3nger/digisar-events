@@ -1,7 +1,4 @@
-/* global eventData */
-
-// TODO: add loading state.
-// TODO: dates use the apply.daterangepicker event.
+/* global eventData, jQuery */
 
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
@@ -93,6 +90,20 @@ const handleFilters = () => {
 		const langCheckbox = document.getElementById( 'english-only' );
 		settings[ langCheckbox.name ] = langCheckbox.checked;
 
+		// Datepicker
+		const datePicker = document.getElementById( 'event-date-input' );
+		if ( !! datePicker.value ) {
+			const picker = jQuery( datePicker ).data( 'daterangepicker' );
+			settings.start_date = picker.startDate.format( 'YYYY-MM-DD' );
+			settings.end_date = picker.endDate.format( 'YYYY-MM-DD' );
+		}
+
+		// Search
+		const searchInput = document.getElementById( 'event-search' );
+		if ( !! searchInput.value ) {
+			settings.search = searchInput.value;
+		}
+
 		const formData = new FormData();
 		for ( const key in settings ) {
 			formData.append( key, settings[ key ] );
@@ -113,6 +124,9 @@ const handleFilters = () => {
 	};
 
 	filtersForm.addEventListener( 'change', handleFiltersChange );
+	document
+		.querySelector( '.event__search' )
+		.addEventListener( 'submit', handleFiltersChange );
 };
 
 export default handleFilters;

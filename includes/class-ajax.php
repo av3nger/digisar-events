@@ -63,16 +63,18 @@ final class Ajax {
 	public function events_search(): void {
 		check_ajax_referer( 'events-nonce' );
 
-		$location = filter_input( INPUT_POST, 'location', FILTER_UNSAFE_RAW );
-		$per_page = filter_input( INPUT_POST, 'per-page', FILTER_SANITIZE_NUMBER_INT );
-		$types    = filter_input( INPUT_POST, 'type', FILTER_UNSAFE_RAW );
+		$location   = filter_input( INPUT_POST, 'location', FILTER_UNSAFE_RAW );
+		$per_page   = filter_input( INPUT_POST, 'per-page', FILTER_SANITIZE_NUMBER_INT );
+		$types      = filter_input( INPUT_POST, 'type', FILTER_UNSAFE_RAW );
+		$start_date = filter_input( INPUT_POST, 'start_date', FILTER_UNSAFE_RAW );
+		$end_date   = filter_input( INPUT_POST, 'end_date', FILTER_UNSAFE_RAW );
+		$search     = filter_input( INPUT_POST, 'search', FILTER_SANITIZE_STRING );
 
 		$args = array(
 			'post_type'      => PostType\Event::$name,
 			'posts_per_page' => $per_page ?? 10,
 		);
 
-		// TODO: add support for dates and search strings.
 		// TODO: order by event_start meta field.
 
 		if ( $types ) {
@@ -101,6 +103,36 @@ final class Ajax {
 				'value'   => '1',
 				'compare' => '=',
 			);
+		}
+
+		if ( $start_date ) {
+			$format     = 'Y-m-d';
+			$start_date = date_create_from_format( $format, $start_date );
+			$end_date   = date_create_from_format( $format, $end_date );
+
+			if ( $start_date ) {
+				$date_query = array(
+					'key'     => 'event_start',
+					'value'   => $start_date->format( $format ),
+					'compare' => '=',
+					'type'    => 'DATE',
+				);
+
+				if ( $end_date && $end_date > $start_date ) {
+					$date_query['compare'] = 'BETWEEN';
+					$date_query['value']   = array(
+						$start_date->format( $format ),
+						$end_date->format( $format ),
+					);
+				}
+
+				$args['meta_query'][] = $date_query;
+			}
+		}
+
+		if ( $search ) {
+			$search    = sanitize_text_field( $search );
+			$args['s'] = $search;
 		}
 
 		$events  = new WP_Query( $args );
