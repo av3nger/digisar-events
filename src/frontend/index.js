@@ -32,9 +32,9 @@ import handleFilters from './modules/filters';
 		$( this )
 			.val( `${ startDate } - ${ endDate }` )
 			.siblings( '#event-date-start' )
-			.val( picker.startDate.toISOString() )
+			.val( picker.startDate.format( 'YYYY-MM-DD' ) )
 			.siblings( '#event-date-end' )
-			.val( picker.endDate.toISOString() );
+			.val( picker.endDate.format( 'YYYY-MM-DD' ) );
 
 		$( this )
 			.get( 0 )

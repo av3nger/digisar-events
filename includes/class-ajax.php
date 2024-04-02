@@ -140,14 +140,14 @@ final class Ajax {
 		}
 
 		if ( $start_date ) {
-			$format = 'Y-m-d\TG:i:s.uO'; // moment.js ISO format.
+			$format = 'Y-m-d';
 			$start_date = date_create_from_format( $format, $start_date );
 			$end_date   = date_create_from_format( $format, $end_date );
 
 			if ( $start_date ) {
 				$date_query = array(
 					'key'     => 'event_start',
-					'value'   => $start_date->format( 'Y-m-d' ),
+					'value'   => $start_date->format( $format ),
 					'compare' => '=',
 					'type'    => 'DATE',
 				);
@@ -155,8 +155,8 @@ final class Ajax {
 				if ( $end_date && $end_date > $start_date ) {
 					$date_query['compare'] = 'BETWEEN';
 					$date_query['value']   = array(
-						$start_date->format( 'Y-m-d' ),
-						$end_date->format( 'Y-m-d' ),
+						$start_date->format( $format ),
+						$end_date->format( $format ),
 					);
 				}
 
