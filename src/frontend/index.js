@@ -25,7 +25,20 @@ import handleFilters from './modules/filters';
 	} );
 
 	dateFilter.on( 'apply.daterangepicker', function ( ev, picker ) {
-		$( this ).val( picker.startDate.format( 'MM/DD/YYYY' ) );
+		const format = 'MM/DD/YYYY';
+		const startDate = picker.startDate.format( format );
+		const endDate = picker.endDate.format( format );
+
+		$( this )
+			.val( `${ startDate } - ${ endDate }` )
+			.siblings( '#event-date-start' )
+			.val( picker.startDate.toISOString() )
+			.siblings( '#event-date-end' )
+			.val( picker.endDate.toISOString() );
+
+		$( this )
+			.get( 0 )
+			.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 	} );
 
 	dateFilter.on( 'cancel.daterangepicker', function () {

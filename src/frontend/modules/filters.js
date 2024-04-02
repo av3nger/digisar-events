@@ -93,6 +93,13 @@ const handleFilters = () => {
 		const langCheckbox = document.getElementById( 'english-only' );
 		settings[ langCheckbox.name ] = langCheckbox.checked;
 
+		// Datepicker
+		const datePicker = document.getElementById( 'event-date-input' );
+		if ( !! datePicker.value ) {
+			settings.start_date = document.getElementById( 'event-date-start' ).value;
+			settings.end_date = document.getElementById( 'event-date-end' ).value;
+		}
+
 		const formData = new FormData();
 		for ( const key in settings ) {
 			formData.append( key, settings[ key ] );

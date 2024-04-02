@@ -91,7 +91,10 @@
 		position: relative;
 	}
 
-	& .ev-filter-item.ft-date,
+	& .ev-filter-item.ft-date {
+		width: 26%;
+	}
+
 	& .ev-filter-item.ft-type,
 	& .ev-filter-item.ft-location {
 		width: calc(231.3 / 1040 * 100% );
