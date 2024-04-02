@@ -25,11 +25,11 @@ get_header();
 			<div class="event__heading">
 				<h1><?php esc_html_e( 'List of events', 'digisar-events' ); ?></h1>
 				<div class="event__search-wrapper">
-					<form action="" class="event__search">
+					<form action="" class="event__search" method="get">
 						<label for="event-search" class="screen-reader-text">
 							<?php esc_html_e( 'Search events', 'digisar-events' ); ?>
 						</label>
-						<input type="text" name="search" id="event-search" class="input-text" placeholder="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>" value="<?php echo esc_attr( $search_term ); ?>">
+						<input type="text" name="s" id="event-search" class="input-text" placeholder="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>" value="<?php the_search_query(); ?>">
 						<span class="btn-search">
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/btn-search.svg' ); ?>" alt="<?php esc_attr_e( 'Search', 'digisar-events' ); ?>">
 						</span>
