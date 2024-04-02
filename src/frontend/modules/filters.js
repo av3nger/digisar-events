@@ -1,11 +1,7 @@
-/* global eventData */
-
-// TODO: add loading state.
-// TODO: dates use the apply.daterangepicker event.
+/* global eventData, jQuery */
 
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
-	const searchForm = document.querySelector( '.event__search' );
 	const rowTemplate = document.getElementById( 'event-row-template' );
 
 	if ( ! filtersForm || ! rowTemplate ) {
@@ -97,8 +93,9 @@ const handleFilters = () => {
 		// Datepicker
 		const datePicker = document.getElementById( 'event-date-input' );
 		if ( !! datePicker.value ) {
-			settings.start_date = document.getElementById( 'event-date-start' ).value;
-			settings.end_date = document.getElementById( 'event-date-end' ).value;
+			const picker = jQuery( datePicker ).data( 'daterangepicker' );
+			settings.start_date = picker.startDate.format( 'YYYY-MM-DD' );
+			settings.end_date = picker.endDate.format( 'YYYY-MM-DD' );
 		}
 
 		// Search
@@ -127,7 +124,9 @@ const handleFilters = () => {
 	};
 
 	filtersForm.addEventListener( 'change', handleFiltersChange );
-	searchForm.addEventListener( 'submit', handleFiltersChange );
+	document
+		.querySelector( '.event__search' )
+		.addEventListener( 'submit', handleFiltersChange );
 };
 
 export default handleFilters;

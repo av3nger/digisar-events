@@ -55,8 +55,6 @@ get_header();
 						</label>
 						<div class="box-input">
 							<input type="text" id="event-date-input" name="datefilter" value="" placeholder="<?php esc_attr_e( 'All Events', 'digisar-events' ); ?>"/>
-							<input type="hidden" id="event-date-start" name="datestart" value=""/>
-							<input type="hidden" id="event-date-end" name="dateend" value=""/>
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="<?php esc_attr_e( 'Calendar', 'digisar-events' ); ?>" class="icon-date icon-filter">
 						</div>
 					</div>

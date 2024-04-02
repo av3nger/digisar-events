@@ -109,7 +109,6 @@ final class Ajax {
 			'posts_per_page' => $per_page ?? 10,
 		);
 
-		// TODO: add support for dates and search strings.
 		// TODO: order by event_start meta field.
 
 		if ( $types ) {
@@ -141,7 +140,7 @@ final class Ajax {
 		}
 
 		if ( $start_date ) {
-			$format = 'Y-m-d';
+			$format     = 'Y-m-d';
 			$start_date = date_create_from_format( $format, $start_date );
 			$end_date   = date_create_from_format( $format, $end_date );
 
@@ -166,7 +165,7 @@ final class Ajax {
 		}
 
 		if ( $search ) {
-			$search = sanitize_text_field( $search );
+			$search    = sanitize_text_field( $search );
 			$args['s'] = $search;
 		}
 

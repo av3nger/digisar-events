@@ -25,20 +25,14 @@ import handleFilters from './modules/filters';
 	} );
 
 	dateFilter.on( 'apply.daterangepicker', function ( ev, picker ) {
-		const format = 'MM/DD/YYYY';
+		const format = 'D MMM';
 		const startDate = picker.startDate.format( format );
 		const endDate = picker.endDate.format( format );
 
-		$( this )
-			.val( `${ startDate } - ${ endDate }` )
-			.siblings( '#event-date-start' )
-			.val( picker.startDate.format( 'YYYY-MM-DD' ) )
-			.siblings( '#event-date-end' )
-			.val( picker.endDate.format( 'YYYY-MM-DD' ) );
+		$( this ).val( `${ startDate } - ${ endDate }` );
 
-		$( this )
-			.get( 0 )
-			.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+		const event = new Event( 'change', { bubbles: true } );
+		$( this ).get( 0 ).dispatchEvent( event );
 	} );
 
 	dateFilter.on( 'cancel.daterangepicker', function () {
