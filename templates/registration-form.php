@@ -230,7 +230,6 @@ get_header();
 		color: #fff;
 		display: inline-block;
 		padding: 17px 15px;
-		border-radius: 10px;
 		max-width: 200px;
 		width: 100%;
 		text-align: center;
@@ -251,7 +250,6 @@ get_header();
 		display: flex;
 		position: relative;
 		padding-left: 34px;
-		/*    margin-right: 20px;*/
 	}
 
 	.dv-fields input[type='radio']:checked+label:after {
@@ -267,8 +265,7 @@ get_header();
 
 	.dv-fields input[type=radio]+label:before {
 		content: "";
-		border-color: #bbbbbb;
-		border: solid 2px;
+		border: 2px solid #bbbbbb;
 		width: 16px;
 		position: absolute;
 		left: 0;
@@ -390,7 +387,6 @@ get_header();
 		width: 100%;
 	}
 
-
 	.dv-field-line input::-ms-input-placeholder {
 		color: #ADADAD;
 	}
@@ -433,7 +429,6 @@ get_header();
 	}
 
 	.dv-register .step2 .dv-main-step {
-		padding-bottom: 13px;
 		padding-bottom: 13px;
 	}
 
@@ -895,7 +890,7 @@ get_header();
 
 		.dv-fields input[type=radio]+label:before {
 			left: -2px;
-			top: 0px;
+			top: 0;
 		}
 
 		.dv-label-note.active .dv-err-note {
@@ -1098,7 +1093,7 @@ get_header();
 						<div class="item-field item-field-radio">
 							<div class="dv-label dv-label-note">
 								<h3>Choose a course</h3>
-								<span class="dv-err-note"><img src="assets/image/register/note.svg" alt="Note">Please fill in all fields</span>
+								<span class="dv-err-note"><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/note.svg' ); ?>" alt="Note">Please fill in all fields</span>
 							</div>
 							<div class="dv-fields">
 								<div class="dv-field-row">
@@ -1153,7 +1148,7 @@ get_header();
 										<span class="name">Date</span>
 										<div class="box-input">
 											<input type="text" name="datefilter" value="" placeholder="All Events">
-											<img src="./assets/image/calendar.svg" alt="calendar" class="icon-date icon-filter">
+											<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date icon-filter">
 										</div>
 									</div>
 								</div>
@@ -1170,7 +1165,7 @@ get_header();
 			<div class="dv-step-content step2">
 				<form action="#">
 					<div class="dv-step-head">
-						<h3><img src="assets/image/check-white.svg" alt="Icon">Step 1</h3>
+						<h3><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">Step 1</h3>
 						<p>SFS 6002 training - 7/12/2024</p>
 					</div>
 					<div class="dv-main-step">
@@ -1190,7 +1185,7 @@ get_header();
 									<div class="entry">
 										<label for="your-date-birth">Date of birth*</label>
 										<input type="text" id="your-date-birth" class="dv-required-field" name="datefilter" placeholder="Your Date of birth">
-										<img src="./assets/image/calendar.svg" alt="calendar" class="icon-date">
+										<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date">
 									</div>
 								</div>
 								<div class="dv-field-line dv-field-email-line">
@@ -1266,7 +1261,7 @@ get_header();
 			<div class="dv-step-content step3 dv-confirmed-step">
 				<div class="entry">
 					<div class="dv-confirmed-title">
-						<h1>Confirmed <img src="assets/image/register/cf-check.png" alt="Icon"></h1>
+						<h1>Confirmed <img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/cf-check.png' ); ?>" alt="Icon"></h1>
 						<p>You have successfully registered for the event.</p>
 					</div>
 					<div class="dv-confirmed-content">
@@ -1299,7 +1294,7 @@ get_header();
 	</section>
 	<div class="dv-leave-popup">
 		<div class="inner">
-			<a href="#" class="btn-close-popup"><img src="assets/image/close-x.svg" alt="Close"></a>
+			<a href="#" class="btn-close-popup"><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/close-x.svg' ); ?>" alt="Close"></a>
 			<div class="popup-title">
 				<h3>Are you sure you want to leave this page?</h3>
 				<p>The information you've entered will not be saved.</p>
