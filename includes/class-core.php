@@ -108,7 +108,9 @@ final class Core {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles(): void {
-		if ( ! is_post_type_archive( PostType\Event::$name ) ) {
+		global $wp_query;
+
+		if ( ! is_post_type_archive( PostType\Event::$name ) && ! isset( $wp_query->query_vars['event_register'] ) ) {
 			return;
 		}
 
