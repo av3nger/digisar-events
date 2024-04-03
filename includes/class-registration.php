@@ -31,7 +31,7 @@ final class Registration {
 	 */
 	public function rewrite_rules() {
 		add_rewrite_rule(
-			'^' . PostType\Event::$name . '/([^/]+)/register/?$',
+			'^' . PostType\Event::$name . '/register/?$',
 			'index.php?post_type=' . PostType\Event::$name . '&name=$matches[1]&event_register=1',
 			'top'
 		);

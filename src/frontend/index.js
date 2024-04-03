@@ -5,6 +5,7 @@ import handleSelectsOpenState from './modules/selects';
 import openSearchBox from './modules/open-search';
 import handleSearch from './modules/search';
 import handleFilters from './modules/filters';
+import registration from './modules/registration';
 
 // Init various libraries.
 ( function ( $ ) {
@@ -104,3 +105,4 @@ document.addEventListener( 'DOMContentLoaded', languageCheck );
 document.addEventListener( 'DOMContentLoaded', handleSelectsOpenState );
 document.addEventListener( 'DOMContentLoaded', handleSearch );
 document.addEventListener( 'DOMContentLoaded', handleFilters );
+document.addEventListener( 'DOMContentLoaded', registration );
