@@ -58,6 +58,7 @@ final class Events {
 		( new Core() )->init();
 		new Admin();
 		new Ajax();
+		new Registration();
 	}
 
 	/**
