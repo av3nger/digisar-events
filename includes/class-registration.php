@@ -8,7 +8,6 @@
 
 namespace Digisar;
 
-use Digisar\PostType\Event;
 use WP_Error;
 use WP_Post;
 
@@ -114,28 +113,35 @@ final class Registration {
 		}
 
 		$user_data = array(
-			'user_login'   => $this->generate_user_login( $email ),
+			'user_login'   => $email,
 			'user_pass'    => wp_generate_password( 16 ),
 			'user_email'   => $email,
 			'display_name' => sanitize_text_field( $nice_name ),
 			'role'         => 'event_participant',
 		);
 
-		$new_user_id = $this->register_user( $user_data );
-
-		if ( is_wp_error( $new_user_id ) ) {
-			$result = array(
-				'success' => false,
-				'data'    => $new_user_id->get_error_message(),
-			);
-			wp_send_json_error( $result );
+		$existing_user = username_exists( $email );
+		if ( $existing_user ) {
+			$user_id = $existing_user;
 		} else {
-			// TODO: map user to event.
-			$this->save_user_meta( $new_user_id );
-			$this->notify_user( $user_data, $event );
+			$user_id = $this->register_user( $user_data );
 
-			wp_send_json_success();
+			if ( is_wp_error( $user_id ) ) {
+				$result = array(
+					'success' => false,
+					'data'    => $user_id->get_error_message(),
+				);
+
+				wp_send_json_error( $result );
+				return;
+			}
 		}
+
+		$this->update_participants( $user_id, $event->ID );
+		$this->save_user_meta( $user_id );
+		$this->notify_user( $user_data, $event );
+
+		wp_send_json_success();
 	}
 
 	/**
@@ -209,27 +215,6 @@ final class Registration {
 	}
 
 	/**
-	 * Generate a unique user login.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $email User email.
-	 *
-	 * @return string
-	 */
-	private function generate_user_login( string $email ): string {
-		$login      = explode( '@', $email );
-		$user_login = $login[0];
-
-		// If username already exists, use email as it is.
-		if ( username_exists( $user_login ) ) {
-			$user_login = $email;
-		}
-
-		return sanitize_user( $user_login );
-	}
-
-	/**
 	 * Verify the captcha response.
 	 *
 	 * @since 1.0.0
@@ -255,6 +240,24 @@ final class Registration {
 		if ( true !== $response->success ) {
 			wp_send_json_error( array( 'data' => __( 'Captcha verification failed.', 'digisar-events' ) ) );
 		}
+	}
+
+	/**
+	 * Update participants list.
+	 *
+	 * @param int $user_id  User ID.
+	 * @param int $event_id Event ID.
+	 */
+	private function update_participants( int $user_id, int $event_id ) {
+		$participants = get_post_meta( $event_id, 'event_participants', true );
+
+		if ( empty( $participants ) ) {
+			$participants = array( $user_id );
+		} elseif ( ! in_array( $user_id, $participants, true ) ) {
+			$participants[] = $user_id;
+		}
+
+		update_post_meta( $event_id, 'event_participants', $participants );
 	}
 
 	/**
@@ -307,7 +310,7 @@ final class Registration {
 		);
 
 		// Body of the email.
-		$message  = '<html><body>';
+		$message  = '<html lang="en"><body>';
 		$message .= "<h1>Hi $name!</h1>";
 		$message .= "<p>We're excited to invite you to our special event $event->post_title. For more details, please click the link below:</p>";
 		$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
