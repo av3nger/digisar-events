@@ -7,12 +7,20 @@
  */
 
 use Digisar\PostType;
+use Digisar\Taxonomy;
 
 $event_id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 
 $event = get_post( $event_id );
 if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
 	wp_safe_redirect( get_post_type_archive_link( PostType\Event::$name ) );
+}
+
+$courses = Taxonomy\Course::get();
+$course  = get_the_terms( $event_id, Taxonomy\Course::$name );
+
+if ( ! empty( $course ) && is_a( $course[0], 'WP_Term' ) ) {
+	$selected_course = $course[0]->slug;
 }
 
 get_header();
@@ -53,48 +61,22 @@ get_header();
 									<?php esc_html_e( 'Please fill in all fields', 'digisar-events' ); ?>
 								</span>
 							</div>
-							<div class="dv-fields">
-								<div class="dv-field-row">
-									<input type="radio" id="sfs" name="course" value="SFS 6002 training: €290/person">
-									<label for="sfs">
-										<span class="label-title">SFS 6002 training</span> <span class="label-price">€290/person</span></label>
+							<?php if ( ! empty( $courses ) ) : ?>
+								<div class="dv-fields">
+									<?php foreach ( $courses as $course ) : ?>
+										<?php $price = get_term_meta( $course->term_id, 'course_price', true ); ?>
+										<div class="dv-field-row">
+											<input type="radio" id="<?php echo esc_attr( $course->slug ); ?>" name="course" value="<?php echo esc_attr( $course->name ); ?>" <?php checked( $selected_course ?? '', $course->slug ); ?>>
+											<label for="<?php echo esc_attr( $course->slug ); ?>">
+												<span class="label-title"><?php echo esc_html( $course->name ); ?></span>
+												<?php if ( ! empty( $price ) ) : ?>
+													<span class="label-price">€<?php echo esc_html( $price ); ?>/<?php esc_html_e( 'person', 'digisar-events' ); ?></span>
+												<?php endif; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
 								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="sfsen" name="course" value="SFS 6002 in English: €310/person">
-									<label for="sfsen">
-										<span class="label-title">SFS 6002 in English</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="voltage" name="course" value="Voltage work: €350/person">
-									<label for="voltage">
-										<span class="label-title">Voltage work </span><span class="label-price">€350/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="fire" name="course" value="Fire work: €119/person">
-									<label for="fire">
-										<span class="label-title">Fire work</span> <span class="label-price">€119/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="satky" name="course" value="Sätky: €310/person">
-									<label for="satky">
-										<span class="label-title">Sätky</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="occupational" name="course" value="Occupational safety: €85/person">
-									<label for="occupational">
-										<span class="label-title">Occupational safety</span> <span class="label-price">€85/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="industrial" name="course" value="Industrial accommodation: €310/person">
-									<label for="industrial">
-										<span class="label-title">Industrial accommodation</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="first-aid" name="course" value="First aid 4 hours: €115/person">
-									<label for="first-aid">
-										<span class="label-title">First aid 4 hours</span> <span class="label-price">€115/person</span></label>
-								</div>
-							</div>
+							<?php endif; ?>
 						</div>
 						<div class="item-field item-field-date ev-filters">
 							<div class="dv-label">
