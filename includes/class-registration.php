@@ -116,6 +116,7 @@ final class Registration {
 			'user_login'   => $email,
 			'user_pass'    => wp_generate_password( 16 ),
 			'user_email'   => $email,
+			'first_name'   => sanitize_text_field( $nice_name ),
 			'display_name' => sanitize_text_field( $nice_name ),
 			'role'         => 'event_participant',
 		);

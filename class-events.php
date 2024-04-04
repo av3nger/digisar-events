@@ -63,6 +63,7 @@ final class Events {
 		new Admin();
 		new Ajax();
 		new Registration();
+		new Users();
 	}
 
 	/**
