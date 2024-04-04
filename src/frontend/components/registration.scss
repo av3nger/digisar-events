@@ -238,7 +238,7 @@
 			margin-top: 21px;
 		}
 
-		& .dv-action-step a.btn-next {
+		& .dv-action-step .btn-next {
 			margin-left: 44px;
 
 			@media screen and (max-width: 767px) {
@@ -609,7 +609,8 @@
 			text-align: center;
 		}
 
-		& a {
+		& a,
+		& button {
 			font-size: 1.125rem;
 			text-decoration: none;
 			transition: all .5s ease;
@@ -629,14 +630,18 @@
 
 			&.btn-next {
 				background: var(--color--red);
+				border: 0;
 				border-radius: 4px;
 				color: var(--color--white);
 				display: inline-block;
 				font-weight: 700;
+				line-height: inherit;
+				margin-bottom: 0;
 				margin-left: 35px;
 				max-width: 200px;
 				padding: 17px 15px;
 				text-align: center;
+				text-transform: none;
 				width: 100%;
 
 				@media screen and (max-width: 767px) {

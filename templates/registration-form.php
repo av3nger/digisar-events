@@ -38,8 +38,8 @@ get_header();
 	</section>
 	<section class="entry-main">
 		<div class="container">
-			<div class="event__registration-step step1 show">
-				<form action="#">
+			<form action="#" id="event__registration-form">
+				<div class="event__registration-step step1 show">
 					<div class="dv-main-step">
 						<div class="dv-step-title">
 							<h2><?php esc_html_e( 'Step 1 - Event information', 'digisar-events' ); ?></h2>
@@ -117,11 +117,9 @@ get_header();
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
 						<a href="#" class="btn-next"><?php esc_html_e( 'Next', 'digisar-events' ); ?></a>
 					</div>
-				</form>
-			</div>
+				</div>
 
-			<div class="event__registration-step step2">
-				<form action="#">
+				<div class="event__registration-step step2">
 					<div class="dv-step-head">
 						<h3>
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">
@@ -214,10 +212,12 @@ get_header();
 					</div>
 					<div class="dv-action-step">
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
-						<a href="#" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></a>
+						<button type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
+
+
 			<div class="event__registration-step step3 dv-confirmed-step">
 				<div class="entry">
 					<div class="dv-confirmed-title">

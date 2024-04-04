@@ -16,10 +16,18 @@ const registration = () => {
 	} );
 
 	jQuery( '.event__registration .step2 .btn-next' ).click( ( e ) => {
-		e.preventDefault();
-		jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
-		jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
-		jQuery( '.step3-click' ).addClass( 'active' );
+		const form = jQuery( '#event__registration-form' );
+
+		// Check if the form is valid.
+		if ( form.checkValidity() && form.reportValidity() ) {
+			// If the form is valid, proceed with hiding and showing steps.
+			jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
+			jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
+			jQuery( '.step3-click' ).addClass( 'active' );
+		} else {
+			// If the form is not valid, prevent the button's default behavior.
+			e.preventDefault();
+		}
 	} );
 
 	jQuery( '.event__registration .step3 .confirmed-back' ).click( ( e ) => {
