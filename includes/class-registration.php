@@ -98,11 +98,12 @@ final class Registration {
 		check_ajax_referer( 'events-nonce' );
 
 		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
+		$email     = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
 
 		$user_data = array(
-			//'user_login'   => TODO: required.
+			'user_login'   => $this->generate_user_login( $email ),
 			'user_pass'    => wp_generate_password( 16 ),
-			'user_email'   => filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL ),
+			'user_email'   => $email,
 			'display_name' => sanitize_text_field( $nice_name ),
 			'role'         => 'event_participant',
 		);
@@ -154,5 +155,25 @@ final class Registration {
 		add_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
 
 		return $user_id;
+	}
+
+	/**
+	 * Generate a unique user login.
+	 *
+	 * @param string $email User email.
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+	private function generate_user_login( string $email ): string {
+		$login      = explode( '@', $email );
+		$user_login = $login[0];
+
+		// If username already exists, use email as it is.
+		if ( username_exists( $user_login ) ) {
+			$user_login = $email;
+		}
+
+		return sanitize_user( $user_login );
 	}
 }
