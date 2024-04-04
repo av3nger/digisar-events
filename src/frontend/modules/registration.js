@@ -25,6 +25,11 @@ const registration = () => {
 			return;
 		}
 
+		const btnSubmit = document.getElementById( 'sumit-step2' );
+		const btnText = btnSubmit.innerText;
+		btnSubmit.innerText = 'Registering...';
+		btnSubmit.disabled = true;
+
 		const recaptcha = document.getElementById( 'recaptcha' );
 		const captcha = await grecaptcha.execute( recaptcha.dataset.widgetId );
 
@@ -51,6 +56,9 @@ const registration = () => {
 						`<div class="dv-message error">${ response.data.data }</div>`
 					);
 				}
+
+				btnSubmit.innerText = btnText;
+				btnSubmit.disabled = false;
 			} )
 			.catch( window.console.error );
 	} );
