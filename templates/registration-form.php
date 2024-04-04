@@ -87,9 +87,9 @@ get_header();
 							<div class="dv-fields dv-date-field">
 								<div class="dv-field-row">
 									<div class="ev-filter-item ft-date">
-										<span class="name"><?php esc_html_e( 'Date', 'digisar-events' ); ?></span>
+										<label class="name" for="date-input-field"><?php esc_html_e( 'Date', 'digisar-events' ); ?></label>
 										<div class="box-input">
-											<input type="text" name="datefilter" value="" placeholder="All Events">
+											<input type="text" name="datefilter" id="date-input-field" value="" placeholder="All Events">
 											<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date icon-filter">
 										</div>
 									</div>
@@ -98,8 +98,8 @@ get_header();
 						</div>
 					</div>
 					<div class="dv-action-step">
-						<a href="#" class="btn-cancel">Cancel</a>
-						<a href="#" class="btn-next">Next</a>
+						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
+						<a href="#" class="btn-next"><?php esc_html_e( 'Next', 'digisar-events' ); ?></a>
 					</div>
 				</form>
 			</div>
@@ -107,40 +107,42 @@ get_header();
 			<div class="event__registration-step step2">
 				<form action="#">
 					<div class="dv-step-head">
-						<h3><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">Step 1</h3>
+						<h3>
+							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">
+							<?php esc_html_e( 'Step 1', 'digisar-events' ); ?>
+						</h3>
 						<p>SFS 6002 training - 7/12/2024</p>
 					</div>
 					<div class="dv-main-step">
 						<div class="dv-step-title">
-							<h2>Step 2 - Personal information</h2>
-							<p class="err-note">*-Fields are required to be filled in</p>
+							<h2><?php esc_html_e( 'Step 2 - Personal information', 'digisar-events' ); ?></h2>
+							<p class="err-note"><?php esc_html_e( '*-Fields are required to be filled in', 'digisar-events' ); ?></p>
 						</div>
 						<div class="item-field">
 							<div class="dv-fields-style2">
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="your-name">Name (First and Last name)*</label>
-										<input type="text" id="your-name" class="dv-required-field" name="your-name" placeholder="Your name">
+										<label for="your-name"><?php esc_html_e( 'Name (First and Last name)', 'digisar-events' ); ?>*</label>
+										<input type="text" id="your-name" class="dv-required-field" name="your-name" placeholder="<?php esc_attr_e( 'Your name', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="your-date-birth">Date of birth*</label>
-										<input type="text" id="your-date-birth" class="dv-required-field" name="datefilter" placeholder="Your Date of birth">
+										<label for="your-date-birth"><?php esc_html_e( 'Date of birth', 'digisar-events' ); ?>*</label>
+										<input type="text" id="your-date-birth" class="dv-required-field" name="datefilter" placeholder="<?php esc_attr_e( 'Your Date of birth', 'digisar-events' ); ?>">
 										<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date">
 									</div>
 								</div>
 								<div class="dv-field-line dv-field-email-line">
 									<div class="entry">
-										<label for="your-email">E-mail*</label>
-										<input type="email" id="your-email" class="dv-required-field" name="your-email" placeholder="Your E-mail">
-										<!-- <span class="dv-error-bk">Enter the correct e-mail</span> -->
+										<label for="your-email"><?php esc_html_e( 'E-mail', 'digisar-events' ); ?>*</label>
+										<input type="email" id="your-email" class="dv-required-field" name="your-email" placeholder="<?php esc_attr_e( 'Your E-mail', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line dv-field-phone-line">
 									<div class="entry">
-										<label for="your-telephone">Telephone number*</label>
-										<input type="text" id="your-telephone" class="dv-required-field" name="your-telephone" placeholder="Your Telephone number">
+										<label for="your-telephone"><?php esc_html_e( 'Telephone number', 'digisar-events' ); ?>*</label>
+										<input type="text" id="your-telephone" class="dv-required-field" name="your-telephone" placeholder="<?php esc_attr_e( 'Your Telephone number', 'digisar-events' ); ?>">
 									</div>
 								</div>
 							</div>
@@ -149,86 +151,86 @@ get_header();
 							<div class="dv-fields-style2">
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="company">Company</label>
-										<input type="text" id="company" name="company" placeholder="Company Name">
+										<label for="company"><?php esc_html_e( 'Company', 'digisar-events' ); ?></label>
+										<input type="text" id="company" name="company" placeholder="<?php esc_attr_e( 'Company Name', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="bill-email">Billing address*</label>
-										<input type="text" id="bill-email" class="dv-required-field" name="bill-email" placeholder="Your E-mail">
+										<label for="bill-email"><?php esc_html_e( 'Billing address', 'digisar-events' ); ?>*</label>
+										<input type="text" id="bill-email" class="dv-required-field" name="bill-email" placeholder="<?php esc_attr_e( 'Your E-mail', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-lines dv-field-line">
 									<div class="dv-field-line">
 										<div class="entry">
-											<label for="zip-code">ZIP code*</label>
-											<input type="text" id="zip-code" class="dv-required-field" name="zip-code" placeholder="ZIP code">
+											<label for="zip-code"><?php esc_html_e( 'ZIP code', 'digisar-events' ); ?>*</label>
+											<input type="text" id="zip-code" class="dv-required-field" name="zip-code" placeholder="<?php esc_attr_e( 'ZIP code', 'digisar-events' ); ?>">
 										</div>
 									</div>
 									<div class="dv-field-line">
 										<div class="entry">
-											<label for="postal">Postal district*</label>
-											<input type="text" id="postal" class="dv-required-field" name="postal" placeholder="Postal district">
+											<label for="postal"><?php esc_html_e( 'Postal district', 'digisar-events' ); ?>*</label>
+											<input type="text" id="postal" class="dv-required-field" name="postal" placeholder="<?php esc_attr_e( 'Postal district', 'digisar-events' ); ?>">
 										</div>
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="delivery-address">Delivery address</label>
-										<input type="text" id="delivery-address" name="delivery-address" placeholder="Delivery address">
+										<label for="delivery-address"><?php esc_html_e( 'Delivery address', 'digisar-events' ); ?></label>
+										<input type="text" id="delivery-address" name="delivery-address" placeholder="<?php esc_attr_e( 'Delivery address', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="invoicing-information">Invoicing information</label>
-										<input type="text" id="invoicing-information" name="invoicing-information" placeholder="in writing, no attachment">
+										<label for="invoicing-information"><?php esc_html_e( 'Invoicing information', 'digisar-events' ); ?></label>
+										<input type="text" id="invoicing-information" name="invoicing-information" placeholder="<?php esc_attr_e( 'in writing, no attachment', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="additional-information">Additional information</label>
-										<input type="text" id="additional-information" name="additional-information" placeholder="Special diets and more">
+										<label for="additional-information"><?php esc_html_e( 'Additional information', 'digisar-events' ); ?></label>
+										<input type="text" id="additional-information" name="additional-information" placeholder="<?php esc_attr_e( 'Special diets and more', 'digisar-events' ); ?>">
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="dv-action-step">
-						<a href="#" class="btn-cancel">Cancel</a>
-						<a href="#" class="btn-next">Register now</a>
+						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
+						<a href="#" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></a>
 					</div>
 				</form>
 			</div>
 			<div class="event__registration-step step3 dv-confirmed-step">
 				<div class="entry">
 					<div class="dv-confirmed-title">
-						<h1>Confirmed <img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/cf-check.png' ); ?>" alt="Icon"></h1>
-						<p>You have successfully registered for the event.</p>
+						<h1><?php esc_html_e( 'Confirmed', 'digisar-events' ); ?> <img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/cf-check.png' ); ?>" alt="Icon"></h1>
+						<p><?php esc_html_e( 'You have successfully registered for the event.', 'digisar-events' ); ?></p>
 					</div>
 					<div class="dv-confirmed-content">
 						<ul>
 							<li>
-								<p class="label">Event Name</p>
+								<p class="label"><?php esc_html_e( 'Event Name', 'digisar-events' ); ?></p>
 								<p class="val">SFS 6002 training</p>
 							</li>
 							<li>
-								<p class="label">Date</p>
+								<p class="label"><?php esc_html_e( 'Date', 'digisar-events' ); ?></p>
 								<p class="val">7/12/2024</p>
 							</li>
 							<li>
-								<p class="label">Place of event</p>
+								<p class="label"><?php esc_html_e( 'Place of event', 'digisar-events' ); ?></p>
 								<p class="val">Oulu</p>
 							</li>
 							<li>
-								<p class="label">Price</p>
-								<p class="val">€290/person</p>
+								<p class="label"><?php esc_html_e( 'Price', 'digisar-events' ); ?></p>
+								<p class="val">€290/<?php esc_html_e( 'person', 'digisar-events' ); ?></p>
 							</li>
 						</ul>
 					</div>
 					<div class="dv-confirmed-action">
-						<a href="#" class="confirmed-add">Add to Calendar</a>
-						<a href="#" class="confirmed-back">Back to home</a>
+						<a href="#" class="confirmed-add"><?php esc_html_e( 'Add to Calendar', 'digisar-events' ); ?></a>
+						<a href="#" class="confirmed-back"><?php esc_html_e( 'Back to home', 'digisar-events' ); ?></a>
 					</div>
 				</div>
 			</div>
