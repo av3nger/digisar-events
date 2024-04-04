@@ -48,7 +48,6 @@ registerBlockType( metadata.name, {
 				eventEnd: getEditedPostAttribute( 'meta' ).event_end,
 				inEnglish: getEditedPostAttribute( 'meta' ).event_in_english,
 				participants: participants ? participants.length : 0,
-				price: getEditedPostAttribute( 'meta' ).event_price,
 				seats: getEditedPostAttribute( 'meta' ).event_seats,
 			};
 		} ),
@@ -64,8 +63,6 @@ registerBlockType( metadata.name, {
 					editPost( { meta: { event_end: eventEnd } } ),
 				setSeats: ( seats ) =>
 					editPost( { meta: { event_seats: parseInt( seats ) } } ),
-				setPrice: ( price ) =>
-					editPost( { meta: { event_price: price } } ),
 			};
 		} ),
 	] )( Edit ),

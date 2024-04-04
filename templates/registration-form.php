@@ -7,6 +7,7 @@
  */
 
 use Digisar\PostType;
+use Digisar\Taxonomy;
 
 $event_id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 
@@ -14,6 +15,19 @@ $event = get_post( $event_id );
 if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
 	wp_safe_redirect( get_post_type_archive_link( PostType\Event::$name ) );
 }
+
+$courses = Taxonomy\Course::get();
+$course  = get_the_terms( $event_id, Taxonomy\Course::$name );
+
+if ( ! empty( $course ) && is_a( $course[0], 'WP_Term' ) ) {
+	$selected_course = $course[0]->slug;
+	$event_price     = get_term_meta( $course[0]->term_id, 'course_price', true );
+}
+
+$event_start = get_post_meta( $event_id, 'event_start', true );
+$event_start = empty( $event_start ) ? '' : gmdate( 'm-j-Y', strtotime( $event_start ) );
+
+$event_location = get_the_terms( $event_id, Taxonomy\Location::$name );
 
 get_header();
 ?>
@@ -39,6 +53,7 @@ get_header();
 	<section class="entry-main">
 		<div class="container">
 			<form action="#" id="event__registration-form">
+				<?php wp_nonce_field( 'events-nonce' ); ?>
 				<div class="event__registration-step step1 show">
 					<div class="dv-main-step">
 						<div class="dv-step-title">
@@ -53,48 +68,22 @@ get_header();
 									<?php esc_html_e( 'Please fill in all fields', 'digisar-events' ); ?>
 								</span>
 							</div>
-							<div class="dv-fields">
-								<div class="dv-field-row">
-									<input type="radio" id="sfs" name="course" value="SFS 6002 training: €290/person">
-									<label for="sfs">
-										<span class="label-title">SFS 6002 training</span> <span class="label-price">€290/person</span></label>
+							<?php if ( ! empty( $courses ) ) : ?>
+								<div class="dv-fields">
+									<?php foreach ( $courses as $course ) : ?>
+										<?php $price = get_term_meta( $course->term_id, 'course_price', true ); ?>
+										<div class="dv-field-row">
+											<input type="radio" id="<?php echo esc_attr( $course->slug ); ?>" name="course" value="<?php echo esc_attr( $course->name ); ?>" <?php checked( $selected_course ?? '', $course->slug ); ?>>
+											<label for="<?php echo esc_attr( $course->slug ); ?>">
+												<span class="label-title"><?php echo esc_html( $course->name ); ?></span>
+												<?php if ( ! empty( $price ) ) : ?>
+													<span class="label-price">€<?php echo esc_html( $price ); ?>/<?php esc_html_e( 'person', 'digisar-events' ); ?></span>
+												<?php endif; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
 								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="sfsen" name="course" value="SFS 6002 in English: €310/person">
-									<label for="sfsen">
-										<span class="label-title">SFS 6002 in English</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="voltage" name="course" value="Voltage work: €350/person">
-									<label for="voltage">
-										<span class="label-title">Voltage work </span><span class="label-price">€350/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="fire" name="course" value="Fire work: €119/person">
-									<label for="fire">
-										<span class="label-title">Fire work</span> <span class="label-price">€119/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="satky" name="course" value="Sätky: €310/person">
-									<label for="satky">
-										<span class="label-title">Sätky</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="occupational" name="course" value="Occupational safety: €85/person">
-									<label for="occupational">
-										<span class="label-title">Occupational safety</span> <span class="label-price">€85/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="industrial" name="course" value="Industrial accommodation: €310/person">
-									<label for="industrial">
-										<span class="label-title">Industrial accommodation</span> <span class="label-price">€310/person</span></label>
-								</div>
-								<div class="dv-field-row">
-									<input type="radio" id="first-aid" name="course" value="First aid 4 hours: €115/person">
-									<label for="first-aid">
-										<span class="label-title">First aid 4 hours</span> <span class="label-price">€115/person</span></label>
-								</div>
-							</div>
+							<?php endif; ?>
 						</div>
 						<div class="item-field item-field-date ev-filters">
 							<div class="dv-label">
@@ -105,7 +94,14 @@ get_header();
 									<div class="ev-filter-item ft-date">
 										<label class="name" for="date-input-field"><?php esc_html_e( 'Date', 'digisar-events' ); ?></label>
 										<div class="box-input">
-											<input type="text" name="datefilter" id="date-input-field" value="" placeholder="All Events">
+											<input
+												type="text"
+												name="datefilter"
+												id="date-input-field"
+												value="<?php echo esc_attr( $event_start ); ?>"
+												placeholder="<?php esc_attr_e( 'All Events', 'digisar-events' ); ?>"
+												data-single="true"
+											>
 											<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date icon-filter">
 										</div>
 									</div>
@@ -125,7 +121,7 @@ get_header();
 							<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">
 							<?php esc_html_e( 'Step 1', 'digisar-events' ); ?>
 						</h3>
-						<p>SFS 6002 training - 7/12/2024</p>
+						<p><?php echo esc_html( get_the_title( $event->ID ) ); ?> - <?php echo esc_html( $event_start ); ?></p>
 					</div>
 					<div class="dv-main-step">
 						<div class="dv-step-title">
@@ -136,27 +132,59 @@ get_header();
 							<div class="dv-fields-style2">
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="your-name"><?php esc_html_e( 'Name (First and Last name)', 'digisar-events' ); ?>*</label>
-										<input type="text" id="your-name" class="dv-required-field" name="your-name" placeholder="<?php esc_attr_e( 'Your name', 'digisar-events' ); ?>" required>
+										<label for="participant-name">
+											<?php esc_html_e( 'Name (First and Last name)', 'digisar-events' ); ?>*
+										</label>
+										<input
+											type="text"
+											id="participant-name"
+											name="name"
+											placeholder="<?php esc_attr_e( 'Your name', 'digisar-events' ); ?>"
+											required
+										>
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="your-date-birth"><?php esc_html_e( 'Date of birth', 'digisar-events' ); ?>*</label>
-										<input type="text" id="your-date-birth" class="dv-required-field" name="datefilter" placeholder="<?php esc_attr_e( 'Your Date of birth', 'digisar-events' ); ?>" required>
+										<label for="participant-dob">
+											<?php esc_html_e( 'Date of birth', 'digisar-events' ); ?>*
+										</label>
+										<input
+											type="date"
+											id="participant-dob"
+											name="dob"
+											placeholder="<?php esc_attr_e( 'Your Date of birth', 'digisar-events' ); ?>"
+											required
+										>
 										<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date">
 									</div>
 								</div>
 								<div class="dv-field-line dv-field-email-line">
 									<div class="entry">
-										<label for="your-email"><?php esc_html_e( 'E-mail', 'digisar-events' ); ?>*</label>
-										<input type="email" id="your-email" class="dv-required-field" name="your-email" placeholder="<?php esc_attr_e( 'Your E-mail', 'digisar-events' ); ?>" required>
+										<label for="participant-email">
+											<?php esc_html_e( 'E-mail', 'digisar-events' ); ?>*
+										</label>
+										<input
+											type="email"
+											id="participant-email"
+											name="email"
+											placeholder="<?php esc_attr_e( 'Your E-mail', 'digisar-events' ); ?>"
+											required
+										>
 									</div>
 								</div>
 								<div class="dv-field-line dv-field-phone-line">
 									<div class="entry">
-										<label for="your-telephone"><?php esc_html_e( 'Telephone number', 'digisar-events' ); ?>*</label>
-										<input type="text" id="your-telephone" class="dv-required-field" name="your-telephone" placeholder="<?php esc_attr_e( 'Your Telephone number', 'digisar-events' ); ?>" required>
+										<label for="participant-phone">
+											<?php esc_html_e( 'Telephone number', 'digisar-events' ); ?>*
+										</label>
+										<input
+											type="text"
+											id="participant-phone"
+											name="phone"
+											placeholder="<?php esc_attr_e( 'Your Telephone number', 'digisar-events' ); ?>"
+											required
+										>
 									</div>
 								</div>
 							</div>
@@ -172,20 +200,20 @@ get_header();
 								<div class="dv-field-line">
 									<div class="entry">
 										<label for="bill-email"><?php esc_html_e( 'Billing address', 'digisar-events' ); ?>*</label>
-										<input type="text" id="bill-email" class="dv-required-field" name="bill-email" placeholder="<?php esc_attr_e( 'Billing address', 'digisar-events' ); ?>" required>
+										<input type="text" id="bill-email" name="bill-email" placeholder="<?php esc_attr_e( 'Billing address', 'digisar-events' ); ?>" required>
 									</div>
 								</div>
 								<div class="dv-field-lines dv-field-line">
 									<div class="dv-field-line">
 										<div class="entry">
 											<label for="zip-code"><?php esc_html_e( 'ZIP code', 'digisar-events' ); ?>*</label>
-											<input type="text" id="zip-code" class="dv-required-field" name="zip-code" placeholder="<?php esc_attr_e( 'ZIP code', 'digisar-events' ); ?>" required>
+											<input type="text" id="zip-code" name="zip" placeholder="<?php esc_attr_e( 'ZIP code', 'digisar-events' ); ?>" required>
 										</div>
 									</div>
 									<div class="dv-field-line">
 										<div class="entry">
 											<label for="postal"><?php esc_html_e( 'Postal district', 'digisar-events' ); ?>*</label>
-											<input type="text" id="postal" class="dv-required-field" name="postal" placeholder="<?php esc_attr_e( 'Postal district', 'digisar-events' ); ?>" required>
+											<input type="text" id="postal" name="postal" placeholder="<?php esc_attr_e( 'Postal district', 'digisar-events' ); ?>" required>
 										</div>
 									</div>
 								</div>
@@ -228,20 +256,26 @@ get_header();
 						<ul>
 							<li>
 								<p class="label"><?php esc_html_e( 'Event Name', 'digisar-events' ); ?></p>
-								<p class="val">SFS 6002 training</p>
+								<p class="val"><?php echo esc_html( get_the_title( $event->ID ) ); ?></p>
 							</li>
-							<li>
-								<p class="label"><?php esc_html_e( 'Date', 'digisar-events' ); ?></p>
-								<p class="val">7/12/2024</p>
-							</li>
-							<li>
-								<p class="label"><?php esc_html_e( 'Place of event', 'digisar-events' ); ?></p>
-								<p class="val">Oulu</p>
-							</li>
-							<li>
-								<p class="label"><?php esc_html_e( 'Price', 'digisar-events' ); ?></p>
-								<p class="val">€290/<?php esc_html_e( 'person', 'digisar-events' ); ?></p>
-							</li>
+							<?php if ( ! empty( $event_start ) ) : ?>
+								<li>
+									<p class="label"><?php esc_html_e( 'Date', 'digisar-events' ); ?></p>
+									<p class="val"><?php echo esc_html( $event_start ); ?></p>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $event_location ) && is_a( $event_location[0], 'WP_Term' ) ) : ?>
+								<li>
+									<p class="label"><?php esc_html_e( 'Place of event', 'digisar-events' ); ?></p>
+									<p class="val"><?php echo esc_html( $event_location[0]->name ); ?></p>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $event_price ) ) : ?>
+								<li>
+									<p class="label"><?php esc_html_e( 'Price', 'digisar-events' ); ?></p>
+									<p class="val">€<?php echo esc_html( $event_price ); ?>/<?php esc_html_e( 'person', 'digisar-events' ); ?></p>
+								</li>
+							<?php endif; ?>
 						</ul>
 					</div>
 					<div class="dv-confirmed-action">
