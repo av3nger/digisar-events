@@ -25,6 +25,7 @@ final class Registration {
 		add_action( 'init', array( $this, 'rewrite_rules' ) );
 		add_action( 'init', array( $this, 'participant_role' ) );
 		add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		if ( wp_doing_ajax() ) {
 			add_action( 'wp_ajax_register_for_event', array( $this, 'register' ) );
@@ -97,6 +98,8 @@ final class Registration {
 	public function register() {
 		check_ajax_referer( 'events-nonce' );
 
+		$this->validate_captcha();
+
 		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
 		$email     = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
 
@@ -121,6 +124,45 @@ final class Registration {
 			// TODO: store all user data in meta.
 			wp_send_json_success();
 		}
+	}
+
+	/**
+	 * Enqueue scripts for the registration form captcha.
+	 *
+	 * @since 1.0.0
+	 */
+	public function enqueue_scripts() {
+
+		if ( boolval( get_query_var( 'event_register' ) ) !== true ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'g-recaptcha',
+			'https://www.google.com/recaptcha/api.js?onload=digisarRecaptchaInit&render=explicit',
+			array(),
+			false,
+			array(
+				'strategy' => 'defer',
+				'in_footer' => true,
+			)
+		);
+
+		wp_add_inline_script(
+			'g-recaptcha',
+			'var digisarRecaptchaInit = function() {
+				var recaptcha = document.getElementById( "recaptcha" );
+				var widgetId = grecaptcha.render(
+					"recaptcha",
+					{
+						sitekey: recaptcha.dataset.sitekey,
+						size: "invisible",
+						callback: function(){}
+					}
+				);
+				recaptcha.dataset.widgetId = widgetId;
+			};'
+		);
 	}
 
 	/**
@@ -175,5 +217,35 @@ final class Registration {
 		}
 
 		return sanitize_user( $user_login );
+	}
+
+	/**
+	 * Verify the captcha response.
+	 *
+	 * @since 1.0.0
+	 */
+	private function validate_captcha() {
+		$captcha = filter_input( INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_STRING );
+		$request = wp_remote_post(
+			'https://www.google.com/recaptcha/api/siteverify',
+			array(
+				'body' => array(
+					'secret'   => G_RECAPTCHA_SITE_SECRET,
+					'response' => $captcha,
+				),
+			)
+		);
+
+		if ( is_wp_error( $request ) ) {
+			wp_send_json_error( array( 'data' => $request->get_error_message() ) );
+		}
+
+		$response = json_decode( wp_remote_retrieve_body( $request ) );
+
+		if ( $response->success !== true ) {
+			wp_send_json_error( array( 'data' => __( 'Captcha verification failed.', 'digisar-events' ) ) );
+		}
+
+		return $response;
 	}
 }

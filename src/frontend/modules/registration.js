@@ -1,4 +1,4 @@
-/* global jQuery, eventData */
+/* global jQuery, eventData, grecaptcha */
 
 const registration = () => {
 	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) => {
@@ -15,18 +15,23 @@ const registration = () => {
 		}
 	} );
 
-	jQuery( '.event__registration .step2 .btn-next' ).click( ( e ) => {
+	jQuery( '#event__registration-form' ).on( 'submit', async function ( e ) {
 		e.preventDefault();
-		const form = document.getElementById( 'event__registration-form' );
+
+		const form = jQuery( this ).get( 0 );
 
 		if ( ! form.checkValidity() ) {
 			form.reportValidity();
 			return;
 		}
 
+		const recaptcha = document.getElementById( 'recaptcha' );
+		const captcha = await grecaptcha.execute( recaptcha.dataset.widgetId );
+
 		const { ajaxUrl } = eventData;
 		const formData = new FormData( form );
 		formData.append( 'action', 'register_for_event' );
+		formData.append( 'g-recaptcha-response', captcha );
 
 		fetch( ajaxUrl, {
 			method: 'POST',

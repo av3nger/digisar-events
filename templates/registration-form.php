@@ -240,8 +240,10 @@ get_header();
 					</div>
 					<div class="dv-action-step">
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
-						<button type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
-					</div>
+						<button id="sumit-step2" type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
+						<?php if ( defined( 'G_RECAPTCHA_SITE_KEY' ) ) : ?>
+						<div id="recaptcha" data-sitekey="6LeXEK8pAAAAAMkfxpIGR94ZUcdb-37erKr7ATIN"></div>
+						<?php endif; ?>
 				</div>
 			</form>
 
