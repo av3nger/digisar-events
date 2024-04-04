@@ -741,6 +741,15 @@
 			color: var(--color--dark-grey);
 		}
 
+		& input[type="date"] {
+			appearance: none;
+
+			&::-webkit-inner-spin-button,
+			&::-webkit-calendar-picker-indicator {
+				display: none;
+			}
+		}
+
 		& span.dv-error-bk {
 			bottom: -22px;
 			color: var(--color--red);

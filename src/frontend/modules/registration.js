@@ -1,4 +1,4 @@
-/* global jQuery */
+/* global jQuery, eventData */
 
 const registration = () => {
 	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) => {
@@ -16,18 +16,32 @@ const registration = () => {
 	} );
 
 	jQuery( '.event__registration .step2 .btn-next' ).click( ( e ) => {
-		const form = jQuery( '#event__registration-form' );
+		e.preventDefault();
+		const form = document.getElementById( 'event__registration-form' );
 
-		// Check if the form is valid.
-		if ( form.checkValidity() && form.reportValidity() ) {
-			// If the form is valid, proceed with hiding and showing steps.
-			jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
-			jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
-			jQuery( '.step3-click' ).addClass( 'active' );
-		} else {
-			// If the form is not valid, prevent the button's default behavior.
-			e.preventDefault();
+		if ( ! form.checkValidity() ) {
+			form.reportValidity();
+			return;
 		}
+
+		const { ajaxUrl } = eventData;
+		const formData = new FormData( form );
+		formData.append( 'action', 'register_for_event' );
+
+		fetch( ajaxUrl, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: formData,
+		} )
+			.then( ( response ) => response.json() )
+			.then( ( response ) => {
+				if ( response.success ) {
+					jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
+					jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
+					jQuery( '.step3-click' ).addClass( 'active' );
+				}
+			} )
+			.catch( window.console.error );
 	} );
 
 	jQuery( '.event__registration .step3 .confirmed-back' ).click( ( e ) => {
