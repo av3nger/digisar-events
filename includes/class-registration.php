@@ -8,7 +8,9 @@
 
 namespace Digisar;
 
+use Digisar\PostType\Event;
 use WP_Error;
+use WP_Post;
 
 /**
  * Registration class.
@@ -102,6 +104,14 @@ final class Registration {
 
 		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
 		$email     = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
+		$event_id  = (int) filter_input( INPUT_POST, 'event-id', FILTER_SANITIZE_NUMBER_INT );
+
+		$event = get_post( $event_id );
+
+		// Do not process form entries for fake events.
+		if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
+			return;
+		}
 
 		$user_data = array(
 			'user_login'   => $this->generate_user_login( $email ),
@@ -121,7 +131,9 @@ final class Registration {
 			wp_send_json_error( $result );
 		} else {
 			// TODO: map user to event.
-			// TODO: store all user data in meta.
+			$this->save_user_meta( $new_user_id );
+			$this->notify_user( $user_data, $event );
+
 			wp_send_json_success();
 		}
 	}
@@ -189,8 +201,6 @@ final class Registration {
 			return $user_id;
 		}
 
-		// Optionally, manually send any custom emails here.
-
 		// Re-enable user notification email.
 		add_action( 'register_new_user', 'wp_send_new_user_notifications' );
 		add_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
@@ -201,10 +211,11 @@ final class Registration {
 	/**
 	 * Generate a unique user login.
 	 *
-	 * @param string $email User email.
-	 * @return string
-	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $email User email.
+	 *
+	 * @return string
 	 */
 	private function generate_user_login( string $email ): string {
 		$login      = explode( '@', $email );
@@ -244,5 +255,65 @@ final class Registration {
 		if ( true !== $response->success ) {
 			wp_send_json_error( array( 'data' => __( 'Captcha verification failed.', 'digisar-events' ) ) );
 		}
+	}
+
+	/**
+	 * Save data to user meta.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $user_id User ID.
+	 */
+	private function save_user_meta( int $user_id ) {
+		$metas = array(
+			'dob',
+			'phone',
+			'company',
+			'bill-address',
+			'zip',
+			'postal',
+			'delivery-address',
+			'invoicing-info',
+			'additional-info',
+		);
+
+		foreach ( $metas as $meta ) {
+			$value = filter_input( INPUT_POST, $meta, FILTER_SANITIZE_STRING );
+			if ( $value ) {
+				update_user_meta( $user_id, 'events_' . $meta, sanitize_text_field( $value ) );
+			}
+		}
+	}
+
+	/**
+	 * Notify user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array   $data  User data.
+	 * @param WP_Post $event Event CPT.
+	 */
+	private function notify_user( array $data, WP_Post $event ) {
+		$name       = $data['display_name'] ?? '';
+		$site_name  = get_bloginfo( 'name' );
+		$from       = get_option( 'admin_email' );
+		$subject    = 'Event registration';
+		$event_link = get_permalink( $event->ID );
+
+		// Email headers.
+		$headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+			"From: $site_name <$from>",
+		);
+
+		// Body of the email.
+		$message  = '<html><body>';
+		$message .= "<h1>Hi $name!</h1>";
+		$message .= "<p>We're excited to invite you to our special event $event->post_title. For more details, please click the link below:</p>";
+		$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
+		$message .= '<p>We hope to see you there!</p>';
+		$message .= '</body></html>';
+
+		wp_mail( $data['user_email'], $subject, $message, $headers );
 	}
 }

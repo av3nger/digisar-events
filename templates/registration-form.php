@@ -54,6 +54,7 @@ get_header();
 		<div class="container">
 			<form action="#" id="event__registration-form">
 				<?php wp_nonce_field( 'events-nonce' ); ?>
+				<input type="hidden" name="event-id" value="<?php echo esc_attr( $event_id ); ?>" />
 				<div class="event__registration-step step1 show">
 					<div class="dv-main-step">
 						<div class="dv-step-title">
@@ -199,8 +200,8 @@ get_header();
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="bill-email"><?php esc_html_e( 'Billing address', 'digisar-events' ); ?>*</label>
-										<input type="text" id="bill-email" name="bill-email" placeholder="<?php esc_attr_e( 'Billing address', 'digisar-events' ); ?>" required>
+										<label for="bill-address"><?php esc_html_e( 'Billing address', 'digisar-events' ); ?>*</label>
+										<input type="text" id="bill-address" name="bill-address" placeholder="<?php esc_attr_e( 'Billing address', 'digisar-events' ); ?>" required>
 									</div>
 								</div>
 								<div class="dv-field-lines dv-field-line">
@@ -226,13 +227,13 @@ get_header();
 								<div class="dv-field-line">
 									<div class="entry">
 										<label for="invoicing-information"><?php esc_html_e( 'Invoicing information', 'digisar-events' ); ?></label>
-										<input type="text" id="invoicing-information" name="invoicing-information" placeholder="<?php esc_attr_e( 'in writing, no attachment', 'digisar-events' ); ?>">
+										<input type="text" id="invoicing-information" name="invoicing-info" placeholder="<?php esc_attr_e( 'in writing, no attachment', 'digisar-events' ); ?>">
 									</div>
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
 										<label for="additional-information"><?php esc_html_e( 'Additional information', 'digisar-events' ); ?></label>
-										<input type="text" id="additional-information" name="additional-information" placeholder="<?php esc_attr_e( 'Special diets and more', 'digisar-events' ); ?>">
+										<input type="text" id="additional-information" name="additional-info" placeholder="<?php esc_attr_e( 'Special diets and more', 'digisar-events' ); ?>">
 									</div>
 								</div>
 							</div>
