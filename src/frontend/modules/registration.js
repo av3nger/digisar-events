@@ -55,13 +55,6 @@ const registration = () => {
 			.catch( window.console.error );
 	} );
 
-	jQuery( '.event__registration .step3 .confirmed-back' ).click( ( e ) => {
-		e.preventDefault();
-		jQuery( '.step3' ).addClass( 'hide' ).removeClass( 'show' );
-		jQuery( '.step1' ).addClass( 'show' ).removeClass( 'hide' );
-		jQuery( '.step2-click, .step3-click' ).removeClass( 'active' );
-	} );
-
 	jQuery( '.dv-action-step a.btn-cancel' ).click( ( e ) => {
 		e.preventDefault();
 		jQuery( '.event__popup' ).addClass( 'active' );

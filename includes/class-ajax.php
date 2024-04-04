@@ -75,8 +75,6 @@ final class Ajax {
 			'posts_per_page' => $per_page ?? 10,
 		);
 
-		// TODO: order by event_start meta field.
-
 		if ( $types ) {
 			$types = sanitize_text_field( $types );
 

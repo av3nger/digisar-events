@@ -284,7 +284,7 @@ get_header();
 					</div>
 					<div class="dv-confirmed-action">
 						<a href="#" class="confirmed-add"><?php esc_html_e( 'Add to Calendar', 'digisar-events' ); ?></a>
-						<a href="#" class="confirmed-back"><?php esc_html_e( 'Back to home', 'digisar-events' ); ?></a>
+						<a href="<?php echo esc_url( get_post_type_archive_link( PostType\Event::$name ) ); ?>" class="confirmed-back"><?php esc_html_e( 'Back to home', 'digisar-events' ); ?></a>
 					</div>
 				</div>
 			</div>
