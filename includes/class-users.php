@@ -82,8 +82,9 @@ final class Users {
 
 		if ( ! empty( $event_id ) && isset( $columns['posts'] ) ) {
 			unset( $columns['posts'] );
-			$columns['events'] = esc_html__( 'Events', 'digisar-events' );
 		}
+
+		$columns['events num'] = esc_html__( 'Events', 'digisar-events' );
 
 		return $columns;
 	}
@@ -100,7 +101,7 @@ final class Users {
 	 * @return string
 	 */
 	public function render_events_column( string $output, string $column_name, int $user_id ): string {
-		if ( 'events' !== $column_name ) {
+		if ( 'events num' !== $column_name ) {
 			return $output;
 		}
 
