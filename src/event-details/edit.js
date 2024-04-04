@@ -37,8 +37,6 @@ export default function Edit( props ) {
 		eventEnd,
 		inEnglish,
 		participants,
-		price,
-		setPrice,
 		setEventStart,
 		setEventEnd,
 		seats,
@@ -137,16 +135,6 @@ export default function Edit( props ) {
 							onChange={ ( value ) => setSeats( value ) }
 							type="number"
 							value={ seats ?? 0 }
-						/>
-					</PanelRow>
-				</PanelBody>
-				<PanelBody title={ __( 'Event price', 'digisar-events' ) }>
-					<PanelRow>
-						<TextControl
-							label={ __( 'Price per person', 'digisar-events' ) }
-							onChange={ ( value ) => setPrice( value ) }
-							type="number"
-							value={ price }
 						/>
 					</PanelRow>
 				</PanelBody>

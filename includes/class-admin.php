@@ -173,7 +173,7 @@ final class Admin {
 		$output = fopen( 'php://output', 'w' );
 
 		// Output the column headings.
-		fputcsv( $output, array( 'ID', 'Event Title', 'Location', 'Type', 'Author', 'Description', 'In English', 'Start date', 'End date', 'Seats', 'Price', 'Content' ) );
+		fputcsv( $output, array( 'ID', 'Event Title', 'Location', 'Type', 'Author', 'Description', 'In English', 'Start date', 'End date', 'Seats', 'Content' ) );
 
 		// Fetch the events.
 		$args  = array(
@@ -204,7 +204,6 @@ final class Admin {
 					$start ? gmdate( 'j/m/Y G:i', strtotime( $start ) ) : '',
 					$end ? gmdate( 'j/m/Y G:i', strtotime( $end ) ) : '',
 					get_post_meta( $event_id, 'event_seats', true ),
-					get_post_meta( $event_id, 'event_price', true ),
 					get_the_content(),
 				);
 
