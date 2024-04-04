@@ -13,9 +13,9 @@ $event_start    = get_post_meta( $event_id, 'event_start', true );
 $event_end      = get_post_meta( $event_id, 'event_end', true );
 $event_seats    = get_post_meta( $event_id, 'event_seats', true );
 $event_location = get_the_terms( $event_id, Taxonomy\Location::$name );
-$participants   = get_the_terms( $event_id, Taxonomy\Participant::$name );
+$participants   = get_post_meta( $event_id, 'event_participants', true );
 
-$participant_count = is_wp_error( $participants ) || empty( $participants ) ? 0 : count( $participants );
+$participant_count = empty( $participants ) ? 0 : count( $participants );
 
 $author_id   = get_post_field( 'post_author', $event_id );
 $author_name = get_the_author_meta( 'display_name', $author_id );

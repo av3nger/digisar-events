@@ -165,6 +165,11 @@ get_header();
 							$event_type       = get_the_terms( $event_id, Taxonomy\Type::$name );
 							$event_location   = get_the_terms( $event_id, Taxonomy\Location::$name );
 							$event_in_english = get_post_meta( $event_id, 'event_in_english', true );
+
+							$event_seats  = get_post_meta( $event_id, 'event_seats', true );
+							$participants = get_post_meta( $event_id, 'event_participants', true );
+
+							$participant_count = empty( $participants ) ? 0 : count( $participants );
 							?>
 							<div class="tb-row">
 								<div class="row-left">
@@ -230,11 +235,14 @@ get_header();
 													<?php esc_html_e( 'Details', 'digisar-events' ); ?>
 												</a>
 											</div>
-											<div class="register">
-												<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="px-24">
-													<?php esc_html_e( 'Register', 'digisar-events' ); ?>
-												</a>
-											</div>
+
+											<?php if ( ! empty( $event_seats ) && 0 < $event_seats && $event_seats > $participant_count ) : ?>
+												<div class="register">
+													<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="px-24">
+														<?php esc_html_e( 'Register', 'digisar-events' ); ?>
+													</a>
+												</div>
+											<?php endif; ?>
 										</div>
 									</div>
 								</div>
