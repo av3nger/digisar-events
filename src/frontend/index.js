@@ -3,15 +3,15 @@ import './styles.scss';
 import languageCheck from './modules/lang-check';
 import handleSelectsOpenState from './modules/selects';
 import openSearchBox from './modules/open-search';
-import handleSearch from './modules/search';
 import handleFilters from './modules/filters';
+import registration from './modules/registration';
 
 // Init various libraries.
 ( function ( $ ) {
 	const dateFilter = $( 'input[name="datefilter"]' );
 
 	dateFilter.daterangepicker( {
-		singleDatePicker: false,
+		singleDatePicker: !! dateFilter.data( 'single' ),
 		autoUpdateInput: false,
 		locale: {
 			daysOfWeek: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
@@ -102,5 +102,5 @@ import handleFilters from './modules/filters';
 document.addEventListener( 'DOMContentLoaded', openSearchBox );
 document.addEventListener( 'DOMContentLoaded', languageCheck );
 document.addEventListener( 'DOMContentLoaded', handleSelectsOpenState );
-document.addEventListener( 'DOMContentLoaded', handleSearch );
 document.addEventListener( 'DOMContentLoaded', handleFilters );
+document.addEventListener( 'DOMContentLoaded', registration );

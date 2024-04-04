@@ -5,9 +5,15 @@
  * @package Digisar\Events
  */
 
+use Digisar\PostType;
 use Digisar\Taxonomy;
 
 $event_id = get_the_ID();
+
+$event_seats  = get_post_meta( $event_id, 'event_seats', true );
+$participants = get_post_meta( $event_id, 'event_participants', true );
+
+$participant_count = empty( $participants ) ? 0 : count( $participants );
 
 $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 ?>
@@ -25,7 +31,6 @@ $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 		<?php echo wp_kses_post( get_the_excerpt() ); ?>
 	</p>
 
-	<!-- TODO: add to calendar and register now buttons -->
 	<div class="digisar--event-buttons">
 		<?php wp_nonce_field( 'event-nonce', 'event-nonce' ); ?>
 		<input type="hidden" id="event-id" value="<?php echo esc_attr( $event_id ); ?>" />
@@ -33,8 +38,10 @@ $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 			<?php esc_html_e( 'Add to calendar', 'digisar-events' ); ?>
 		</a>
 
-		<a href="#" class="digisar--btn digisar--btn-register">
-			<?php esc_html_e( 'Register now', 'digisar-events' ); ?>
-		</a>
+		<?php if ( ! empty( $event_seats ) && 0 < $event_seats && $event_seats > $participant_count ) : ?>
+			<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="digisar--btn digisar--btn-register">
+				<?php esc_html_e( 'Register now', 'digisar-events' ); ?>
+			</a>
+		<?php endif; ?>
 	</div>
 </div>

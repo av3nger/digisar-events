@@ -25,7 +25,7 @@ import './editor.scss';
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
- * @param  props
+ * @param {Object} props Block props.
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
@@ -37,8 +37,6 @@ export default function Edit( props ) {
 		eventEnd,
 		inEnglish,
 		participants,
-		price,
-		setPrice,
 		setEventStart,
 		setEventEnd,
 		seats,
@@ -137,16 +135,6 @@ export default function Edit( props ) {
 							onChange={ ( value ) => setSeats( value ) }
 							type="number"
 							value={ seats ?? 0 }
-						/>
-					</PanelRow>
-				</PanelBody>
-				<PanelBody title={ __( 'Event price', 'digisar-events' ) }>
-					<PanelRow>
-						<TextControl
-							label={ __( 'Price per person', 'digisar-events' ) }
-							onChange={ ( value ) => setPrice( value ) }
-							type="number"
-							value={ price }
 						/>
 					</PanelRow>
 				</PanelBody>

@@ -23,19 +23,23 @@ final class Admin {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		// Add additional columns.
+		add_filter( 'manage_posts_columns', array( $this, 'add_columns' ), 10, 2 );
+		add_action( 'manage_posts_custom_column', array( $this, 'manage_columns' ), 10, 2 );
+
 		// Quick edit functionality.
-		add_filter( 'manage_posts_columns', array( $this, 'add_description_column' ), 10, 2 );
-		add_action( 'manage_posts_custom_column', array( $this, 'manage_column' ), 10, 2 );
 		add_action( 'quick_edit_custom_box', array( $this, 'add_description_to_quick_edit' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save_quick_edit' ), 10, 2 );
 
 		// Export to CSV.
 		add_action( 'manage_posts_extra_tablenav', array( $this, 'export_to_csv_button' ), 20 );
 		add_action( 'init', array( $this, 'handle_export_to_csv' ) );
+
+		add_action( 'admin_head', array( $this, 'custom_styles' ) );
 	}
 
 	/**
-	 * Add a custom column for excerpts in the admin events list.
+	 * Add a "Short description" and "Language" columns.
 	 *
 	 * @since 1.0.0
 	 *
@@ -44,12 +48,14 @@ final class Admin {
 	 *
 	 * @return string[]
 	 */
-	public function add_description_column( array $post_columns, string $post_type ): array {
+	public function add_columns( array $post_columns, string $post_type ): array {
 		if ( PostType\Event::$name !== $post_type ) {
 			return $post_columns;
 		}
 
-		$post_columns['description'] = 'Short description';
+		$post_columns['description'] = esc_html__( 'Short description', 'digisar-events' );
+		$post_columns['language']    = esc_html__( 'Language', 'digisar-events' );
+
 		return $post_columns;
 	}
 
@@ -61,9 +67,14 @@ final class Admin {
 	 * @param string $column_name The name of the column to display.
 	 * @param int    $post_id     The current post ID.
 	 */
-	public function manage_column( string $column_name, int $post_id ) {
+	public function manage_columns( string $column_name, int $post_id ) {
 		if ( 'description' === $column_name ) {
 			echo wp_kses_post( get_the_excerpt( $post_id ) );
+		}
+
+		if ( 'language' === $column_name ) {
+			$is_english = get_post_meta( $post_id, 'event_in_english', true );
+			echo $is_english ? esc_html__( 'English', 'digisar-events' ) : '';
 		}
 	}
 
@@ -173,7 +184,7 @@ final class Admin {
 		$output = fopen( 'php://output', 'w' );
 
 		// Output the column headings.
-		fputcsv( $output, array( 'ID', 'Event Title', 'Location', 'Type', 'Author', 'Description', 'In English', 'Start date', 'End date', 'Seats', 'Price', 'Content' ) );
+		fputcsv( $output, array( 'ID', 'Event Title', 'Location', 'Type', 'Author', 'Description', 'In English', 'Start date', 'End date', 'Seats', 'Content' ) );
 
 		// Fetch the events.
 		$args  = array(
@@ -204,7 +215,6 @@ final class Admin {
 					$start ? gmdate( 'j/m/Y G:i', strtotime( $start ) ) : '',
 					$end ? gmdate( 'j/m/Y G:i', strtotime( $end ) ) : '',
 					get_post_meta( $event_id, 'event_seats', true ),
-					get_post_meta( $event_id, 'event_price', true ),
 					get_the_content(),
 				);
 
@@ -214,5 +224,20 @@ final class Admin {
 
 		fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		exit;
+	}
+
+	/**
+	 * Add custom styles to wp-admin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function custom_styles() {
+		global $post_type;
+
+		if ( PostType\Event::$name === $post_type ) {
+			echo '<style>
+				.wp-list-table .column-language {width: 80px !important;}
+			</style>';
+		}
 	}
 }

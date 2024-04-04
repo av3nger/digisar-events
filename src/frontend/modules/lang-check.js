@@ -1,5 +1,10 @@
 const languageCheck = () => {
 	const langCheck = document.getElementById( 'lang-check' );
+
+	if ( ! langCheck ) {
+		return;
+	}
+
 	const checkbox = document.getElementById( 'english-only' );
 
 	langCheck.addEventListener( 'click', () => {

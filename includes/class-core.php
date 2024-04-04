@@ -59,8 +59,8 @@ final class Core {
 	 * @since 1.0.0
 	 */
 	public function register_taxonomies() {
+		( new Taxonomy\Course() )->register();
 		( new Taxonomy\Location() )->register();
-		( new Taxonomy\Participant() )->register();
 		( new Taxonomy\Type() )->register();
 	}
 
@@ -108,7 +108,9 @@ final class Core {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles(): void {
-		if ( ! is_post_type_archive( PostType\Event::$name ) ) {
+		global $wp_query;
+
+		if ( ! is_post_type_archive( PostType\Event::$name ) && ! isset( $wp_query->query_vars['event_register'] ) ) {
 			return;
 		}
 
@@ -169,8 +171,9 @@ final class Core {
 			'event-scripts',
 			'eventData',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'events-nonce' ),
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+				'nonce'       => wp_create_nonce( 'events-nonce' ),
+				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
 			)
 		);
 	}

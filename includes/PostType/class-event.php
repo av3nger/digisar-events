@@ -12,6 +12,7 @@ use DateTime;
 use Digisar\Taxonomy;
 use Exception;
 use WP_Error;
+use WP_Query;
 
 /**
  * Event class.
@@ -48,7 +49,6 @@ final class Event extends CPT {
 		'event_start'      => 'string',
 		'event_end'        => 'string',
 		'event_seats'      => 'number',
-		'event_price'      => 'number',
 		'event_in_english' => 'boolean',
 	);
 
@@ -108,12 +108,13 @@ final class Event extends CPT {
 		$this->plural   = esc_html__( 'Events', 'digisar-events' );
 
 		$this->taxonomies = array(
+			Taxonomy\Course::$name,
 			Taxonomy\Location::$name,
-			Taxonomy\Participant::$name,
 			Taxonomy\Type::$name,
 		);
 
 		add_filter( 'template_include', array( $this, 'template' ) );
+		add_action( 'pre_get_posts', array( $this, 'filter_events_by_user' ) );
 	}
 
 	/**
@@ -190,5 +191,78 @@ final class Event extends CPT {
 		$ics .= 'END:VCALENDAR';
 
 		return $ics;
+	}
+
+	/**
+	 * Get event registration URL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $event_id Event ID.
+	 *
+	 * @return string
+	 */
+	public static function get_registration_url( int $event_id ): string {
+		return get_post_type_archive_link( self::$name ) . 'register/?id=' . $event_id;
+	}
+
+	/**
+	 * Get number of events a user is registered for.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $user_id User ID.
+	 *
+	 * @return int
+	 */
+	public static function get_events_count_for_user( int $user_id ): int {
+		$args = array(
+			'fields'                 => 'ids',
+			'meta_query'             => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'     => 'event_participants',
+					'value'   => "i:$user_id;",
+					'compare' => 'LIKE',
+				),
+			),
+			'post_type'              => self::$name,
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		);
+
+		$events = new WP_Query( $args );
+
+		if ( is_wp_error( $events ) ) {
+			return 0;
+		}
+
+		return $events->post_count;
+	}
+
+	/**
+	 * Filter events by select user ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Query $query The WP_Query instance (passed by reference).
+	 */
+	public function filter_events_by_user( WP_Query $query ) {
+		$user_id = (int) filter_input( INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( ! is_admin() || self::$name !== $query->query['post_type'] || empty( $user_id ) ) {
+			return;
+		}
+
+		// Modify the query to filter by the user_id in your event_participants meta.
+		$meta_query = array(
+			array(
+				'key'     => 'event_participants',
+				'value'   => "i:$user_id;",
+				'compare' => 'LIKE',
+			),
+		);
+
+		$query->set( 'meta_query', $meta_query );
 	}
 }
