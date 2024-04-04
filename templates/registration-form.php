@@ -9,30 +9,33 @@
 get_header();
 ?>
 
-<main class="main-content dv-register">
+<main class="main-content event__registration">
 	<section class="banner">
 		<div class="container">
 			<h1>Registration for SFS 6002 training</h1>
 			<ul class="dv-tab-step">
-				<li class="step1-click active"><a href="#"><span>1</span>Event information</a></li>
-				<li class="step2-click"><a href="#"><span>2</span>Personal information</a></li>
-				<li class="step3-click"><a href="#"><span>3</span>Confirmed</a></li>
+				<li class="step1-click active"><a href="#"><span>1</span><?php esc_html_e( 'Event information', 'digisar-events' ); ?></a></li>
+				<li class="step2-click"><a href="#"><span>2</span><?php esc_html_e( 'Personal information', 'digisar-events' ); ?></a></li>
+				<li class="step3-click"><a href="#"><span>3</span><?php esc_html_e( 'Confirmed', 'digisar-events' ); ?></a></li>
 			</ul>
 		</div>
 	</section>
 	<section class="entry-main">
 		<div class="container">
-			<div class="dv-step-content step1 show">
+			<div class="event__registration-step step1 show">
 				<form action="#">
 					<div class="dv-main-step">
 						<div class="dv-step-title">
-							<h2>Step 1 - Event information</h2>
-							<p class="err-note">*-Fields are required to be filled in</p>
+							<h2><?php esc_html_e( 'Step 1 - Event information', 'digisar-events' ); ?></h2>
+							<p class="err-note"><?php esc_html_e( '*-Fields are required to be filled in', 'digisar-events' ); ?></p>
 						</div>
 						<div class="item-field item-field-radio">
 							<div class="dv-label dv-label-note">
-								<h3>Choose a course</h3>
-								<span class="dv-err-note"><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/note.svg' ); ?>" alt="Note">Please fill in all fields</span>
+								<h3><?php esc_html_e( 'Choose a course', 'digisar-events' ); ?></h3>
+								<span class="dv-err-note">
+									<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/note.svg' ); ?>" alt="Note">
+									<?php esc_html_e( 'Please fill in all fields', 'digisar-events' ); ?>
+								</span>
 							</div>
 							<div class="dv-fields">
 								<div class="dv-field-row">
@@ -79,12 +82,12 @@ get_header();
 						</div>
 						<div class="item-field item-field-date ev-filters">
 							<div class="dv-label">
-								<h3>Confirm the date</h3>
+								<h3><?php esc_html_e( 'Confirm the date', 'digisar-events' ); ?></h3>
 							</div>
 							<div class="dv-fields dv-date-field">
 								<div class="dv-field-row">
 									<div class="ev-filter-item ft-date">
-										<span class="name">Date</span>
+										<span class="name"><?php esc_html_e( 'Date', 'digisar-events' ); ?></span>
 										<div class="box-input">
 											<input type="text" name="datefilter" value="" placeholder="All Events">
 											<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date icon-filter">
@@ -101,7 +104,7 @@ get_header();
 				</form>
 			</div>
 
-			<div class="dv-step-content step2">
+			<div class="event__registration-step step2">
 				<form action="#">
 					<div class="dv-step-head">
 						<h3><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/check-white.svg' ); ?>" alt="Icon">Step 1</h3>
@@ -197,7 +200,7 @@ get_header();
 					</div>
 				</form>
 			</div>
-			<div class="dv-step-content step3 dv-confirmed-step">
+			<div class="event__registration-step step3 dv-confirmed-step">
 				<div class="entry">
 					<div class="dv-confirmed-title">
 						<h1>Confirmed <img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/cf-check.png' ); ?>" alt="Icon"></h1>
@@ -231,16 +234,19 @@ get_header();
 			</div>
 		</div>
 	</section>
-	<div class="dv-leave-popup">
+
+	<div class="event__popup">
 		<div class="inner">
-			<a href="#" class="btn-close-popup"><img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/close-x.svg' ); ?>" alt="Close"></a>
+			<a href="#" class="btn-close-popup">
+				<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/close-x.svg' ); ?>" alt="<?php esc_attr_e( 'Close', 'digisar-events' ); ?>">
+			</a>
 			<div class="popup-title">
-				<h3>Are you sure you want to leave this page?</h3>
-				<p>The information you've entered will not be saved.</p>
+				<h3><?php esc_html_e( 'Are you sure you want to leave this page?', 'digisar-events' ); ?></h3>
+				<p><?php esc_html_e( "The information you've entered will not be saved.", 'digisar-events' ); ?></p>
 			</div>
 			<div class="popup-actions">
-				<a href="#" class="btn-no">No</a>
-				<a href="#" class="btn-yes">Yes</a>
+				<a href="#" class="btn-no"><?php esc_html_e( 'No', 'digisar-events' ); ?></a>
+				<a href="#" class="btn-yes"><?php esc_html_e( 'Yes', 'digisar-events' ); ?></a>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 /* global jQuery */
 
 const registration = () => {
-	jQuery( '.dv-register .step1 a.btn-next' ).click( ( e ) => {
+	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) => {
 		e.preventDefault();
 		if ( jQuery( 'input[name=course]' ).is( ':checked' ) ) {
 			jQuery( '.dv-label-note' ).removeClass( 'active' );
@@ -15,14 +15,14 @@ const registration = () => {
 		}
 	} );
 
-	jQuery( '.dv-register .step2 .btn-next' ).click( ( e ) => {
+	jQuery( '.event__registration .step2 .btn-next' ).click( ( e ) => {
 		e.preventDefault();
 		jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
 		jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
 		jQuery( '.step3-click' ).addClass( 'active' );
 	} );
 
-	jQuery( '.dv-register .step3 .confirmed-back' ).click( ( e ) => {
+	jQuery( '.event__registration .step3 .confirmed-back' ).click( ( e ) => {
 		e.preventDefault();
 		jQuery( '.step3' ).addClass( 'hide' ).removeClass( 'show' );
 		jQuery( '.step1' ).addClass( 'show' ).removeClass( 'hide' );
@@ -31,12 +31,12 @@ const registration = () => {
 
 	jQuery( '.dv-action-step a.btn-cancel' ).click( ( e ) => {
 		e.preventDefault();
-		jQuery( '.dv-leave-popup' ).addClass( 'active' );
+		jQuery( '.event__popup' ).addClass( 'active' );
 	} );
 
 	jQuery( '.btn-close-popup, .popup-actions a.btn-no' ).click( ( e ) => {
 		e.preventDefault();
-		jQuery( '.dv-leave-popup' ).removeClass( 'active' );
+		jQuery( '.event__popup' ).removeClass( 'active' );
 	} );
 };
 
