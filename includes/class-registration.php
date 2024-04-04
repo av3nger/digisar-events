@@ -132,8 +132,7 @@ final class Registration {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-
-		if ( boolval( get_query_var( 'event_register' ) ) !== true ) {
+		if ( true !== boolval( get_query_var( 'event_register' ) ) ) {
 			return;
 		}
 
@@ -141,9 +140,9 @@ final class Registration {
 			'g-recaptcha',
 			'https://www.google.com/recaptcha/api.js?onload=digisarRecaptchaInit&render=explicit',
 			array(),
-			false,
+			DIGISAR_EVENTS_VERSION,
 			array(
-				'strategy' => 'defer',
+				'strategy'  => 'defer',
 				'in_footer' => true,
 			)
 		);
@@ -174,7 +173,7 @@ final class Registration {
 	 *
 	 * @return int|WP_Error
 	 */
-	private function register_user( $data ) {
+	private function register_user( array $data ) {
 		// Disable user notification email.
 		if ( has_action( 'register_new_user', 'wp_send_new_user_notifications' ) ) {
 			remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
@@ -242,10 +241,8 @@ final class Registration {
 
 		$response = json_decode( wp_remote_retrieve_body( $request ) );
 
-		if ( $response->success !== true ) {
+		if ( true !== $response->success ) {
 			wp_send_json_error( array( 'data' => __( 'Captcha verification failed.', 'digisar-events' ) ) );
 		}
-
-		return $response;
 	}
 }

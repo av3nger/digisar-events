@@ -242,8 +242,9 @@ get_header();
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
 						<button id="sumit-step2" type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
 						<?php if ( defined( 'G_RECAPTCHA_SITE_KEY' ) ) : ?>
-						<div id="recaptcha" data-sitekey="6LeXEK8pAAAAAMkfxpIGR94ZUcdb-37erKr7ATIN"></div>
+							<div id="recaptcha" data-sitekey="<?php echo esc_attr( G_RECAPTCHA_SITE_KEY ); ?>"></div>
 						<?php endif; ?>
+					</div>
 				</div>
 			</form>
 

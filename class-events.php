@@ -27,6 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'DIGISAR_EVENTS_VERSION', '1.0.0' );
 define( 'DIGISAR_EVENTS_DIR_PATH', __DIR__ );
 define( 'DIGISAR_EVENTS_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'DIGISAR_EVENTS_INC_PATH', DIGISAR_EVENTS_DIR_PATH . '/includes' );
