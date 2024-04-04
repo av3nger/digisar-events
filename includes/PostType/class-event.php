@@ -109,7 +109,6 @@ final class Event extends CPT {
 		$this->taxonomies = array(
 			Taxonomy\Course::$name,
 			Taxonomy\Location::$name,
-			Taxonomy\Participant::$name,
 			Taxonomy\Type::$name,
 		);
 
