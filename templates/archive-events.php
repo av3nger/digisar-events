@@ -6,6 +6,7 @@
  * @package Digisar\Events
  */
 
+use Digisar\PostType;
 use Digisar\Taxonomy;
 
 global $wp_query;
@@ -14,7 +15,6 @@ $locations = Taxonomy\Location::get();
 $types     = Taxonomy\Type::get();
 
 $total_pages = ceil( $wp_query->found_posts / $wp_query->post_count );
-$search_term = $_GET['search'] ?? '';
 
 get_header();
 ?>
@@ -231,7 +231,7 @@ get_header();
 												</a>
 											</div>
 											<div class="register">
-												<a href="#" class="px-24">
+												<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="px-24">
 													<?php esc_html_e( 'Register', 'digisar-events' ); ?>
 												</a>
 											</div>

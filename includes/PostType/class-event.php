@@ -191,4 +191,17 @@ final class Event extends CPT {
 
 		return $ics;
 	}
+
+	/**
+	 * Get event registration URL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $event_id Event ID.
+	 *
+	 * @return string
+	 */
+	public static function get_registration_url( int $event_id ): string {
+		return get_post_type_archive_link( self::$name ) . 'register/?id=' . $event_id;
+	}
 }

@@ -6,13 +6,29 @@
  * @package Digisar\Events
  */
 
+use Digisar\PostType;
+
+$event_id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
+
+$event = get_post( $event_id );
+if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
+	wp_safe_redirect( get_post_type_archive_link( PostType\Event::$name ) );
+}
+
 get_header();
 ?>
 
 <main class="main-content event__registration">
 	<section class="banner">
 		<div class="container">
-			<h1>Registration for SFS 6002 training</h1>
+			<h1>
+				<?php
+				printf( /* translators: %s - event name */
+					esc_html__( 'Registration for %s', 'digisar-events' ),
+					esc_html( get_the_title( $event->ID ) )
+				)
+				?>
+			</h1>
 			<ul class="dv-tab-step">
 				<li class="step1-click active"><a href="#"><span>1</span><?php esc_html_e( 'Event information', 'digisar-events' ); ?></a></li>
 				<li class="step2-click"><a href="#"><span>2</span><?php esc_html_e( 'Personal information', 'digisar-events' ); ?></a></li>
@@ -248,7 +264,7 @@ get_header();
 			</div>
 			<div class="popup-actions">
 				<a href="#" class="btn-no"><?php esc_html_e( 'No', 'digisar-events' ); ?></a>
-				<a href="#" class="btn-yes"><?php esc_html_e( 'Yes', 'digisar-events' ); ?></a>
+				<a href="<?php echo esc_url( get_post_type_archive_link( PostType\Event::$name ) ); ?>" class="btn-yes"><?php esc_html_e( 'Yes', 'digisar-events' ); ?></a>
 			</div>
 		</div>
 	</div>
