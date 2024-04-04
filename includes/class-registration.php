@@ -8,6 +8,8 @@
 
 namespace Digisar;
 
+use WP_Error;
+
 /**
  * Registration class.
  *
@@ -95,27 +97,42 @@ final class Registration {
 	public function register() {
 		check_ajax_referer( 'events-nonce' );
 
+		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
+
 		$user_data = array(
-			//'user_login'  => 'newusername',
-			'user_pass'   => wp_generate_password( 16 ),
-			'user_email' => 'email@example.com',
-			'first_name' => 'John',
-			'last_name'  => 'Doe',
-			'role'       => 'subscriber'  // Optional. Default is 'subscriber'.
+			//'user_login'   => TODO: required.
+			'user_pass'    => wp_generate_password( 16 ),
+			'user_email'   => filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL ),
+			'display_name' => sanitize_text_field( $nice_name ),
+			'role'         => 'event_participant',
 		);
 
 		$new_user_id = $this->register_user( $user_data );
 
-		if (is_wp_error($new_user_id)) {
-			// Handle error; for example, display error message
-			echo $new_user_id->get_error_message();
+		if ( is_wp_error( $new_user_id ) ) {
+			$result = array(
+				'success' => false,
+				'data'    => $new_user_id->get_error_message(),
+			);
+			wp_send_json_error( $result );
 		} else {
-			echo "User created successfully. User ID: " . $new_user_id;
+			// TODO: map user to event.
+			// TODO: store all user data in meta.
+			wp_send_json_success();
 		}
 	}
 
+	/**
+	 * Create user without the default WordPress notification.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $data User data.
+	 *
+	 * @return int|WP_Error
+	 */
 	private function register_user( $data ) {
-		// Disable user notification email
+		// Disable user notification email.
 		if ( has_action( 'register_new_user', 'wp_send_new_user_notifications' ) ) {
 			remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
 		}
@@ -124,22 +141,18 @@ final class Registration {
 			remove_action( 'edit_user_created_user', 'wp_send_new_user_notifications' );
 		}
 
-		// Insert new user and get user ID
 		$user_id = wp_insert_user( $data );
 
-		// Check for errors
-		if (is_wp_error($user_id)) {
-			// Handle error; return or throw error
+		if ( is_wp_error( $user_id ) ) {
 			return $user_id;
 		}
 
-		// Optionally, manually send any custom emails here
+		// Optionally, manually send any custom emails here.
 
-		// Re-enable user notification email
-		add_action('register_new_user', 'wp_send_new_user_notifications', 10, 1);
-		add_action('edit_user_created_user', 'wp_send_new_user_notifications', 10, 2);
+		// Re-enable user notification email.
+		add_action( 'register_new_user', 'wp_send_new_user_notifications' );
+		add_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
 
-		return $user_id; // Return the new user's ID
+		return $user_id;
 	}
-
 }
