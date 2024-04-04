@@ -172,8 +172,9 @@ final class Core {
 			'event-scripts',
 			'eventData',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'events-nonce' ),
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+				'nonce'       => wp_create_nonce( 'events-nonce' ),
+				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
 			)
 		);
 	}

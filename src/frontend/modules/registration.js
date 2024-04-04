@@ -25,15 +25,16 @@ const registration = () => {
 			return;
 		}
 
+		const { ajaxUrl, registering } = eventData;
+
 		const btnSubmit = document.getElementById( 'sumit-step2' );
 		const btnText = btnSubmit.innerText;
-		btnSubmit.innerText = 'Registering...';
+		btnSubmit.innerText = registering;
 		btnSubmit.disabled = true;
 
 		const recaptcha = document.getElementById( 'recaptcha' );
 		const captcha = await grecaptcha.execute( recaptcha.dataset.widgetId );
 
-		const { ajaxUrl } = eventData;
 		const formData = new FormData( form );
 		formData.append( 'action', 'register_for_event' );
 		formData.append( 'g-recaptcha-response', captcha );
