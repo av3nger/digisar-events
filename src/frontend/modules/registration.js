@@ -39,6 +39,12 @@ const registration = () => {
 					jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
 					jQuery( '.step3' ).addClass( 'show' ).removeClass( 'hide' );
 					jQuery( '.step3-click' ).addClass( 'active' );
+				} else {
+					const actionStep = jQuery( '.dv-action-step' );
+					actionStep.find( '.dv-message' ).remove();
+					actionStep.prepend(
+						`<div class="dv-message error">${ response.data.data }</div>`
+					);
 				}
 			} )
 			.catch( window.console.error );

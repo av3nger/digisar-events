@@ -600,10 +600,11 @@
 
 	& .dv-action-step {
 		margin-top: 50px;
-		text-align: right;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 
 		@media screen and (max-width: 767px) {
-			display: flex;
 			flex-direction: column-reverse;
 			margin-top: 22px;
 			text-align: center;
@@ -648,6 +649,21 @@
 					margin: 0 0 33px;
 					max-width: 100%;
 				}
+			}
+		}
+
+		.dv-message {
+			margin-right: auto;
+			font-size: 1rem;
+
+			&.error {
+				color: var(--color--red);
+			}
+
+			@media screen and (max-width: 767px) {
+				order: 1;
+				text-align: center;
+				margin: 0 0 15px 0;
 			}
 		}
 	}
