@@ -4,7 +4,12 @@ body .drp-calendar{
 .daterangepicker .drp-calendar.left{
 	margin-left: 12px !important;
 }
-body .drp-calendar.right{
+
+.daterangepicker.single .drp-calendar.left{
+	margin-right: 12px;
+}
+
+body .daterangepicker:not(.single) .drp-calendar.right{
 	display: block !important;
 	margin-left: 8px !important;
 	margin-right: 12px !important;
