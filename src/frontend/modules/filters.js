@@ -80,7 +80,10 @@ const handleFilters = () => {
 		}
 
 		if ( 'datefilter' === type ) {
-			jQuery( '#event-date-input' ).val( '' );
+			const datePicker = jQuery( '#event-date-input' );
+			datePicker.val( '' );
+			const event = new Event( 'change', { bubbles: true } );
+			datePicker.get( 0 ).dispatchEvent( event );
 		} else {
 			const select = document.getElementById( `event-${ type }-select` );
 			const sumoSelect = jQuery( select )[ 0 ].sumo;
@@ -187,7 +190,8 @@ const handleFilters = () => {
 			settings.search = searchInput.value;
 		}
 
-		addFilterPills( settings );
+		const pillSettings = { ...settings };
+		addFilterPills( pillSettings );
 
 		settings.action = 'events_search';
 		settings._wpnonce = nonce;
