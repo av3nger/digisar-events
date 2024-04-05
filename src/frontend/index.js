@@ -52,7 +52,7 @@ import registration from './modules/registration';
 		forceCustomRendering: true,
 	} );
 
-	$( '.select-showing' ).SumoSelect( {
+	$( '.select-per-page' ).SumoSelect( {
 		placeholder: '10',
 		triggerChangeCombined: true,
 		forceCustomRendering: true,

@@ -71,14 +71,97 @@ const handleFilters = () => {
 		} );
 	};
 
+	const removeFilter = ( type, value = '' ) => {
+		const id = value ? `${ type }-${ value }` : type;
+		const pill = document.querySelector( `[data-id="${ id }"]` );
+
+		if ( ! pill ) {
+			return;
+		}
+
+		if ( 'datefilter' === type ) {
+			jQuery( '#event-date-input' ).val( '' );
+		} else {
+			const select = document.getElementById( `event-${ type }-select` );
+			const sumoSelect = jQuery( select )[ 0 ].sumo;
+			sumoSelect.unSelectItem( pill.dataset.value );
+		}
+
+		pill.remove();
+	};
+
+	const addFilterPills = ( settings ) => {
+		const filterDiv = document.querySelector( '.event__filters-mobile' );
+		const pillTemplate = document.getElementById( 'filter-pill-template' );
+
+		if ( ! filterDiv || ! pillTemplate ) {
+			return;
+		}
+
+		if ( 'english' in settings ) {
+			delete settings.english;
+		}
+
+		filterDiv.innerHTML = '';
+
+		if ( 'start_date' in settings && settings.start_date ) {
+			const pill = pillTemplate.content.cloneNode( true );
+
+			const filter = pill.querySelector( '[data-filter]' );
+			if ( filter ) {
+				filter.setAttribute( 'data-id', 'datefilter' );
+				filter.addEventListener( 'click', () =>
+					removeFilter( 'datefilter' )
+				);
+			}
+
+			const name = pill.querySelector( '[data-name]' );
+			if ( name ) {
+				name.innerText = `${ settings.start_date } - ${ settings.end_date }`;
+			}
+
+			filterDiv.append( pill );
+
+			delete settings.start_date;
+			delete settings.end_date;
+		}
+
+		Object.entries( settings ).forEach( ( values ) => {
+			if ( ! values[ 1 ].length ) {
+				return;
+			}
+
+			values[ 1 ].forEach( ( value ) => {
+				const pill = pillTemplate.content.cloneNode( true );
+
+				const filter = pill.querySelector( '[data-filter]' );
+				if ( filter ) {
+					filter.setAttribute(
+						'data-id',
+						`${ values[ 0 ] }-${ value }`
+					);
+					filter.setAttribute( 'data-value', `${ value }` );
+					filter.addEventListener( 'click', () =>
+						removeFilter( `${ values[ 0 ] }`, `${ value }` )
+					);
+				}
+
+				const name = pill.querySelector( '[data-name]' );
+				if ( name ) {
+					name.innerText = `${ value }`;
+				}
+
+				filterDiv.append( pill );
+			} );
+		} );
+	};
+
 	const handleFiltersChange = ( e ) => {
 		e.preventDefault();
 
 		const { nonce, ajaxUrl } = eventData;
 
 		const settings = {};
-		settings.action = 'events_search';
-		settings._wpnonce = nonce;
 
 		// Handle selects
 		const selects = filtersForm.querySelectorAll( 'select' );
@@ -103,6 +186,11 @@ const handleFilters = () => {
 		if ( !! searchInput.value ) {
 			settings.search = searchInput.value;
 		}
+
+		addFilterPills( settings );
+
+		settings.action = 'events_search';
+		settings._wpnonce = nonce;
 
 		const formData = new FormData();
 		for ( const key in settings ) {

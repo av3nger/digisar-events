@@ -99,7 +99,7 @@ get_header();
 								<?php esc_attr_e( 'Showing', 'digisar-events' ); ?>
 							</label>
 							<div class="box-input">
-								<select id="event-showing-select" multiple="multiple" name="per-page" class="select-showing" data-max="1">
+								<select id="event-per-page-select" multiple="multiple" name="per-page" class="select-per-page" data-max="1">
 									<option value="10">10</option>
 									<option value="20">20</option>
 									<option value="30">30</option>
@@ -129,12 +129,7 @@ get_header();
 				</form>
 			</div>
 
-			<div class="event__filters-mobile">
-				<div class="mb-filter-item">
-					<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/close-x.svg' ); ?>" alt="<?php esc_attr_e( 'Close', 'digisar-events' ); ?>">
-					<span class="filter-name">7/12/2024</span>
-				</div>
-			</div>
+			<div class="event__filters-mobile"></div>
 
 			<div class="events__table-wrapper">
 				<div class="events__table">
@@ -276,5 +271,6 @@ get_header();
 </section>
 
 <?php
+require_once DIGISAR_EVENTS_DIR_PATH . '/templates/partials/template-filter.php';
 require_once DIGISAR_EVENTS_DIR_PATH . '/templates/partials/template-row.php';
 get_footer();
