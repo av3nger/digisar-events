@@ -472,8 +472,16 @@
 						padding: 12px 0 0;
 					}
 
-					& .ev-filter-item.ft-date {
+					& .ev-filter-item.ft-date,
+					& .SumoSelect {
 						width: 100%;
+					}
+
+					& .SumoSelect .CaptionCont {
+						border: 2px solid var(--color--grey);
+						color: var(--color--dark-grey);
+						font-size: .875rem;
+						padding: 8px;
 					}
 				}
 

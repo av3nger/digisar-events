@@ -265,4 +265,60 @@ final class Event extends CPT {
 
 		$query->set( 'meta_query', $meta_query );
 	}
+
+	/**
+	 * Get latest events.
+	 *
+	 * @param string $course Course slug.
+	 * @param int    $number Number of events.
+	 *
+	 * @return array
+	 */
+	public static function get_latest( string $course = '', int $number = 5 ): array {
+		$args = array(
+			'meta_query'             => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'     => 'event_start',
+					'value'   => gmdate( 'Y-m-d' ),
+					'compare' => '>=',
+					'type'    => 'DATE',
+				),
+			),
+			'posts_per_page'         => $number,
+			'post_type'              => self::$name,
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		);
+
+		if ( ! empty( $course ) ) {
+			$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				array(
+					'taxonomy' => Taxonomy\Course::$name,
+					'field'    => 'slug',
+					'terms'    => $course,
+				),
+			);
+		}
+
+		$events = new WP_Query( $args );
+
+		if ( is_wp_error( $events ) ) {
+			return array();
+		}
+
+		$results = array();
+		foreach ( $events->posts as $event ) {
+			$event_start = get_post_meta( $event->ID, 'event_start', true );
+			$event_start = empty( $event_start ) ? '' : gmdate( 'm-j-Y', strtotime( $event_start ) );
+
+			$results[] = array(
+				'id'    => $event->ID,
+				'title' => $event->post_title,
+				'start' => $event_start,
+			);
+		}
+
+		return $results;
+	}
 }

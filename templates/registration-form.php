@@ -29,6 +29,8 @@ $event_start = empty( $event_start ) ? '' : gmdate( 'm-j-Y', strtotime( $event_s
 
 $event_location = get_the_terms( $event_id, Taxonomy\Location::$name );
 
+$events = PostType\Event::get_latest( $selected_course ?? '' );
+
 get_header();
 ?>
 
@@ -93,17 +95,17 @@ get_header();
 							<div class="dv-fields dv-date-field">
 								<div class="dv-field-row">
 									<div class="ev-filter-item ft-date">
-										<label class="name" for="date-input-field"><?php esc_html_e( 'Date', 'digisar-events' ); ?></label>
+										<label class="name" for="event-date-select">
+											<?php esc_attr_e( 'Date', 'digisar-events' ); ?>
+										</label>
 										<div class="box-input">
-											<input
-												type="text"
-												name="datefilter"
-												id="date-input-field"
-												value="<?php echo esc_attr( $event_start ); ?>"
-												placeholder="<?php esc_attr_e( 'All Events', 'digisar-events' ); ?>"
-												data-single="true"
-											>
-											<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date icon-filter">
+											<select id="event-date-select" name="event-date" class="select-type">
+												<?php foreach ( $events as $event_data ) : ?>
+													<option value="<?php echo esc_attr( $event_data['id'] ); ?>" <?php selected( $event_data['start'], $event_start ); ?>>
+														<?php echo esc_html( $event_data['start'] ); ?>
+													</option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 									</div>
 								</div>
