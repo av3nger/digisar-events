@@ -96,6 +96,25 @@ final class Event extends CPT {
 				),
 			),
 		),
+		array(
+			'core/group',
+			array( 'className' => 'section-content' ),
+			array(
+				array(
+					'core/columns',
+					array( 'className' => 'row' ),
+					array(
+						array(
+							'core/column',
+							array(
+								'width'     => '100%',
+								'className' => 'col small-12 large-12',
+							),
+						),
+					),
+				),
+			),
+		),
 	);
 
 	/**
