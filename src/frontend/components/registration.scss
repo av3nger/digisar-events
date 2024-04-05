@@ -819,6 +819,10 @@
 				@media screen and (max-width: 767px) {
 					right: 11px;
 				}
+
+				@-moz-document url-prefix() {
+					display: none;
+				}
 			}
 		}
 
