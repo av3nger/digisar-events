@@ -101,9 +101,7 @@ final class Registration {
 
 		$this->validate_captcha();
 
-		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
-		$email     = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
-		$event_id  = (int) filter_input( INPUT_POST, 'event-id', FILTER_SANITIZE_NUMBER_INT );
+		$event_id = (int) filter_input( INPUT_POST, 'event-id', FILTER_SANITIZE_NUMBER_INT );
 
 		$event = get_post( $event_id );
 
@@ -111,6 +109,9 @@ final class Registration {
 		if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
 			return;
 		}
+
+		$nice_name = filter_input( INPUT_POST, 'name', FILTER_UNSAFE_RAW );
+		$email     = filter_input( INPUT_POST, 'email', FILTER_SANITIZE_EMAIL );
 
 		$user_data = array(
 			'user_login'   => $email,
@@ -121,6 +122,70 @@ final class Registration {
 			'role'         => 'event_participant',
 		);
 
+		// Register main participant.
+		$this->register_participant( $email, $user_data, $event, true );
+
+		// Register additional participants.
+		$this->process_participants( $event );
+
+		wp_send_json_success();
+	}
+
+	/**
+	 * Process additional participants.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Post $event Event CPT.
+	 */
+	private function process_participants( WP_Post $event ) {
+		if ( ! isset( $_POST['participants'] ) || ! is_array( $_POST['participants'] ) ) { // phpcs:ignore WordPress.Security
+			return;
+		}
+
+		$participants = array_map(
+			function ( $participant ) {
+				return array(
+					'name'  => filter_var( $participant['name'], FILTER_UNSAFE_RAW ),
+					'dob'   => filter_var( $participant['dob'], FILTER_UNSAFE_RAW ),
+					'email' => filter_var( $participant['email'], FILTER_SANITIZE_EMAIL ),
+					'phone' => filter_var( $participant['phone'], FILTER_UNSAFE_RAW ),
+				);
+			},
+			$_POST['participants'] // phpcs:ignore WordPress.Security
+		);
+
+		if ( empty( $participants ) ) {
+			return;
+		}
+
+		foreach ( $participants as $participant ) {
+			$email = sanitize_email( $participant['email'] );
+
+			$user_data = array(
+				'user_login'   => $email,
+				'user_pass'    => wp_generate_password( 16 ),
+				'user_email'   => $email,
+				'first_name'   => sanitize_text_field( $participant['name'] ),
+				'display_name' => sanitize_text_field( $participant['name'] ),
+				'role'         => 'event_participant',
+			);
+
+			$this->register_participant( $email, $user_data, $event );
+		}
+	}
+
+	/**
+	 * Register participant for event.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string  $email     User email.
+	 * @param array   $user_data User data.
+	 * @param WP_Post $event     Event data.
+	 * @param bool    $main      Is this the main participant.
+	 */
+	private function register_participant( string $email, array $user_data, WP_Post $event, bool $main = false ) {
 		$existing_user = username_exists( $email );
 		if ( $existing_user ) {
 			$user_id = $existing_user;
@@ -139,10 +204,12 @@ final class Registration {
 		}
 
 		$this->update_participants( $user_id, $event->ID );
-		$this->save_user_meta( $user_id );
-		$this->notify_user( $user_data, $event );
 
-		wp_send_json_success();
+		if ( $main ) {
+			$this->save_user_meta( $user_id );
+		}
+
+		$this->notify_user( $user_data, $event );
 	}
 
 	/**

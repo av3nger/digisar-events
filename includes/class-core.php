@@ -174,6 +174,7 @@ final class Core {
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'nonce'       => wp_create_nonce( 'events-nonce' ),
 				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
+				'participant' => esc_html__( 'Additional member', 'digisar-events' ),
 			)
 		);
 	}

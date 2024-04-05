@@ -73,6 +73,79 @@ const registration = () => {
 		e.preventDefault();
 		jQuery( '.event__popup' ).removeClass( 'active' );
 	} );
+
+	const removeParticipant = ( e ) => {
+		e.preventDefault();
+
+		const id = e.currentTarget.dataset.id;
+		const row = document.querySelector(
+			`.dv-participant[data-id="participant-${ id }"]`
+		);
+
+		if ( row ) {
+			row.remove();
+		}
+
+		const table = document.getElementById( 'js-participants' );
+		const participants = table.querySelectorAll( '.dv-participant' );
+		if ( ! participants.length ) {
+			table.style.display = 'none';
+		}
+	};
+
+	const addParticipant = () => {
+		const rowTemplate = document.getElementById( 'participant-template' );
+		const table = document.getElementById( 'js-participants' );
+
+		if ( ! table || ! rowTemplate ) {
+			return;
+		}
+
+		table.style.display = 'block';
+
+		const row = rowTemplate.content.cloneNode( true );
+		const participants = table.querySelectorAll( '.dv-participant' );
+		const count = participants.length + 1;
+		const { participant } = eventData;
+
+		const rowDiv = row.querySelector( '.dv-participant' );
+		if ( rowDiv ) {
+			rowDiv.dataset.id = `participant-${ count }`;
+		}
+
+		const title = row.querySelector( '[data-title]' );
+		if ( title ) {
+			title.innerText = `${ participant } ${ count }`;
+		}
+
+		const deleteBtn = row.querySelector( '[data-delete]' );
+		if ( deleteBtn ) {
+			deleteBtn.dataset.id = count;
+			deleteBtn.addEventListener( 'click', removeParticipant );
+		}
+
+		const labels = [ 'name', 'dob', 'email', 'phone' ];
+
+		labels.forEach( ( id ) => {
+			const label = row.querySelector( `[data-${ id }-label]` );
+			if ( label ) {
+				label.setAttribute( 'for', `participant-${ id }-${ count }` );
+			}
+
+			const input = row.querySelector( `[data-${ id }-input]` );
+			if ( input ) {
+				input.id = `participant-${ id }-${ count }`;
+				input.name = `participants[${ participants.length }][${ id }]`;
+			}
+		} );
+
+		table.appendChild( row );
+	};
+
+	jQuery( '#add-participant' ).click( ( e ) => {
+		e.preventDefault();
+		addParticipant();
+	} );
 };
 
 export default registration;

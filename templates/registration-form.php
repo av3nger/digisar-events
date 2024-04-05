@@ -239,6 +239,18 @@ get_header();
 							</div>
 						</div>
 					</div>
+
+					<div class="dv-participants-step">
+						<div class="dv-main-step" id="js-participants"></div>
+
+						<div class="dv-sub-step">
+							<strong><?php esc_html_e( 'Register several participants', 'digisar-events' ); ?></strong>
+							<p><?php esc_html_e( 'The participation fee will be invoiced afterwards.', 'digisar-events' ); ?></p>
+							<p><?php esc_html_e( 'VAT 24% is added to the price.', 'digisar-events' ); ?></p>
+							<button id="add-participant"><?php esc_html_e( 'Add a member', 'digisar-events' ); ?></button>
+						</div>
+					</div>
+
 					<div class="dv-action-step">
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
 						<button id="sumit-step2" type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
@@ -248,7 +260,6 @@ get_header();
 					</div>
 				</div>
 			</form>
-
 
 			<div class="event__registration-step step3 dv-confirmed-step">
 				<div class="entry">
@@ -309,4 +320,5 @@ get_header();
 </main>
 
 <?php
+require_once DIGISAR_EVENTS_DIR_PATH . '/templates/partials/template-participant.php';
 get_footer();
