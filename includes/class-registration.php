@@ -103,6 +103,13 @@ final class Registration {
 
 		$event_id = (int) filter_input( INPUT_POST, 'event-id', FILTER_SANITIZE_NUMBER_INT );
 
+		$selected_date = (int) filter_input( INPUT_POST, 'event-date', FILTER_SANITIZE_NUMBER_INT );
+
+		// User selected a different date.
+		if ( ! empty( $selected_date ) && $selected_date !== $event_id ) {
+			$event_id = $selected_date;
+		}
+
 		$event = get_post( $event_id );
 
 		// Do not process form entries for fake events.
