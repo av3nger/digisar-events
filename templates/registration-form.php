@@ -99,7 +99,8 @@ get_header();
 											<?php esc_attr_e( 'Date', 'digisar-events' ); ?>
 										</label>
 										<div class="box-input">
-											<select id="event-date-select" name="event-date" class="select-type">
+											<select id="event-date-select" name="event-date" class="select-type" required>
+												<option value=""><?php esc_html_e( 'Select date', 'digisar-events' ); ?></option>
 												<?php foreach ( $events as $event_data ) : ?>
 													<option value="<?php echo esc_attr( $event_data['id'] ); ?>" <?php selected( $event_data['start'], $event_start ); ?>>
 														<?php echo esc_html( $event_data['start'] ); ?>

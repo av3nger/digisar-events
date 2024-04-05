@@ -33,6 +33,10 @@ final class Ajax {
 		// Filters/search endpoints.
 		add_action( 'wp_ajax_events_search', array( $this, 'events_search' ) );
 		add_action( 'wp_ajax_nopriv_events_search', array( $this, 'events_search' ) );
+
+		// Get course dates.
+		add_action( 'wp_ajax_get_course_dates', array( $this, 'get_course_dates' ) );
+		add_action( 'wp_ajax_nopriv_get_course_dates', array( $this, 'get_course_dates' ) );
 	}
 
 	/**
@@ -168,6 +172,27 @@ final class Ajax {
 				'type'     => $type ?? array(),
 			);
 		}
+
+		wp_send_json_success( $results );
+	}
+
+	/**
+	 * Get latest 5 dates for selected course.
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_course_dates(): void {
+		check_ajax_referer( 'events-nonce' );
+
+		$course = filter_input( INPUT_POST, 'course', FILTER_UNSAFE_RAW );
+
+		if ( ! $course ) {
+			wp_send_json_error();
+			return;
+		}
+
+		$course  = sanitize_text_field( $course );
+		$results = PostType\Event::get_latest( $course );
 
 		wp_send_json_success( $results );
 	}

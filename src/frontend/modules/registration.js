@@ -3,7 +3,11 @@
 const registration = () => {
 	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) => {
 		e.preventDefault();
-		if ( jQuery( 'input[name=course]' ).is( ':checked' ) ) {
+
+		if (
+			jQuery( 'input[name=course]' ).is( ':checked' ) &&
+			jQuery( 'select[name="event-date"]' ).val() !== ''
+		) {
 			jQuery( '.dv-label-note' ).removeClass( 'active' );
 			jQuery( '.step2-click' ).addClass( 'active' );
 			jQuery( '.step1' ).addClass( 'hide' ).removeClass( 'show' );
@@ -13,6 +17,43 @@ const registration = () => {
 			jQuery( '.step1' ).removeClass( 'hide' ).addClass( 'show' );
 			jQuery( '.step2' ).removeClass( 'show' ).addClass( 'hide' );
 		}
+	} );
+
+	jQuery( 'input[name="course"]' ).on( 'change', ( e ) => {
+		const { ajaxUrl, nonce } = eventData;
+
+		const formData = new FormData();
+		formData.append( '_wpnonce', nonce );
+		formData.append( 'action', 'get_course_dates' );
+		formData.append( 'course', e.currentTarget.id );
+
+		fetch( ajaxUrl, {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: formData,
+		} )
+			.then( ( response ) => response.json() )
+			.then( ( response ) => {
+				if ( response.success && response.data ) {
+					const select =
+						document.getElementById( `event-date-select` );
+					const sumoSelect = jQuery( select )[ 0 ].sumo;
+
+					const optionsLength = jQuery(
+						'select[name="event-date"] option'
+					).length;
+
+					// Remove all options except the first one, iterate in reverse
+					for ( let i = optionsLength - 1; i > 0; i-- ) {
+						sumoSelect.remove( i );
+					}
+
+					response.data.forEach( ( item ) => {
+						sumoSelect.add( item.id, item.start );
+					} );
+				}
+			} )
+			.catch( window.console.error );
 	} );
 
 	jQuery( '#event__registration-form' ).on( 'submit', async function ( e ) {
