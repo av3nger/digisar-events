@@ -1,23 +1,47 @@
 /* global jQuery, eventData, grecaptcha */
 
-const registration = () => {
-	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) => {
-		e.preventDefault();
+const goToStepOne = ( e ) => {
+	e.preventDefault();
 
-		if (
-			jQuery( 'input[name=course]' ).is( ':checked' ) &&
-			jQuery( 'select[name="event-date"]' ).val() !== ''
-		) {
-			jQuery( '.dv-label-note' ).removeClass( 'active' );
-			jQuery( '.step2-click' ).addClass( 'active' );
-			jQuery( '.step1' ).addClass( 'hide' ).removeClass( 'show' );
-			jQuery( '.step2' ).addClass( 'show' ).removeClass( 'hide' );
-		} else {
-			jQuery( '.dv-label-note' ).addClass( 'active' );
-			jQuery( '.step1' ).removeClass( 'hide' ).addClass( 'show' );
-			jQuery( '.step2' ).removeClass( 'show' ).addClass( 'hide' );
-		}
-	} );
+	jQuery( '.step2-click' ).removeClass( 'active' );
+	jQuery( '.step1' ).addClass( 'show' ).removeClass( 'hide' );
+	jQuery( '.step2' ).addClass( 'hide' ).removeClass( 'show' );
+};
+
+const goToStepTwo = ( e ) => {
+	e.preventDefault();
+
+	if (
+		jQuery( 'input[name=course]' ).is( ':checked' ) &&
+		jQuery( 'select[name="event-date"]' ).val() !== ''
+	) {
+		jQuery( '.dv-label-note' ).removeClass( 'active' );
+		jQuery( '.step2-click' ).addClass( 'active' );
+		jQuery( '.step1' ).addClass( 'hide' ).removeClass( 'show' );
+		jQuery( '.step2' ).addClass( 'show' ).removeClass( 'hide' );
+	} else {
+		jQuery( '.dv-label-note' ).addClass( 'active' );
+		jQuery( '.step1' ).removeClass( 'hide' ).addClass( 'show' );
+		jQuery( '.step2' ).removeClass( 'show' ).addClass( 'hide' );
+	}
+};
+
+const registration = () => {
+	jQuery( '.event__registration .step1 a.btn-next' ).click( ( e ) =>
+		goToStepTwo( e )
+	);
+
+	jQuery( '.event__registration .step2-click a' ).click( ( e ) =>
+		goToStepTwo( e )
+	);
+
+	jQuery( '.event__registration .step1-click a' ).click( ( e ) =>
+		goToStepOne( e )
+	);
+
+	jQuery( '.event__registration .step2 a.btn-back' ).click( ( e ) =>
+		goToStepOne( e )
+	);
 
 	jQuery( 'input[name="course"]' ).on( 'change', ( e ) => {
 		const { ajaxUrl, nonce } = eventData;

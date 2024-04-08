@@ -48,7 +48,7 @@ get_header();
 			<ul class="dv-tab-step">
 				<li class="step1-click active"><a href="#"><span>1</span><?php esc_html_e( 'Event information', 'digisar-events' ); ?></a></li>
 				<li class="step2-click"><a href="#"><span>2</span><?php esc_html_e( 'Personal information', 'digisar-events' ); ?></a></li>
-				<li class="step3-click"><a href="#"><span>3</span><?php esc_html_e( 'Confirmed', 'digisar-events' ); ?></a></li>
+				<li class="step3-click"><span class="dv-tab-step-link"><span>3</span><?php esc_html_e( 'Confirmed', 'digisar-events' ); ?></span></li>
 			</ul>
 		</div>
 	</section>
@@ -255,6 +255,7 @@ get_header();
 					</div>
 
 					<div class="dv-action-step">
+						<a href="#" class="btn-back"><?php esc_html_e( 'Back', 'digisar-events' ); ?></a>
 						<a href="#" class="btn-cancel"><?php esc_html_e( 'Cancel', 'digisar-events' ); ?></a>
 						<button id="sumit-step2" type="submit" class="btn-next"><?php esc_html_e( 'Register now', 'digisar-events' ); ?></button>
 						<?php if ( defined( 'G_RECAPTCHA_SITE_KEY' ) ) : ?>
