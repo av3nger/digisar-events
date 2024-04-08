@@ -14,7 +14,8 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start",
-		"start:front": "wp-scripts start --webpack-src-dir=src/frontend --output-path=assets/frontend"
+		"start:front": "wp-scripts start --webpack-src-dir=src/frontend --output-path=assets/frontend",
+		"translate": "wp i18n make-pot . languages/digisar-events.pot"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^27.5.0"

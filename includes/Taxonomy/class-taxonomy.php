@@ -77,27 +77,27 @@ abstract class Taxonomy {
 		return array(
 			'name'              => $this->plural,
 			'singular_name'     => $this->singular,
-			/* translators: %s - plural taxonomy name */
+			/* translators: %s - plural CPT/taxonomy name */
 			'all_items'         => sprintf( __( 'All %s', 'digisar-events' ), $this->plural ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'edit_item'         => sprintf( __( 'Edit %s', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'view_item'         => sprintf( __( 'View %s', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'update_item'       => sprintf( __( 'Update %s', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'add_new_item'      => sprintf( __( 'Add New %s', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'new_item_name'     => sprintf( __( 'New %s Name', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'parent_item'       => sprintf( __( 'Parent %s', 'digisar-events' ), $this->singular ),
-			/* translators: %s - singular taxonomy name */
+			/* translators: %s - singular CPT/taxonomy name */
 			'parent_item_colon' => sprintf( __( 'Parent %s:', 'digisar-events' ), $this->singular ),
-			/* translators: %s - plural taxonomy name */
+			/* translators: %s - plural CPT/taxonomy name */
 			'search_items'      => sprintf( __( 'Search %s', 'digisar-events' ), $this->plural ),
-			/* translators: %s - plural taxonomy name */
+			/* translators: %s - plural CPT/taxonomy name */
 			'popular_items'     => sprintf( __( 'Popular %s', 'digisar-events' ), $this->plural ),
-			/* translators: %s - plural taxonomy name */
+			/* translators: %s - plural CPT/taxonomy name */
 			'not_found'         => sprintf( __( 'No %s found.', 'digisar-events' ), strtolower( $this->plural ) ),
 		);
 	}
