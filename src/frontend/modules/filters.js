@@ -35,6 +35,7 @@ const handleFilters = () => {
 
 			const name = row.querySelector( '[data-name]' );
 			if ( name ) {
+				name.href = event.link;
 				name.innerText = event.title;
 			}
 

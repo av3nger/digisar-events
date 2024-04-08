@@ -175,7 +175,9 @@ get_header();
 									</div>
 									<div class="tb-colum name">
 										<div class="group">
-											<span class="name-text"><?php the_title(); ?></span>
+											<a href="<?php echo esc_url( get_permalink() ); ?>" class="name-text">
+												<?php the_title(); ?>
+											</a>
 											<?php if ( $event_in_english ) : ?>
 												<span class="name-en">
 													<?php esc_html_e( 'En', 'digisar-events' ); ?>

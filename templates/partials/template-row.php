@@ -16,7 +16,7 @@
 			</div>
 			<div class="tb-colum name">
 				<div class="group">
-					<span class="name-text" data-name>Event name</span>
+					<a href="#" class="name-text" data-name>Event name</a>
 					<span class="name-en" data-language>En</span>
 				</div>
 			</div>
