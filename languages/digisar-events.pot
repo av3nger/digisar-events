@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-08T04:42:55+00:00\n"
+"POT-Creation-Date: 2024-04-10T05:47:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: digisar-events\n"
@@ -38,9 +38,15 @@ msgstr ""
 msgid "Add to calendar"
 msgstr ""
 
-#: assets/blocks/event-description/markup.php:43
-#: src/event-description/markup.php:43
-#: templates/registration-form.php:259
+#: assets/blocks/event-description/markup.php:49
+#: src/event-description/markup.php:49
+#: templates/archive-events.php:242
+msgid "Event is full"
+msgstr ""
+
+#: assets/blocks/event-description/markup.php:51
+#: src/event-description/markup.php:51
+#: templates/registration-form.php:224
 #: assets/blocks/event-description/index.js:213
 #: src/event-description/edit.js:54
 msgid "Register now"
@@ -63,7 +69,7 @@ msgstr ""
 #: assets/blocks/event-details/markup.php:41
 #: src/event-details/markup.php:41
 #: templates/archive-events.php:145
-#: templates/archive-events.php:204
+#: templates/archive-events.php:206
 #: templates/partials/template-row.php:39
 #: assets/blocks/event-details/index.js:213
 #: src/event-details/edit.js:160
@@ -72,9 +78,9 @@ msgstr ""
 
 #: assets/blocks/event-details/markup.php:52
 #: src/event-details/markup.php:52
-#: templates/archive-events.php:216
+#: templates/archive-events.php:218
 #: templates/partials/template-row.php:47
-#: templates/registration-form.php:287
+#: templates/registration-form.php:252
 #: assets/blocks/event-details/index.js:213
 #: src/event-details/edit.js:170
 msgid "Place of event"
@@ -109,11 +115,11 @@ msgstr ""
 msgid "Export to CSV"
 msgstr ""
 
-#: includes/class-core.php:176
+#: includes/class-core.php:182
 msgid "Registering..."
 msgstr ""
 
-#: includes/class-core.php:177
+#: includes/class-core.php:183
 msgid "Additional member"
 msgstr ""
 
@@ -224,7 +230,7 @@ msgstr ""
 
 #: includes/Taxonomy/class-course.php:57
 #: includes/Taxonomy/class-course.php:78
-#: templates/registration-form.php:293
+#: templates/registration-form.php:258
 msgid "Price"
 msgstr ""
 
@@ -272,7 +278,7 @@ msgid "Event types"
 msgstr ""
 
 #: templates/archive-events.php:26
-#: templates/archive-events.php:267
+#: templates/archive-events.php:276
 msgid "List of events"
 msgstr ""
 
@@ -295,14 +301,14 @@ msgstr ""
 
 #: templates/archive-events.php:47
 #: templates/partials/template-filter.php:13
-#: templates/registration-form.php:311
+#: templates/registration-form.php:276
 msgid "Close"
 msgstr ""
 
 #: templates/archive-events.php:54
 #: templates/archive-events.php:139
 #: templates/registration-form.php:99
-#: templates/registration-form.php:281
+#: templates/registration-form.php:246
 msgid "Date"
 msgstr ""
 
@@ -316,7 +322,7 @@ msgstr ""
 
 #: templates/archive-events.php:65
 #: templates/archive-events.php:144
-#: templates/archive-events.php:193
+#: templates/archive-events.php:195
 #: templates/partials/template-row.php:30
 msgid "Event Type"
 msgstr ""
@@ -332,7 +338,7 @@ msgstr ""
 
 #: templates/archive-events.php:126
 #: templates/registration-form.php:117
-#: templates/registration-form.php:258
+#: templates/registration-form.php:223
 msgid "Cancel"
 msgstr ""
 
@@ -341,7 +347,7 @@ msgid "Save"
 msgstr ""
 
 #: templates/archive-events.php:140
-#: templates/registration-form.php:276
+#: templates/registration-form.php:241
 msgid "Event Name"
 msgstr ""
 
@@ -349,26 +355,26 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: templates/archive-events.php:181
+#: templates/archive-events.php:183
 msgid "En"
 msgstr ""
 
-#: templates/archive-events.php:230
+#: templates/archive-events.php:232
 #: templates/partials/template-row.php:59
 msgid "Details"
 msgstr ""
 
-#: templates/archive-events.php:237
+#: templates/archive-events.php:244
 #: templates/partials/template-row.php:64
 msgid "Register"
 msgstr ""
 
 #. translators: %d - total number of events
-#: templates/archive-events.php:254
+#: templates/archive-events.php:263
 msgid "Showing 1-10 of %d items"
 msgstr ""
 
-#: templates/archive-events.php:268
+#: templates/archive-events.php:277
 msgid "No events found"
 msgstr ""
 
@@ -397,22 +403,21 @@ msgid "Your Date of birth"
 msgstr ""
 
 #: templates/partials/template-participant.php:55
-#: templates/registration-form.php:169
+#: templates/registration-form.php:168
 msgid "E-mail"
 msgstr ""
 
 #: templates/partials/template-participant.php:61
-#: templates/registration-form.php:175
+#: templates/registration-form.php:174
 msgid "Your E-mail"
 msgstr ""
 
 #: templates/partials/template-participant.php:70
-#: templates/registration-form.php:183
+#: templates/registration-form.php:182
 msgid "Telephone number"
 msgstr ""
 
 #: templates/partials/template-participant.php:76
-#: templates/registration-form.php:189
 msgid "Your Telephone number"
 msgstr ""
 
@@ -430,7 +435,7 @@ msgid "Personal information"
 msgstr ""
 
 #: templates/registration-form.php:51
-#: templates/registration-form.php:270
+#: templates/registration-form.php:235
 msgid "Confirmed"
 msgstr ""
 
@@ -452,7 +457,7 @@ msgid "Please fill in all fields"
 msgstr ""
 
 #: templates/registration-form.php:83
-#: templates/registration-form.php:294
+#: templates/registration-form.php:259
 msgid "person"
 msgstr ""
 
@@ -476,91 +481,71 @@ msgstr ""
 msgid "Step 2 - Personal information"
 msgstr ""
 
-#: templates/registration-form.php:200
+#: templates/registration-form.php:188
+msgid "Your Telephone Number"
+msgstr ""
+
+#: templates/registration-form.php:194
 msgid "Company"
 msgstr ""
 
-#: templates/registration-form.php:201
+#: templates/registration-form.php:195
 msgid "Company Name"
 msgstr ""
 
-#: templates/registration-form.php:206
-#: templates/registration-form.php:207
-msgid "Billing address"
+#: templates/registration-form.php:200
+msgid "Address"
+msgstr ""
+
+#: templates/registration-form.php:201
+msgid "Your Address"
 msgstr ""
 
 #: templates/registration-form.php:213
-#: templates/registration-form.php:214
-msgid "ZIP code"
-msgstr ""
-
-#: templates/registration-form.php:219
-#: templates/registration-form.php:220
-msgid "Postal district"
-msgstr ""
-
-#: templates/registration-form.php:226
-#: templates/registration-form.php:227
-msgid "Delivery address"
-msgstr ""
-
-#: templates/registration-form.php:232
-msgid "Invoicing information"
-msgstr ""
-
-#: templates/registration-form.php:233
-msgid "in writing, no attachment"
-msgstr ""
-
-#: templates/registration-form.php:238
-msgid "Additional information"
-msgstr ""
-
-#: templates/registration-form.php:239
-msgid "Special diets and more"
-msgstr ""
-
-#: templates/registration-form.php:250
 msgid "Register several participants"
 msgstr ""
 
-#: templates/registration-form.php:251
+#: templates/registration-form.php:214
 msgid "The participation fee will be invoiced afterwards."
 msgstr ""
 
-#: templates/registration-form.php:252
+#: templates/registration-form.php:215
 msgid "VAT 24% is added to the price."
 msgstr ""
 
-#: templates/registration-form.php:253
+#: templates/registration-form.php:216
 msgid "Add a member"
 msgstr ""
 
-#: templates/registration-form.php:271
+#: templates/registration-form.php:222
+msgid "Back"
+msgstr ""
+
+#: templates/registration-form.php:236
 msgid "You have successfully registered for the event."
 msgstr ""
 
-#: templates/registration-form.php:300
+#: templates/registration-form.php:265
 msgid "Add to Calendar"
 msgstr ""
 
-#: templates/registration-form.php:301
+#: templates/registration-form.php:266
 msgid "Back to home"
 msgstr ""
 
-#: templates/registration-form.php:314
+#: templates/registration-form.php:279
 msgid "Are you sure you want to leave this page?"
 msgstr ""
 
-#: templates/registration-form.php:315
+#: templates/registration-form.php:280
 msgid "The information you've entered will not be saved."
 msgstr ""
 
-#: templates/registration-form.php:318
+#: templates/registration-form.php:283
 msgid "No"
 msgstr ""
 
-#: templates/registration-form.php:319
+#: templates/registration-form.php:284
 msgid "Yes"
 msgstr ""
 
