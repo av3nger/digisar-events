@@ -76,6 +76,7 @@ final class Ajax {
 
 		$args = array(
 			'post_type'      => PostType\Event::$name,
+			'post_status'    => 'publish',
 			'posts_per_page' => $per_page ?? 10,
 		);
 
