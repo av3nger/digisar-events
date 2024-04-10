@@ -1,4 +1,5 @@
-/* global eventData, jQuery, lodash */
+/* global eventData, jQuery */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import debounce from 'lodash.debounce';
 
 const handleFilters = () => {
@@ -9,6 +10,7 @@ const handleFilters = () => {
 		return;
 	}
 
+	let page = 1;
 	const searchInput = document.getElementById( 'event-search' );
 
 	const getSelectValues = ( selectElement ) => {
@@ -143,10 +145,6 @@ const handleFilters = () => {
 			delete settings.end_date;
 		}
 
-		if ( 'search' in settings ) {
-			delete settings.search;
-		}
-
 		Object.entries( settings ).forEach( ( values ) => {
 			if ( ! values[ 1 ].length ) {
 				return;
@@ -177,6 +175,30 @@ const handleFilters = () => {
 		} );
 	};
 
+	const buildPagination = ( currentPage, totalPages ) => {
+		const ul = document.querySelector( 'ul.pagination-list' );
+		ul.innerHTML = '';
+
+		for ( let i = 1; i <= totalPages; i++ ) {
+			const li = document.createElement( 'li' );
+			li.className = 'pagination-item';
+			if ( i === currentPage ) {
+				li.classList.add( 'active' );
+			}
+
+			const a = document.createElement( 'a' );
+			a.href = '#';
+			a.className = 'number';
+			a.dataset.pg = i;
+			a.textContent = i;
+
+			a.addEventListener( 'click', handlePaginationClick );
+
+			li.appendChild( a );
+			ul.appendChild( li );
+		}
+	};
+
 	const handleFiltersChange = ( e ) => {
 		e.preventDefault();
 
@@ -202,13 +224,16 @@ const handleFilters = () => {
 			settings.end_date = picker.endDate.format( 'YYYY-MM-DD' );
 		}
 
+		const pillSettings = { ...settings };
+		addFilterPills( pillSettings );
+
 		// Search
 		if ( !! searchInput.value ) {
 			settings.search = searchInput.value;
 		}
 
-		const pillSettings = { ...settings };
-		addFilterPills( pillSettings );
+		// Page
+		settings.page = page;
 
 		settings.action = 'events_search';
 		settings._wpnonce = nonce;
@@ -226,21 +251,38 @@ const handleFilters = () => {
 			.then( ( response ) => response.json() )
 			.then( ( response ) => {
 				if ( response.success && response.data ) {
-					buildRows( response.data );
+					buildRows( response.data.events );
+					buildPagination( response.data.page, response.data.pages );
+
+					const pgText = document.querySelector( '.pagination-text' );
+					if ( pgText ) {
+						pgText.innerText = response.data.text;
+					}
 				}
 			} )
 			.catch( window.console.error );
 	};
 
-	const debouncedHandleFiltersChange = debounce( handleFiltersChange, 500 );
-
-	const handleSearchInput = ( e ) => {
+	const handlePaginationClick = ( e ) => {
 		e.preventDefault();
-		debouncedHandleFiltersChange( e );
+		page = e.target.dataset.pg;
+		handleFiltersChange( e );
 	};
 
+	const paginationLinks = document.querySelectorAll(
+		'ul.pagination-list > .pagination-item > a'
+	);
+
+	paginationLinks.forEach( ( el ) => {
+		el.addEventListener( 'click', handlePaginationClick );
+	} );
+
+	const debouncedHandleFiltersChange = debounce( handleFiltersChange, 500 );
+
 	filtersForm.addEventListener( 'change', handleFiltersChange );
-	searchInput.addEventListener( 'input', handleSearchInput );
+	searchInput.addEventListener( 'input', ( e ) =>
+		debouncedHandleFiltersChange( e )
+	);
 };
 
 export default handleFilters;

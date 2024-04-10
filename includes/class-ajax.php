@@ -73,11 +73,13 @@ final class Ajax {
 		$start_date = filter_input( INPUT_POST, 'start_date', FILTER_UNSAFE_RAW );
 		$end_date   = filter_input( INPUT_POST, 'end_date', FILTER_UNSAFE_RAW );
 		$search     = filter_input( INPUT_POST, 'search', FILTER_SANITIZE_STRING );
+		$page       = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_NUMBER_INT );
 
 		$args = array(
+			'paged'          => $page ? (int) $page : 1,
 			'post_type'      => PostType\Event::$name,
 			'post_status'    => 'publish',
-			'posts_per_page' => $per_page ?? 10,
+			'posts_per_page' => $per_page ? (int) $per_page : 10,
 		);
 
 		if ( $types ) {
@@ -173,6 +175,20 @@ final class Ajax {
 				'type'     => $type ?? array(),
 			);
 		}
+
+		$results = array(
+			'count'  => $events->post_count,
+			'events' => $results,
+			'page'   => $args['paged'],
+			'pages'  => $events->max_num_pages,
+			'text'   => sprintf( /* translators: %d - total number of events */
+				esc_html__( 'Showing %1$d-%2$d of %3$d items', 'digisar-events' ),
+				absint( $args['posts_per_page'] * ( $args['paged'] - 1 ) + 1 ),
+				absint( min( $args['posts_per_page'] * ( $args['paged'] - 1 ) + $events->post_count, $events->found_posts ) ),
+				absint( $events->found_posts )
+			),
+			'total'  => $events->found_posts,
+		);
 
 		wp_send_json_success( $results );
 	}

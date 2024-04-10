@@ -266,9 +266,13 @@ get_header();
 					?>
 				</div>
 				<ul class="pagination-list">
-					<li class="pagination-item active"><a href="#" class="number">1</a></li>
+					<li class="pagination-item active"><a href="#" class="number" data-pg="1">1</a></li>
 					<?php for ( $i = 2; $i <= $total_pages; $i++ ) : ?>
-						<li class="pagination-item"><a href="#" class="number"><?php echo absint( $i ); ?></a></li>
+						<li class="pagination-item">
+							<a href="#" class="number" data-pg="<?php echo absint( $i ); ?>">
+								<?php echo absint( $i ); ?>
+							</a>
+						</li>
 					<?php endfor; ?>
 				</ul>
 			</div>
