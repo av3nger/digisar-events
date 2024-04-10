@@ -162,7 +162,7 @@ final class Core {
 		wp_enqueue_script(
 			'event-scripts',
 			DIGISAR_EVENTS_DIR_URL . 'assets/frontend/index.js',
-			array( 'jquery', 'events-momentjs', 'events-daterangepicker' ),
+			array( 'jquery', 'events-momentjs', 'events-daterangepicker', 'lodash' ),
 			filemtime( DIGISAR_EVENTS_DIR_PATH . '/assets/frontend/index.js' ),
 			true
 		);
@@ -181,7 +181,7 @@ final class Core {
 				'nonce'       => wp_create_nonce( 'events-nonce' ),
 				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
 				'participant' => esc_html__( 'Additional member', 'digisar-events' ),
-				'seatsLeft'   => $seats_remaining ?? 0
+				'seatsLeft'   => $seats_remaining ?? 0,
 			)
 		);
 	}

@@ -19,12 +19,8 @@ const openSearchBox = () => {
 			return;
 		}
 
-		if ( searchInput.value.trim() !== '' ) {
-			form.submit();
-		} else {
-			form.classList.add( 'open' );
-			isOpen = true;
-		}
+		form.classList.add( 'open' );
+		isOpen = true;
 	} );
 };
 

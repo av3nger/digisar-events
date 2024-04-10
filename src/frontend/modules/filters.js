@@ -1,4 +1,5 @@
-/* global eventData, jQuery */
+/* global eventData, jQuery, lodash */
+import debounce from 'lodash.debounce';
 
 const handleFilters = () => {
 	const filtersForm = document.querySelector( '.event__filters-form' );
@@ -7,6 +8,8 @@ const handleFilters = () => {
 	if ( ! filtersForm || ! rowTemplate ) {
 		return;
 	}
+
+	const searchInput = document.getElementById( 'event-search' );
 
 	const getSelectValues = ( selectElement ) => {
 		if ( selectElement.multiple ) {
@@ -27,6 +30,16 @@ const handleFilters = () => {
 		table.innerHTML = '';
 		events.forEach( ( event ) => {
 			const row = rowTemplate.content.cloneNode( true );
+
+			const rowDiv = row.querySelector( '.tb-row' );
+			if ( rowDiv && window.innerWidth < 1024 ) {
+				rowDiv.classList.add( 'mobile' );
+
+				const rowRight = row.querySelector( '.row-right' );
+				if ( rowRight ) {
+					rowRight.style.display = 'none';
+				}
+			}
 
 			const date = row.querySelector( '[data-date]' );
 			if ( date ) {
@@ -130,6 +143,10 @@ const handleFilters = () => {
 			delete settings.end_date;
 		}
 
+		if ( 'search' in settings ) {
+			delete settings.search;
+		}
+
 		Object.entries( settings ).forEach( ( values ) => {
 			if ( ! values[ 1 ].length ) {
 				return;
@@ -186,7 +203,6 @@ const handleFilters = () => {
 		}
 
 		// Search
-		const searchInput = document.getElementById( 'event-search' );
 		if ( !! searchInput.value ) {
 			settings.search = searchInput.value;
 		}
@@ -216,10 +232,15 @@ const handleFilters = () => {
 			.catch( window.console.error );
 	};
 
+	const debouncedHandleFiltersChange = debounce( handleFiltersChange, 500 );
+
+	const handleSearchInput = ( e ) => {
+		e.preventDefault();
+		debouncedHandleFiltersChange( e );
+	};
+
 	filtersForm.addEventListener( 'change', handleFiltersChange );
-	document
-		.querySelector( '.event__search' )
-		.addEventListener( 'submit', handleFiltersChange );
+	searchInput.addEventListener( 'input', handleSearchInput );
 };
 
 export default handleFilters;
