@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-10T05:47:47+00:00\n"
+"POT-Creation-Date: 2024-04-10T06:30:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: digisar-events\n"
@@ -113,6 +113,11 @@ msgstr ""
 
 #: includes/class-admin.php:160
 msgid "Export to CSV"
+msgstr ""
+
+#. translators: %d - total number of events
+#: includes/class-ajax.php:185
+msgid "Showing %1$d-%2$d of %3$d items"
 msgstr ""
 
 #: includes/class-core.php:182
@@ -278,7 +283,7 @@ msgid "Event types"
 msgstr ""
 
 #: templates/archive-events.php:26
-#: templates/archive-events.php:276
+#: templates/archive-events.php:280
 msgid "List of events"
 msgstr ""
 
@@ -374,7 +379,7 @@ msgstr ""
 msgid "Showing 1-10 of %d items"
 msgstr ""
 
-#: templates/archive-events.php:277
+#: templates/archive-events.php:281
 msgid "No events found"
 msgstr ""
 
