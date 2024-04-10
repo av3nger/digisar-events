@@ -233,10 +233,17 @@ get_header();
 												</a>
 											</div>
 
-											<?php if ( ! empty( $event_seats ) && 0 < $event_seats && $event_seats > $participant_count ) : ?>
+											<?php if ( ! empty( $event_seats ) ) : ?>
+												<?php $is_disabled = 0 >= $event_seats || $event_seats <= $participant_count; ?>
 												<div class="register">
-													<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="px-24">
-														<?php esc_html_e( 'Register', 'digisar-events' ); ?>
+													<a href="<?php echo $is_disabled ? '#' : esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="px-24">
+														<?php
+														if ( $is_disabled ) {
+															esc_html_e( 'Event is full', 'digisar-events' );
+														} else {
+															esc_html_e( 'Register', 'digisar-events' );
+														}
+														?>
 													</a>
 												</div>
 											<?php endif; ?>

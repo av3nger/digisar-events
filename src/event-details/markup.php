@@ -65,7 +65,7 @@ $author_name = get_the_author_meta( 'display_name', $author_id );
 		<div class="digisar__event-seats">
 			<?php esc_html_e( 'Available seats', 'digisar-events' ); ?>
 			<span class="digisar__event-seats-current">
-				<?php echo (int) $event_seats - $participant_count; ?>/<span><?php echo (int) $event_seats; ?></span>
+				<?php echo (int) max( (int) $event_seats - $participant_count, 0 ); ?>/<span><?php echo (int) $event_seats; ?></span>
 			</span>
 		</div>
 	<?php endif; ?>

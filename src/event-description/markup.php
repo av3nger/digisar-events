@@ -38,9 +38,19 @@ $event_type = get_the_terms( $event_id, Taxonomy\Type::$name );
 			<?php esc_html_e( 'Add to calendar', 'digisar-events' ); ?>
 		</a>
 
-		<?php if ( ! empty( $event_seats ) && 0 < $event_seats && $event_seats > $participant_count ) : ?>
-			<a href="<?php echo esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>" class="digisar--btn digisar--btn-register">
-				<?php esc_html_e( 'Register now', 'digisar-events' ); ?>
+		<?php if ( ! empty( $event_seats ) ) : ?>
+			<?php $is_disabled = 0 >= $event_seats || $event_seats <= $participant_count; ?>
+			<a
+				class="digisar--btn digisar--btn-register <?php echo $is_disabled ? '' : 'disabled'; ?>"
+				href="<?php echo $is_disabled ? '#' : esc_url( PostType\Event::get_registration_url( $event_id ) ); ?>"
+			>
+				<?php
+				if ( $is_disabled ) {
+					esc_html_e( 'Event is full', 'digisar-events' );
+				} else {
+					esc_html_e( 'Register now', 'digisar-events' );
+				}
+				?>
 			</a>
 		<?php endif; ?>
 	</div>
