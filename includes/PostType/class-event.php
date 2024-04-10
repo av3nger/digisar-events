@@ -340,4 +340,20 @@ final class Event extends CPT {
 
 		return $results;
 	}
+
+	/**
+	 * Get remaining seats for event.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $event_id Event ID.
+	 *
+	 * @return int
+	 */
+	public static function get_remaining_seats( int $event_id ): int {
+		$event_seats  = get_post_meta( $event_id, 'event_seats', true );
+		$participants = get_post_meta( $event_id, 'event_participants', true );
+
+		return (int) $event_seats - ( empty( $participants ) ? 0 : count( $participants ) );
+	}
 }

@@ -209,7 +209,19 @@ const registration = () => {
 
 	jQuery( '#add-participant' ).click( ( e ) => {
 		e.preventDefault();
-		addParticipant();
+
+		const { seatsLeft } = eventData;
+		const participants = document.querySelectorAll( '.dv-participant' );
+
+		// Count the main participant.
+		if ( parseInt( seatsLeft ) - 1 > participants.length ) {
+			addParticipant();
+		}
+
+		// Add the above participant.
+		if ( parseInt( seatsLeft ) - 1 === participants.length + 1 ) {
+			jQuery( '#add-participant' ).remove();
+		}
 	} );
 };
 

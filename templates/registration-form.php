@@ -208,12 +208,14 @@ get_header();
 					<div class="dv-participants-step">
 						<div class="dv-main-step" id="js-participants"></div>
 
-						<div class="dv-sub-step">
-							<strong><?php esc_html_e( 'Register several participants', 'digisar-events' ); ?></strong>
-							<p><?php esc_html_e( 'The participation fee will be invoiced afterwards.', 'digisar-events' ); ?></p>
-							<p><?php esc_html_e( 'VAT 24% is added to the price.', 'digisar-events' ); ?></p>
-							<button id="add-participant"><?php esc_html_e( 'Add a member', 'digisar-events' ); ?></button>
-						</div>
+						<?php if ( 1 < PostType\Event::get_remaining_seats( $event_id ) ) : ?>
+							<div class="dv-sub-step">
+								<strong><?php esc_html_e( 'Register several participants', 'digisar-events' ); ?></strong>
+								<p><?php esc_html_e( 'The participation fee will be invoiced afterwards.', 'digisar-events' ); ?></p>
+								<p><?php esc_html_e( 'VAT 24% is added to the price.', 'digisar-events' ); ?></p>
+								<button id="add-participant"><?php esc_html_e( 'Add a member', 'digisar-events' ); ?></button>
+							</div>
+						<?php endif; ?>
 					</div>
 
 					<div class="dv-action-step">

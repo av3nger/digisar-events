@@ -167,6 +167,12 @@ final class Core {
 			true
 		);
 
+		$post_type = get_post_type();
+		$event_id  = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
+		if ( PostType\Event::$name === $post_type && $event_id ) {
+			$seats_remaining = PostType\Event::get_remaining_seats( $event_id );
+		}
+
 		wp_localize_script(
 			'event-scripts',
 			'eventData',
@@ -175,6 +181,7 @@ final class Core {
 				'nonce'       => wp_create_nonce( 'events-nonce' ),
 				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
 				'participant' => esc_html__( 'Additional member', 'digisar-events' ),
+				'seatsLeft'   => $seats_remaining ?? 0
 			)
 		);
 	}
