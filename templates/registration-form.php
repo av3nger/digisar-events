@@ -151,14 +151,13 @@ get_header();
 								<div class="dv-field-line">
 									<div class="entry">
 										<label for="participant-dob">
-											<?php esc_html_e( 'Date of birth', 'digisar-events' ); ?>*
+											<?php esc_html_e( 'Date of birth', 'digisar-events' ); ?>
 										</label>
 										<input
 											type="date"
 											id="participant-dob"
 											name="dob"
 											placeholder="<?php esc_attr_e( 'Your Date of birth', 'digisar-events' ); ?>"
-											required
 										>
 										<img src="<?php echo esc_url( DIGISAR_EVENTS_DIR_URL . './assets/images/calendar.svg' ); ?>" alt="calendar" class="icon-date">
 									</div>
@@ -180,21 +179,16 @@ get_header();
 								<div class="dv-field-line dv-field-phone-line">
 									<div class="entry">
 										<label for="participant-phone">
-											<?php esc_html_e( 'Telephone number', 'digisar-events' ); ?>*
+											<?php esc_html_e( 'Telephone number', 'digisar-events' ); ?>
 										</label>
 										<input
 											type="text"
 											id="participant-phone"
 											name="phone"
-											placeholder="<?php esc_attr_e( 'Your Telephone number', 'digisar-events' ); ?>"
-											required
+											placeholder="<?php esc_attr_e( 'Your Telephone Number', 'digisar-events' ); ?>"
 										>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="item-field">
-							<div class="dv-fields-style2">
 								<div class="dv-field-line">
 									<div class="entry">
 										<label for="company"><?php esc_html_e( 'Company', 'digisar-events' ); ?></label>
@@ -203,40 +197,8 @@ get_header();
 								</div>
 								<div class="dv-field-line">
 									<div class="entry">
-										<label for="bill-address"><?php esc_html_e( 'Billing address', 'digisar-events' ); ?>*</label>
-										<input type="text" id="bill-address" name="bill-address" placeholder="<?php esc_attr_e( 'Billing address', 'digisar-events' ); ?>" required>
-									</div>
-								</div>
-								<div class="dv-field-lines dv-field-line">
-									<div class="dv-field-line">
-										<div class="entry">
-											<label for="zip-code"><?php esc_html_e( 'ZIP code', 'digisar-events' ); ?>*</label>
-											<input type="text" id="zip-code" name="zip" placeholder="<?php esc_attr_e( 'ZIP code', 'digisar-events' ); ?>" required>
-										</div>
-									</div>
-									<div class="dv-field-line">
-										<div class="entry">
-											<label for="postal"><?php esc_html_e( 'Postal district', 'digisar-events' ); ?>*</label>
-											<input type="text" id="postal" name="postal" placeholder="<?php esc_attr_e( 'Postal district', 'digisar-events' ); ?>" required>
-										</div>
-									</div>
-								</div>
-								<div class="dv-field-line">
-									<div class="entry">
-										<label for="delivery-address"><?php esc_html_e( 'Delivery address', 'digisar-events' ); ?></label>
-										<input type="text" id="delivery-address" name="delivery-address" placeholder="<?php esc_attr_e( 'Delivery address', 'digisar-events' ); ?>">
-									</div>
-								</div>
-								<div class="dv-field-line">
-									<div class="entry">
-										<label for="invoicing-information"><?php esc_html_e( 'Invoicing information', 'digisar-events' ); ?></label>
-										<input type="text" id="invoicing-information" name="invoicing-info" placeholder="<?php esc_attr_e( 'in writing, no attachment', 'digisar-events' ); ?>">
-									</div>
-								</div>
-								<div class="dv-field-line">
-									<div class="entry">
-										<label for="additional-information"><?php esc_html_e( 'Additional information', 'digisar-events' ); ?></label>
-										<input type="text" id="additional-information" name="additional-info" placeholder="<?php esc_attr_e( 'Special diets and more', 'digisar-events' ); ?>">
+										<label for="bill-address"><?php esc_html_e( 'Address', 'digisar-events' ); ?></label>
+										<input type="text" id="bill-address" name="address" placeholder="<?php esc_attr_e( 'Your Address', 'digisar-events' ); ?>">
 									</div>
 								</div>
 							</div>

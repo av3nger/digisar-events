@@ -347,12 +347,7 @@ final class Registration {
 			'dob',
 			'phone',
 			'company',
-			'bill-address',
-			'zip',
-			'postal',
-			'delivery-address',
-			'invoicing-info',
-			'additional-info',
+			'address',
 		);
 
 		foreach ( $metas as $meta ) {
