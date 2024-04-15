@@ -24,6 +24,6 @@
 		"@10up/block-components": "^1.18.0"
 	},
 	"files": [
-		"assets", "includes", "templates", "index.php", "class-events.php"
+		"assets", "includes", "languages", "templates", "index.php", "class-events.php"
 	]
 }
