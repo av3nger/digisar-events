@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Digisar Events 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/digisar-events\n"
 "POT-Creation-Date: 2024-04-10T06:30:17+00:00\n"
-"PO-Revision-Date: 2024-04-15 16:07+0700\n"
+"PO-Revision-Date: 2024-04-15 17:00+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi_FI\n"
@@ -305,7 +305,7 @@ msgstr "Näytetään"
 
 #: templates/archive-events.php:116 templates/archive-events.php:120
 msgid "English only"
-msgstr "Englanti"
+msgstr "English"
 
 #: templates/archive-events.php:126 templates/registration-form.php:117
 #: templates/registration-form.php:223
@@ -516,7 +516,7 @@ msgstr "Kyllä"
 #: assets/blocks/event-description/index.js:213
 #: src/event-description/edit.js:30
 msgid "Please select an event type"
-msgstr "Valitse koulutustyyppi"
+msgstr "Valitse kurssi"
 
 #: assets/blocks/event-description/index.js:213
 #: src/event-description/edit.js:42
