@@ -1,0 +1,588 @@
+# Copyright (C) 2024 Anton Vanyukov
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Digisar Events 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/digisar-events\n"
+"POT-Creation-Date: 2024-04-10T06:30:17+00:00\n"
+"PO-Revision-Date: 2024-04-15 16:07+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Domain: digisar-events\n"
+
+#. Plugin Name of the plugin
+msgid "Digisar Events"
+msgstr "Digisar koulutuskalenteri"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://vcore.au"
+msgstr "www.digisar.fi"
+
+#. Description of the plugin
+msgid "Events plugin."
+msgstr "Koulutuskalenteri lisäosa."
+
+#. Author of the plugin
+msgid "Anton Vanyukov"
+msgstr ""
+
+#: assets/blocks/event-description/markup.php:38
+#: src/event-description/markup.php:38
+#: assets/blocks/event-description/index.js:213
+#: src/event-description/edit.js:50
+msgid "Add to calendar"
+msgstr "Lisää kalenteriin"
+
+#: assets/blocks/event-description/markup.php:49
+#: src/event-description/markup.php:49 templates/archive-events.php:242
+msgid "Event is full"
+msgstr "Ei vapaita paikkoja"
+
+#: assets/blocks/event-description/markup.php:51
+#: src/event-description/markup.php:51 templates/registration-form.php:224
+#: assets/blocks/event-description/index.js:213
+#: src/event-description/edit.js:54
+msgid "Register now"
+msgstr "Liity"
+
+#: assets/blocks/event-details/markup.php:27 src/event-details/markup.php:27
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:146
+msgid "Start date of event"
+msgstr "Alku pvm"
+
+#: assets/blocks/event-details/markup.php:34 src/event-details/markup.php:34
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:153
+msgid "End date of event"
+msgstr "Loppu pvm"
+
+#: assets/blocks/event-details/markup.php:41 src/event-details/markup.php:41
+#: templates/archive-events.php:145 templates/archive-events.php:206
+#: templates/partials/template-row.php:39
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:160
+msgid "Duration"
+msgstr "Kesto"
+
+#: assets/blocks/event-details/markup.php:52 src/event-details/markup.php:52
+#: templates/archive-events.php:218 templates/partials/template-row.php:47
+#: templates/registration-form.php:252 assets/blocks/event-details/index.js:213
+#: src/event-details/edit.js:170
+msgid "Place of event"
+msgstr "Paikkakunta"
+
+#: assets/blocks/event-details/markup.php:59 src/event-details/markup.php:59
+msgid "Event creator"
+msgstr "Tapahtuman luoja"
+
+#: assets/blocks/event-details/markup.php:66 src/event-details/markup.php:66
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:192
+msgid "Available seats"
+msgstr "Vapaita paikkoja"
+
+#: includes/class-admin.php:56 includes/class-admin.php:110
+msgid "Short description"
+msgstr "Lyhyt kuvaus"
+
+#: includes/class-admin.php:57
+msgid "Language"
+msgstr "Kieli"
+
+#: includes/class-admin.php:77
+msgid "English"
+msgstr "Englanti"
+
+#: includes/class-admin.php:160
+msgid "Export to CSV"
+msgstr "Lataa CSV"
+
+#. translators: %d - total number of events
+#: includes/class-ajax.php:185
+msgid "Showing %1$d-%2$d of %3$d items"
+msgstr "Näytetään %1$d-%2$d of %3$d kohdetta"
+
+#: includes/class-core.php:182
+msgid "Registering..."
+msgstr "Pieni hetki…"
+
+#: includes/class-core.php:183
+msgid "Additional member"
+msgstr "Muu osallistuja"
+
+#: includes/class-registration.php:89
+msgid "Event participant"
+msgstr "Koulutukseen osallistuja"
+
+#: includes/class-registration.php:316
+msgid "Captcha verification failed."
+msgstr "Captcha error."
+
+#: includes/class-users.php:45
+msgid "View Participants"
+msgstr "Katso osallistujat"
+
+#: includes/class-users.php:87 includes/PostType/class-event.php:127
+msgid "Events"
+msgstr "Koulutukset"
+
+#. translators: %s - plural CPT/taxonomy name
+#: includes/PostType/class-cpt.php:120 includes/Taxonomy/class-taxonomy.php:81
+msgid "All %s"
+msgstr "Kaikki %s"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:122 includes/PostType/class-cpt.php:124
+#: includes/Taxonomy/class-taxonomy.php:89
+msgid "Add New %s"
+msgstr "Lisää uusi %s"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:126 includes/Taxonomy/class-taxonomy.php:83
+msgid "Edit %s"
+msgstr "Muokkaa %s"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:128
+msgid "New %s"
+msgstr "Uusi %s"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:130 includes/Taxonomy/class-taxonomy.php:85
+msgid "View %s"
+msgstr "Katso %s"
+
+#. translators: %s - plural CPT/taxonomy name
+#: includes/PostType/class-cpt.php:132 includes/Taxonomy/class-taxonomy.php:97
+msgid "Search %s"
+msgstr "Etsi %s"
+
+#. translators: %s - plural CPT/taxonomy name
+#: includes/PostType/class-cpt.php:134 includes/Taxonomy/class-taxonomy.php:101
+msgid "No %s found."
+msgstr "Ei %s tuloksia."
+
+#. translators: %s - plural CPT/taxonomy name
+#: includes/PostType/class-cpt.php:136
+msgid "No %s found in Trash."
+msgstr "Ei %s tuloksia."
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:138 includes/Taxonomy/class-taxonomy.php:95
+msgid "Parent %s:"
+msgstr "Vanhempi %s:"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:140
+msgid "Insert into %s:"
+msgstr "Lisää kohtaan %s:"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:142
+msgid "Uploaded to this %s:"
+msgstr "Ladattu tähän %s:"
+
+#: includes/PostType/class-cpt.php:143
+msgid "Featured Image"
+msgstr "Kuva"
+
+#: includes/PostType/class-cpt.php:144
+msgid "Set featured image"
+msgstr "Lisää kuva"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/PostType/class-cpt.php:148
+msgid "%s updated:"
+msgstr "%s päivitetty:"
+
+#: includes/PostType/class-event.php:126
+msgid "Event"
+msgstr "Koulutus"
+
+#: includes/Taxonomy/class-course.php:35
+msgid "Course"
+msgstr "Kurssi"
+
+#: includes/Taxonomy/class-course.php:36
+msgid "Courses"
+msgstr "Kurssit"
+
+#: includes/Taxonomy/class-course.php:57 includes/Taxonomy/class-course.php:78
+#: templates/registration-form.php:258
+msgid "Price"
+msgstr "Hinta"
+
+#: includes/Taxonomy/class-course.php:60 includes/Taxonomy/class-course.php:83
+msgid "Course price per person."
+msgstr "Kurssin hinta per henkilö"
+
+#: includes/Taxonomy/class-location.php:34 templates/archive-events.php:82
+#: templates/archive-events.php:146
+msgid "Location"
+msgstr "Pikkakunta"
+
+#: includes/Taxonomy/class-location.php:35
+msgid "Locations"
+msgstr "Paikkakunnat"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/Taxonomy/class-taxonomy.php:87
+msgid "Update %s"
+msgstr "Päivitä %s"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/Taxonomy/class-taxonomy.php:91
+msgid "New %s Name"
+msgstr "Uusi %s Nimi"
+
+#. translators: %s - singular CPT/taxonomy name
+#: includes/Taxonomy/class-taxonomy.php:93
+msgid "Parent %s"
+msgstr "Vanhempi %s"
+
+#. translators: %s - plural CPT/taxonomy name
+#: includes/Taxonomy/class-taxonomy.php:99
+msgid "Popular %s"
+msgstr "Suosittu %s"
+
+#: includes/Taxonomy/class-type.php:34
+msgid "Event type"
+msgstr "Koulutustyyppi"
+
+#: includes/Taxonomy/class-type.php:35
+msgid "Event types"
+msgstr "Koulutustyypit"
+
+#: templates/archive-events.php:26 templates/archive-events.php:280
+msgid "List of events"
+msgstr "Koulutuskalenteri"
+
+#: templates/archive-events.php:30
+msgid "Search events"
+msgstr "Etsi koulutuksia"
+
+#: templates/archive-events.php:32 templates/archive-events.php:34
+msgid "Search"
+msgstr "Etsi"
+
+#: templates/archive-events.php:38
+msgid "Expand search"
+msgstr "Laajenna haku"
+
+#: templates/archive-events.php:45
+msgid "Filters"
+msgstr "Suodattimet"
+
+#: templates/archive-events.php:47 templates/partials/template-filter.php:13
+#: templates/registration-form.php:276
+msgid "Close"
+msgstr "Sulje"
+
+#: templates/archive-events.php:54 templates/archive-events.php:139
+#: templates/registration-form.php:99 templates/registration-form.php:246
+msgid "Date"
+msgstr "Pvm"
+
+#: templates/archive-events.php:57
+msgid "All Events"
+msgstr "Kaikki koulutukset"
+
+#: templates/archive-events.php:58
+msgid "Calendar"
+msgstr "Kalenteri"
+
+#: templates/archive-events.php:65 templates/archive-events.php:144
+#: templates/archive-events.php:195 templates/partials/template-row.php:30
+msgid "Event Type"
+msgstr "Koulutustyyppi"
+
+#: templates/archive-events.php:99
+msgid "Showing"
+msgstr "Näytetään"
+
+#: templates/archive-events.php:116 templates/archive-events.php:120
+msgid "English only"
+msgstr "Englanti"
+
+#: templates/archive-events.php:126 templates/registration-form.php:117
+#: templates/registration-form.php:223
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: templates/archive-events.php:127
+msgid "Save"
+msgstr "Tallenna"
+
+#: templates/archive-events.php:140 templates/registration-form.php:241
+msgid "Event Name"
+msgstr "Koulutuksen nimi"
+
+#: templates/archive-events.php:147
+msgid "Actions"
+msgstr "Toiminnot"
+
+#: templates/archive-events.php:183
+msgid "En"
+msgstr "En"
+
+#: templates/archive-events.php:232 templates/partials/template-row.php:59
+msgid "Details"
+msgstr "Lisätiedot"
+
+#: templates/archive-events.php:244 templates/partials/template-row.php:64
+msgid "Register"
+msgstr "Rekisteröidy"
+
+#. translators: %d - total number of events
+#: templates/archive-events.php:263
+msgid "Showing 1-10 of %d items"
+msgstr "Näytetään 1-10/%d kohdetta"
+
+#: templates/archive-events.php:281
+msgid "No events found"
+msgstr "Tapahtumia ei löytynyt"
+
+#: templates/partials/template-participant.php:16
+msgid "Delete"
+msgstr "Poista"
+
+#: templates/partials/template-participant.php:24
+#: templates/registration-form.php:140
+msgid "Name (First and Last name)"
+msgstr "Nimi (etu- ja sukunimi)"
+
+#: templates/partials/template-participant.php:30
+#: templates/registration-form.php:146
+msgid "Your name"
+msgstr "Sinun nimesi"
+
+#: templates/partials/template-participant.php:39
+#: templates/registration-form.php:154
+msgid "Date of birth"
+msgstr "Syntymäaika"
+
+#: templates/partials/template-participant.php:45
+#: templates/registration-form.php:160
+msgid "Your Date of birth"
+msgstr "Syntymäaikasi"
+
+#: templates/partials/template-participant.php:55
+#: templates/registration-form.php:168
+msgid "E-mail"
+msgstr "Sähköposti"
+
+#: templates/partials/template-participant.php:61
+#: templates/registration-form.php:174
+msgid "Your E-mail"
+msgstr "Sähköpostisi"
+
+#: templates/partials/template-participant.php:70
+#: templates/registration-form.php:182
+msgid "Telephone number"
+msgstr "Puhelinnumero"
+
+#: templates/partials/template-participant.php:76
+msgid "Your Telephone number"
+msgstr "Sinun puhelin numero"
+
+#. translators: %s - event name
+#: templates/registration-form.php:43
+msgid "Registration for %s"
+msgstr "Rekisteröityminen käyttäjälle %s"
+
+#: templates/registration-form.php:49
+msgid "Event information"
+msgstr "Tapahtuman tiedot"
+
+#: templates/registration-form.php:50
+msgid "Personal information"
+msgstr "Henkilökohtaisia ​​tietoja"
+
+#: templates/registration-form.php:51 templates/registration-form.php:235
+msgid "Confirmed"
+msgstr "Vahvistettu"
+
+#: templates/registration-form.php:63
+msgid "Step 1 - Event information"
+msgstr "Vaihe 1 – Koulutus"
+
+#: templates/registration-form.php:64 templates/registration-form.php:133
+msgid "*-Fields are required to be filled in"
+msgstr "*- Kentät on täytettävä"
+
+#: templates/registration-form.php:68
+msgid "Choose a course"
+msgstr "Valitse kurssi"
+
+#: templates/registration-form.php:71
+msgid "Please fill in all fields"
+msgstr "Täytä kaikki kentät"
+
+#: templates/registration-form.php:83 templates/registration-form.php:259
+msgid "person"
+msgstr "henkilö"
+
+#: templates/registration-form.php:93
+msgid "Confirm the date"
+msgstr "Vahvista päivämäärä"
+
+#: templates/registration-form.php:103
+msgid "Select date"
+msgstr "Valitse päivämäärä"
+
+#: templates/registration-form.php:118
+msgid "Next"
+msgstr "Seuraava"
+
+#: templates/registration-form.php:126
+msgid "Step 1"
+msgstr "Vaihe 1"
+
+#: templates/registration-form.php:132
+msgid "Step 2 - Personal information"
+msgstr "Vaihe 2 – Osallistujan tiedot"
+
+#: templates/registration-form.php:188
+msgid "Your Telephone Number"
+msgstr "Sinun puhelin numero"
+
+#: templates/registration-form.php:194
+msgid "Company"
+msgstr "Yritys"
+
+#: templates/registration-form.php:195
+msgid "Company Name"
+msgstr "Yrityksen nimi"
+
+#: templates/registration-form.php:200
+msgid "Address"
+msgstr "Osoite"
+
+#: templates/registration-form.php:201
+msgid "Your Address"
+msgstr "Osoitteesi"
+
+#: templates/registration-form.php:213
+msgid "Register several participants"
+msgstr "Rekisteröi useita osallistujia"
+
+#: templates/registration-form.php:214
+msgid "The participation fee will be invoiced afterwards."
+msgstr "Osallistumismaksu laskutetaan jälkikäteen."
+
+#: templates/registration-form.php:215
+msgid "VAT 24% is added to the price."
+msgstr "Hintaan lisätään alv 24%."
+
+#: templates/registration-form.php:216
+msgid "Add a member"
+msgstr "Lisää jäsen"
+
+#: templates/registration-form.php:222
+msgid "Back"
+msgstr "Takaisin"
+
+#: templates/registration-form.php:236
+msgid "You have successfully registered for the event."
+msgstr "Olet onnistuneesti rekisteröitynyt tapahtumaan."
+
+#: templates/registration-form.php:265
+msgid "Add to Calendar"
+msgstr "Lisää kalenteriin"
+
+#: templates/registration-form.php:266
+msgid "Back to home"
+msgstr "Takaisin etusivulle"
+
+#: templates/registration-form.php:279
+msgid "Are you sure you want to leave this page?"
+msgstr "Haluatko varmasti poistua tältä sivulta?"
+
+#: templates/registration-form.php:280
+msgid "The information you've entered will not be saved."
+msgstr "Antamiasi tietoja ei tallenneta."
+
+#: templates/registration-form.php:283
+msgid "No"
+msgstr "Ei"
+
+#: templates/registration-form.php:284
+msgid "Yes"
+msgstr "Kyllä"
+
+#: assets/blocks/event-description/index.js:213
+#: src/event-description/edit.js:30
+msgid "Please select an event type"
+msgstr "Valitse koulutustyyppi"
+
+#: assets/blocks/event-description/index.js:213
+#: src/event-description/edit.js:42
+msgid "Enter short description"
+msgstr "Kirjoita lyhyt kuvaus"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:54
+msgid "Language settings"
+msgstr "Kieliasetukset"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:58
+msgid "In English"
+msgstr "In English"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:64
+msgid "Event dates"
+msgstr "Koulutuksen päivämäärät"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:66
+msgid "Start:"
+msgstr ""
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:79
+msgid "Set start date"
+msgstr "Aseta aloituspäivämäärä"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:98
+msgid "End:"
+msgstr "Loppu:"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:109
+msgid "Set end date"
+msgstr "Aseta lopetuspäivämäärä"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:128
+msgid "Event seats"
+msgstr "Vapaita paikkoja"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:131
+msgid "Number of available seats"
+msgstr "Vapaita paikkoja"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:174
+msgid "Please select a location"
+msgstr "Valitse sijainti"
+
+#: assets/blocks/event-details/index.js:213 src/event-details/edit.js:186
+msgid "Event Creator"
+msgstr "Tapahtuman luoja"
+
+#: assets/blocks/event-description/block.json src/event-description/block.json
+msgctxt "block title"
+msgid "Event description"
+msgstr "Tapahtuman kuvaus"
+
+#: assets/blocks/event-description/block.json src/event-description/block.json
+msgctxt "block description"
+msgid "Event description block."
+msgstr "Tapahtuman kuvaus."
+
+#: assets/blocks/event-details/block.json src/event-details/block.json
+msgctxt "block title"
+msgid "Event details"
+msgstr "Tapahtuman lisätiedot"
+
+#: assets/blocks/event-details/block.json src/event-details/block.json
+msgctxt "block description"
+msgid "Event details block."
+msgstr "Tapahtuman lisätiedot."
