@@ -217,6 +217,7 @@ final class Registration {
 		}
 
 		$this->notify_user( $user_data, $event );
+		$this->notify_admin( $user_data, $event );
 	}
 
 	/**
@@ -388,5 +389,37 @@ final class Registration {
 		$message .= '</body></html>';
 
 		wp_mail( $data['user_email'], $subject, $message, $headers );
+	}
+
+	/**
+	 * Notify administrator.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array   $data  User data.
+	 * @param WP_Post $event Event CPT.
+	 */
+	private function notify_admin( array $data, WP_Post $event ) {
+		$admin_email = get_option( 'admin_email' );
+		$name        = $data['display_name'] ?? $data['user_email'];
+		$site_name   = get_bloginfo( 'name' );
+		$from        = get_option( 'admin_email' );
+		$subject     = 'Event registration';
+		$event_link  = get_permalink( $event->ID );
+
+		// Email headers.
+		$headers = array(
+			'Content-Type: text/html; charset=UTF-8',
+			"From: $site_name <$from>",
+		);
+
+		// Body of the email.
+		$message  = '<html lang="en"><body>';
+		$message .= '<h1>New event registration!</h1>';
+		$message .= "<p>User $name registered for event $event->post_title.</p>";
+		$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
+		$message .= '</body></html>';
+
+		wp_mail( $admin_email, $subject, $message, $headers );
 	}
 }
