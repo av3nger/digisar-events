@@ -134,6 +134,7 @@ final class Event extends CPT {
 
 		add_filter( 'template_include', array( $this, 'template' ) );
 		add_action( 'pre_get_posts', array( $this, 'filter_events_by_user' ) );
+		add_action( 'updated_post_meta', array( $this, 'track_meta_changes' ), 10, 4 );
 	}
 
 	/**
@@ -355,5 +356,29 @@ final class Event extends CPT {
 		$participants = get_post_meta( $event_id, 'event_participants', true );
 
 		return (int) $event_seats - ( empty( $participants ) ? 0 : count( $participants ) );
+	}
+
+	/**
+	 * Track changes to events and notify users.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int    $meta_id     ID of updated metadata entry.
+	 * @param int    $object_id   ID of the object metadata is for.
+	 * @param string $meta_key    Metadata key.
+	 * @param mixed  $_meta_value Metadata value.
+	 */
+	public function track_meta_changes( int $meta_id, int $object_id, string $meta_key, $_meta_value ): void {
+		// Only track our meta fields.
+		if ( ! in_array( $meta_key, array_keys( $this->meta_fields ), true ) ) {
+			return;
+		}
+
+		$post_type = get_post_type( $object_id );
+		if ( $post_type !== self::$name ) {
+			return;
+		}
+
+		do_action( 'digisar_events_meta_change', $object_id );
 	}
 }

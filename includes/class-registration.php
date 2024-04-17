@@ -27,6 +27,7 @@ final class Registration {
 		add_action( 'init', array( $this, 'participant_role' ) );
 		add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'digisar_events_meta_change', array( $this, 'notify_event_changes' ) );
 
 		if ( wp_doing_ajax() ) {
 			add_action( 'wp_ajax_register_for_event', array( $this, 'register' ) );
@@ -360,14 +361,55 @@ final class Registration {
 	}
 
 	/**
+	 * Generate an email message.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $name       Recipient name.
+	 * @param string $event_name Event name.
+	 * @param string $event_link Event link.
+	 * @param string $type       Message type. Accepts: register, admin-notify, event-changed.
+	 *
+	 * @return string
+	 */
+	private function get_message( string $name, string $event_name, string $event_link, string $type = 'register' ): string {
+		$message = '';
+
+		if ( 'register' === $type ) {
+			$message .= '<html lang="en"><body>';
+			$message .= "<h1>Hi $name!</h1>";
+			$message .= "<p>We're excited to invite you to our special event $event_name. For more details, please click the link below:</p>";
+			$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
+			$message .= '<p>We hope to see you there!</p>';
+			$message .= '</body></html>';
+		} elseif ( 'admin-notify' === $type ) {
+			$message .= '<html lang="en"><body>';
+			$message .= '<h1>New event registration!</h1>';
+			$message .= "<p>User $name registered for event $event_name.</p>";
+			$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
+			$message .= '</body></html>';
+		} elseif ( 'event-changed' === $type ) {
+			$message .= '<html lang="en"><body>';
+			$message .= "<h1>Hi $name!</h1>";
+			$message .= "<p>There have been recent changes to the event $event_name. For more details, please click the link below:</p>";
+			$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
+			$message .= '<p>We hope to see you there!</p>';
+			$message .= '</body></html>';
+		}
+
+		return $message;
+	}
+
+	/**
 	 * Notify user.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param array   $data  User data.
 	 * @param WP_Post $event Event CPT.
+	 * @param string  $type  Message type. Accepts: register, event-changed.
 	 */
-	private function notify_user( array $data, WP_Post $event ) {
+	private function notify_user( array $data, WP_Post $event, string $type = 'register' ) {
 		$name       = $data['display_name'] ?? '';
 		$site_name  = get_bloginfo( 'name' );
 		$from       = get_option( 'admin_email' );
@@ -381,12 +423,7 @@ final class Registration {
 		);
 
 		// Body of the email.
-		$message  = '<html lang="en"><body>';
-		$message .= "<h1>Hi $name!</h1>";
-		$message .= "<p>We're excited to invite you to our special event $event->post_title. For more details, please click the link below:</p>";
-		$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
-		$message .= '<p>We hope to see you there!</p>';
-		$message .= '</body></html>';
+		$message = $this->get_message( $name, $event->post_title, $event_link, $type );
 
 		wp_mail( $data['user_email'], $subject, $message, $headers );
 	}
@@ -400,12 +437,11 @@ final class Registration {
 	 * @param WP_Post $event Event CPT.
 	 */
 	private function notify_admin( array $data, WP_Post $event ) {
-		$admin_email = get_option( 'admin_email' );
-		$name        = $data['display_name'] ?? $data['user_email'];
-		$site_name   = get_bloginfo( 'name' );
-		$from        = get_option( 'admin_email' );
-		$subject     = 'Event registration';
-		$event_link  = get_permalink( $event->ID );
+		$name       = $data['display_name'] ?? $data['user_email'];
+		$site_name  = get_bloginfo( 'name' );
+		$from       = get_option( 'admin_email' );
+		$subject    = 'Event registration';
+		$event_link = get_permalink( $event->ID );
 
 		// Email headers.
 		$headers = array(
@@ -414,12 +450,45 @@ final class Registration {
 		);
 
 		// Body of the email.
-		$message  = '<html lang="en"><body>';
-		$message .= '<h1>New event registration!</h1>';
-		$message .= "<p>User $name registered for event $event->post_title.</p>";
-		$message .= '<a href="' . $event_link . '">Click here to learn more about the event</a>';
-		$message .= '</body></html>';
+		$message = $this->get_message( $name, $event->post_title, $event_link, 'admin-notify' );
 
-		wp_mail( $admin_email, $subject, $message, $headers );
+		wp_mail( $from, $subject, $message, $headers );
+	}
+
+	/**
+	 * Notify registered users of event changes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $event_id Event ID.
+	 */
+	public function notify_event_changes( int $event_id ): void {
+		$event = get_post( $event_id );
+
+		// Do not process form entries for fake events.
+		if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
+			return;
+		}
+
+		$participants = get_post_meta( $event_id, 'event_participants', true );
+
+		if ( empty( $participants ) ) {
+			return;
+		}
+
+		foreach ( $participants as $user_id ) {
+			$user_info = get_userdata( $user_id );
+
+			if ( ! $user_info ) {
+				continue;
+			}
+
+			$data = array(
+				'display_name' => $user_info->display_name,
+				'user_email'   => $user_info->user_email,
+			);
+
+			$this->notify_user( $data, $event, 'event-changed' );
+		}
 	}
 }
