@@ -144,7 +144,7 @@
 	& .SumoSelect>.CaptionCont {
 		border: 2px solid;
 		border-color: var(--color--grey);
-		border-radius: unset;
+		border-radius: 0 4px 4px 0;
 		box-sizing: unset;
 		color: var(--color--dark-grey);
 		font-size: 0.875rem;
@@ -426,6 +426,7 @@
 
 	& .ev-filter-item .name {
 		background-color: var(--color--grey);
+		border-radius: 4px 0 0 4px;
 		color: var(--color--primary-blue);
 		font-size: 0.875rem;
 		font-weight: 600;
@@ -452,6 +453,7 @@
 
 	& .ft-date .box-input input[type="text"] {
 		border: 2px solid var(--color--grey);
+		border-radius: 0 4px 4px 0;
 		box-shadow: none;
 		color: var(--color--dark-grey);
 		font-size: 0.875rem;

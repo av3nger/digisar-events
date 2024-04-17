@@ -1,6 +1,25 @@
 body .drp-calendar{
 	font-family: "Roboto", sans-serif !important;
 }
+
+.daterangepicker {
+	border: none;
+	box-shadow: 0 4px 8px 0 #072F6514;
+}
+
+.daterangepicker,
+.daterangepicker .calendar-table,
+.daterangepicker td.off,
+.daterangepicker td.off.in-range,
+.daterangepicker td.off.start-date,
+.daterangepicker td.off.end-date {
+	background: var(--color--grey);
+}
+
+.daterangepicker .calendar-table{
+	border:none;
+}
+
 .daterangepicker .drp-calendar.left{
 	margin-left: 12px !important;
 }
@@ -36,6 +55,7 @@ body .daterangepicker:not(.single) .drp-calendar.right{
 	margin-bottom: 5px;
 }
 .daterangepicker .calendar-table table thead tr:nth-child(2) th{
+	color: var(--color--primary-blue);
 	font-weight: 700;
 }
 .daterangepicker .calendar-table table  tbody tr:last-child{
@@ -65,9 +85,13 @@ body .daterangepicker .calendar-table td {
 	padding: 0;
 }
 
+body .daterangepicker .calendar-table td.available {
+	color: var(--color--primary-blue);
+}
+
 body .daterangepicker .calendar-table td.available:hover,
 body .daterangepicker .calendar-table th.available:hover{
-	background-color: transparent;
+	background-color: var(--color--white);
 	border-color: var(--color--primary-blue) !important;
 	border: 2px solid !important;
 	border-radius: 4px !important;
@@ -78,10 +102,11 @@ body .daterangepicker .calendar-table td.active:hover {
 	border-color: var(--color--red) !important;
 	color: var(--color--white) !important;
 }
-.daterangepicker .calendar-table table th:first-child,
+
 .daterangepicker .calendar-table table th:last-child,
+.daterangepicker .calendar-table table tr:nth-child(2) th:nth-last-child(2),
 body .daterangepicker td.weekend.available{
-	color: var(--color--red);
+	color: var(--color--red) !important;
 }
 body .daterangepicker td.weekend.available.off,
 body .daterangepicker td.off.available{
@@ -129,6 +154,12 @@ button.cancelBtn.btn.btn-sm{
 
 	.daterangepicker{
 		left: 16px !important;
+	}
+}
+
+@media(max-width: 768px){
+	.daterangepicker .drp-calendar {
+		max-width: 100%;
 	}
 }
 @media(min-width: 600px) and (max-width: 635px){

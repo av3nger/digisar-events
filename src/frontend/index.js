@@ -1,4 +1,4 @@
-/* global jQuery, moment */
+/* global jQuery, moment, eventData */
 import './styles.scss';
 import languageCheck from './modules/lang-check';
 import handleSelectsOpenState from './modules/selects';
@@ -10,13 +10,17 @@ import registration from './modules/registration';
 ( function ( $ ) {
 	const dateFilter = $( 'input[name="datefilter"]' );
 
+	const { calendar } = eventData;
+
 	dateFilter.daterangepicker( {
 		singleDatePicker: !! dateFilter.data( 'single' ),
 		autoUpdateInput: false,
 		locale: {
-			daysOfWeek: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-			applyLabel: 'Apply',
-			cancelLabel: 'Empty',
+			applyLabel: calendar.apply,
+			cancelLabel: calendar.cancel,
+			daysOfWeek: calendar.daysOfWeek,
+			firstDay: 1,
+			monthNames: calendar.monthNames,
 		},
 		linkedCalendars: true,
 		minDate: moment(),

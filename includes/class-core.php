@@ -182,6 +182,33 @@ final class Core {
 				'registering' => esc_html__( 'Registering...', 'digisar-events' ),
 				'participant' => esc_html__( 'Additional member', 'digisar-events' ),
 				'seatsLeft'   => $seats_remaining ?? 0,
+				'calendar'    => array(
+					'apply'      => esc_html__( 'Apply', 'digisar-events' ),
+					'cancel'     => esc_html__( 'Empty', 'digisar-events' ),
+					'daysOfWeek' => array(
+						esc_html__( 'S', 'digisar-events' ), // Sunday.
+						esc_html__( 'M', 'digisar-events' ),
+						esc_html__( 'T', 'digisar-events' ), // Tuesday.
+						esc_html__( 'W', 'digisar-events' ),
+						esc_html__( 'T', 'digisar-events' ), // Thursday.
+						esc_html__( 'F', 'digisar-events' ),
+						esc_html__( 'S', 'digisar-events' ), // Saturday.
+					),
+					'monthNames' => array(
+						esc_html__( 'January', 'digisar-events' ),
+						esc_html__( 'February', 'digisar-events' ),
+						esc_html__( 'March', 'digisar-events' ),
+						esc_html__( 'April', 'digisar-events' ),
+						esc_html__( 'May', 'digisar-events' ),
+						esc_html__( 'June', 'digisar-events' ),
+						esc_html__( 'July', 'digisar-events' ),
+						esc_html__( 'August', 'digisar-events' ),
+						esc_html__( 'September', 'digisar-events' ),
+						esc_html__( 'October', 'digisar-events' ),
+						esc_html__( 'November', 'digisar-events' ),
+						esc_html__( 'December', 'digisar-events' ),
+					),
+				),
 			)
 		);
 	}
