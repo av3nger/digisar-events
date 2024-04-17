@@ -150,7 +150,7 @@ final class Ajax {
 			$event_location = get_the_terms( $event->ID, Taxonomy\Location::$name );
 
 			if ( ! empty( $event_start ) && ! empty( $event_end ) ) {
-				$duration = gmdate( 'G:i', strtotime( $event_start ) ) . '-' . gmdate( 'G:i', strtotime( $event_end ) );
+				$duration = gmdate( 'G:i', strtotime( $event_start ) ) . ' - ' . gmdate( 'G:i', strtotime( $event_end ) );
 			}
 
 			if ( ! empty( $event_type ) && is_a( $event_type[0], 'WP_Term' ) ) {
@@ -164,6 +164,12 @@ final class Ajax {
 				$location = $event_location[0]->name;
 			}
 
+			$event_seats  = get_post_meta( $event->ID, 'event_seats', true );
+			$participants = get_post_meta( $event->ID, 'event_participants', true );
+
+			$participant_count = empty( $participants ) ? 0 : count( $participants );
+			$is_disabled       = empty( $event_seats ) || 0 >= $event_seats || $event_seats <= $participant_count;
+
 			$results[] = array(
 				'duration' => $duration ?? '',
 				'english'  => get_post_meta( $event->ID, 'event_in_english', true ),
@@ -173,6 +179,7 @@ final class Ajax {
 				'start'    => $event_start ? gmdate( 'j M', strtotime( $event_start ) ) : '',
 				'title'    => $event->post_title,
 				'type'     => $type ?? array(),
+				'register' => $is_disabled ? '' : PostType\Event::get_registration_url( $event->ID ),
 			);
 		}
 

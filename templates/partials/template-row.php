@@ -59,7 +59,7 @@
 							<?php esc_html_e( 'Details', 'digisar-events' ); ?>
 						</a>
 					</div>
-					<div class="register">
+					<div class="register" data-register-div>
 						<a href="#" class="px-24" data-register>
 							<?php esc_html_e( 'Register', 'digisar-events' ); ?>
 						</a>

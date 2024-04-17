@@ -78,6 +78,16 @@ const handleFilters = () => {
 				location.innerText = event.location;
 			}
 
+			const register = row.querySelector( '[data-register]' );
+			if ( register ) {
+				const registerDiv = row.querySelector( '[data-register-div]' );
+				if ( ! event.register && registerDiv ) {
+					registerDiv.remove();
+				} else {
+					register.href = event.register;
+				}
+			}
+
 			const details = row.querySelector( '[data-details]' );
 			if ( details ) {
 				details.href = event.link;
