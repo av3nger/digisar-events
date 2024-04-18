@@ -33,9 +33,6 @@ define( 'DIGISAR_EVENTS_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'DIGISAR_EVENTS_INC_PATH', DIGISAR_EVENTS_DIR_PATH . '/includes' );
 define( 'DIGISAR_EVENTS_BLOCK_PATH', DIGISAR_EVENTS_DIR_PATH . '/assets/blocks' );
 
-define( 'G_RECAPTCHA_SITE_KEY', '6LcG268pAAAAAL-5J1blsFD82uXgEqt2DEHoQ_4f' );
-define( 'G_RECAPTCHA_SITE_SECRET', '6LcG268pAAAAALkbYmZP4e8NGDWyrB5YmSAzlcz5' );
-
 /**
  * Events class.
  *
