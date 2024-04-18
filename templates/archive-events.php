@@ -14,7 +14,11 @@ global $wp_query;
 $locations = Taxonomy\Location::get();
 $types     = Taxonomy\Type::get();
 
-$total_pages = ceil( $wp_query->found_posts / $wp_query->post_count );
+if ( $wp_query->post_count > 0 ) {
+	$total_pages = ceil( $wp_query->found_posts / $wp_query->post_count );
+} else {
+	$total_pages = 1;
+}
 
 get_header();
 ?>

@@ -14,6 +14,7 @@ $event_id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 $event = get_post( $event_id );
 if ( ! $event || ! is_a( $event, 'WP_Post' ) || PostType\Event::$name !== $event->post_type ) {
 	wp_safe_redirect( get_post_type_archive_link( PostType\Event::$name ) );
+	exit;
 }
 
 $courses = Taxonomy\Course::get();
