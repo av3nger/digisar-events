@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Anton Vanyukov
+# Copyright (C) 2024 Digisar
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr "Digisar koulutuskalenteri"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
-msgid "https://vcore.au"
+msgid "https://digisar.fi"
 msgstr "www.digisar.fi"
 
 #. Description of the plugin
@@ -29,7 +29,7 @@ msgid "Events plugin."
 msgstr "Koulutuskalenteri lisäosa."
 
 #. Author of the plugin
-msgid "Anton Vanyukov"
+msgid "Digisar"
 msgstr ""
 
 #: assets/blocks/event-description/markup.php:38

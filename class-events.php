@@ -2,17 +2,17 @@
 /**
  * Events plugin
  *
- * @link              https://vcore.au
+ * @link              https://digisar.fi
  * @since             1.0.0
  * @package           Digisar\Events
  *
  * @wordpress-plugin
  * Plugin Name:       Digisar Events
- * Plugin URI:        https://vcore.au
+ * Plugin URI:        https://digisar.fi
  * Description:       Events plugin.
  * Version:           1.0.0
- * Author:            Anton Vanyukov
- * Author URI:        https://vcore.au
+ * Author:            Digisar
+ * Author URI:        https://digisar.fi
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       digisar-events
